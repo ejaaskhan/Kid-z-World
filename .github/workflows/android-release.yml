@@ -6,21 +6,23 @@ on:
       - main
     tags:
       - "v*"
+      - "V*"
+      - "[0-9]*"
   release:
     types:
       - published
   workflow_dispatch:
     inputs:
       publish_release:
-        description: "Also publish or update a GitHub Release with APK & AAB attached"
+        description: "Publish or update a GitHub Release with APK & AAB attached"
         type: boolean
         required: false
-        default: false
+        default: true
       release_tag:
-        description: "Release tag to create/update when publish_release is enabled (e.g. v1.0.1)"
+        description: "Release tag to create/update when publish_release is enabled (e.g. v1.0.0)"
         type: string
         required: false
-        default: "v1.0.1"
+        default: "v1.0.0"
       release_note_summary:
         description: "Optional note included in the build summary"
         type: string
@@ -40,6 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      GRADLE_OPTS: "-Djava.awt.headless=true"
 
     steps:
       - name: Determine build version label and release target
@@ -63,7 +67,7 @@ jobs:
               echo "Release ${TARGET_TAG} already has both APK and AAB attached -> skipping duplicate build."
               SKIP_BUILD="true"
             fi
-          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
             LABEL="${GITHUB_REF_NAME}"
             SHOULD_RELEASE="true"
             TARGET_TAG="${GITHUB_REF_NAME}"
@@ -144,8 +148,7 @@ jobs:
         if: steps.version_info.outputs.skip_build != 'true'
         run: |
           set -euo pipefail
-          # Skip kspDebugUnitTestKotlin (src/test has no KSP annotations; avoids KSP 2.3.5 AWT teardown NPE)
-          gradle :app:testDebugUnitTest -x :app:kspDebugUnitTestKotlin --no-parallel --max-workers=1 --stacktrace
+          gradle :app:testDebugUnitTest --no-parallel --max-workers=1 --no-configuration-cache -Djava.awt.headless=true --stacktrace
 
       - name: Evaluate Android signing secrets
         if: steps.version_info.outputs.skip_build != 'true'
@@ -400,12 +403,14 @@ jobs:
             if [[ "$IS_PRERELEASE" == "true" ]]; then
               gh release edit "$TAG" \
                 --repo "${GITHUB_REPOSITORY}" \
+                --draft=false \
                 --title "$RELEASE_NAME" \
                 --notes-file release-notes.md \
                 --prerelease
             else
               gh release edit "$TAG" \
                 --repo "${GITHUB_REPOSITORY}" \
+                --draft=false \
                 --title "$RELEASE_NAME" \
                 --notes-file release-notes.md \
                 --prerelease=false \
