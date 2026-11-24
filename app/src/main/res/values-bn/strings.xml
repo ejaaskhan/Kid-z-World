@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Kid\'z World</string>
+    <string name="brand_title">কিড\'জ ওয়ার্ল্ড</string>
+    <string name="brand_tagline">শেখো • খেলো • বেড়ে ওঠো</string>
+    <string name="brand_developer">Developed by Dev. E</string>
+    <string name="nav_home">হোম</string>
+    <string name="nav_learn">শিখি</string>
+    <string name="nav_games">খেলা</string>
+    <string name="nav_stories">গল্প</string>
+    <string name="nav_profile">প্রোফাইল</string>
+    <string name="nav_parents">অভিভাবক</string>
+</resources>

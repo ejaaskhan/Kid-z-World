@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Kid\'z World</string>
+    <string name="brand_title">KID\'Z WORLD</string>
+    <string name="brand_tagline">Learn • Play • Grow</string>
+    <string name="brand_developer">Developed by Dev. E</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_learn">Learn</string>
+    <string name="nav_games">Games</string>
+    <string name="nav_stories">Stories</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_parents">Parents</string>
+</resources>

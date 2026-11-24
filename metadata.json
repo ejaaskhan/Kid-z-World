@@ -1,0 +1,6 @@
+{
+  "name": "Kid'z World",
+  "description": "Offline-first bilingual (English & Bangla) educational Android app by Dev. E for children ages 3-8 featuring alphabets, counting, colors, shapes, animals, mini-games, illustrated stories, and a math-gated Parent Zone.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

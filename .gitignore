@@ -1,0 +1,47 @@
+# Gradle & Kotlin build caches
+*.iml
+.gradle/
+.kotlin/
+/build/
+app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+.build-outputs/
+workspace/
+
+# Android Studio / IntelliJ local state
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+Thumbs.db
+
+# Local environment & API secrets (NEVER commit)
+local.properties
+/local.properties
+.env
+.env.local
+google-services.json
+
+# Android signing keystores & credential files (NEVER commit)
+*.jks
+*.keystore
+*.p12
+*.pk8
+*.pem
+signing.properties
+key.properties
+keystore.properties
+upload-keystore.jks
+my-upload-key.jks
+debug.keystore
+
+# Compiled Android binaries
+*.apk
+*.aab
+*.ap_
+*.dex

@@ -1,0 +1,25 @@
+# ==============================================================================
+# KID'Z WORLD — Android Release Signing Example Configuration (NO REAL SECRETS)
+# ==============================================================================
+# Copy this file to `signing.properties` (which is gitignored) for local builds,
+# OR configure the matching GitHub Actions Secrets listed below for CI/CD.
+#
+# NEVER commit real passwords, private keys, or .jks files to Git!
+#
+# IMPORTANT: app/build.gradle.kts expects keyAlias = "upload" for release signing.
+# When generating your keystore with keytool, use: -alias upload
+# ------------------------------------------------------------------------------
+
+# Environment variables read by app/build.gradle.kts during release builds:
+KEYSTORE_PATH=/absolute/path/to/my-upload-key.jks
+STORE_PASSWORD=REPLACE_WITH_YOUR_KEYSTORE_PASSWORD
+KEY_PASSWORD=REPLACE_WITH_YOUR_KEY_PASSWORD
+KEY_ALIAS=upload
+
+# ------------------------------------------------------------------------------
+# GitHub Actions Secrets (Repository -> Settings -> Secrets and variables -> Actions)
+# ------------------------------------------------------------------------------
+# ANDROID_KEYSTORE_BASE64   -> Base64-encoded contents of your my-upload-key.jks
+# ANDROID_STORE_PASSWORD    -> Your keystore password (mapped to STORE_PASSWORD)
+# ANDROID_KEY_PASSWORD      -> Your key password (mapped to KEY_PASSWORD)
+# ==============================================================================
