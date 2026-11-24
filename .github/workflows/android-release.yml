@@ -6,18 +6,21 @@ on:
       - main
     tags:
       - "v*"
+  release:
+    types:
+      - published
   workflow_dispatch:
     inputs:
       publish_release:
-        description: "Also publish a GitHub Release with APK & AAB attached"
+        description: "Also publish or update a GitHub Release with APK & AAB attached"
         type: boolean
         required: false
         default: false
       release_tag:
-        description: "Release tag to create/update when publish_release is enabled (e.g. v1.0.0)"
+        description: "Release tag to create/update when publish_release is enabled (e.g. v1.0.1)"
         type: string
         required: false
-        default: "v1.0.0"
+        default: "v1.0.1"
       release_note_summary:
         description: "Optional note included in the build summary"
         type: string
@@ -25,8 +28,8 @@ on:
         default: ""
 
 concurrency:
-  group: android-release-${{ github.ref }}
-  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+  group: android-release-${{ github.event.release.tag_name || github.ref_name }}
+  cancel-in-progress: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/') }}
 
 permissions:
   contents: write
@@ -39,44 +42,33 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Set up Temurin JDK 21
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: "21"
-
-      - name: Accept Android SDK licenses and install SDK 36 components
-        run: |
-          set -euo pipefail
-          SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
-          export ANDROID_HOME="$SDK_ROOT"
-          export ANDROID_SDK_ROOT="$SDK_ROOT"
-          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
-          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
-          "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" \
-            "platform-tools" \
-            "platforms;android-36" \
-            "build-tools;36.0.0" || true
-
-      - name: Set up Gradle 9.3.1
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          gradle-version: "9.3.1"
-
       - name: Determine build version label and release target
         id: version_info
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_PUBLISH_RELEASE: ${{ inputs.publish_release }}
+          INPUT_RELEASE_TAG: ${{ inputs.release_tag }}
         run: |
           set -euo pipefail
-          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+          SKIP_BUILD="false"
+
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TARGET_TAG="${EVENT_RELEASE_TAG}"
+            LABEL="${TARGET_TAG}"
+            SHOULD_RELEASE="true"
+            # Avoid running a duplicate build if the tag push event already attached APK & AAB.
+            ASSETS="$(gh release view "$TARGET_TAG" --repo "${GITHUB_REPOSITORY}" --json assets --jq '[.assets[].name] | join("\n")' 2>/dev/null || true)"
+            if grep -qE '\.apk$' <<< "$ASSETS" && grep -qE '\.aab$' <<< "$ASSETS"; then
+              echo "Release ${TARGET_TAG} already has both APK and AAB attached -> skipping duplicate build."
+              SKIP_BUILD="true"
+            fi
+          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
             LABEL="${GITHUB_REF_NAME}"
             SHOULD_RELEASE="true"
             TARGET_TAG="${GITHUB_REF_NAME}"
-          elif [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${{ inputs.publish_release }}" == "true" ]]; then
-            TARGET_TAG="${{ inputs.release_tag }}"
+          elif [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${INPUT_PUBLISH_RELEASE}" == "true" ]]; then
+            TARGET_TAG="${INPUT_RELEASE_TAG}"
             if [[ -z "$TARGET_TAG" ]]; then
               TARGET_TAG="v1.0.0"
             fi
@@ -88,17 +80,53 @@ jobs:
             SHOULD_RELEASE="false"
             TARGET_TAG=""
           fi
+
           echo "label=${LABEL}" >> "$GITHUB_OUTPUT"
           echo "should_release=${SHOULD_RELEASE}" >> "$GITHUB_OUTPUT"
           echo "target_tag=${TARGET_TAG}" >> "$GITHUB_OUTPUT"
-          echo "Build label=${LABEL}, should_release=${SHOULD_RELEASE}, target_tag=${TARGET_TAG}"
+          echo "skip_build=${SKIP_BUILD}" >> "$GITHUB_OUTPUT"
+          echo "Build label=${LABEL}, should_release=${SHOULD_RELEASE}, target_tag=${TARGET_TAG}, skip_build=${SKIP_BUILD}"
+
+      - name: Checkout repository
+        if: steps.version_info.outputs.skip_build != 'true'
+        uses: actions/checkout@v5
+
+      - name: Set up Temurin JDK 21
+        if: steps.version_info.outputs.skip_build != 'true'
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Accept Android SDK licenses and install SDK 36 components
+        if: steps.version_info.outputs.skip_build != 'true'
+        run: |
+          set -euo pipefail
+          SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
+          export ANDROID_HOME="$SDK_ROOT"
+          export ANDROID_SDK_ROOT="$SDK_ROOT"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" \
+            "platform-tools" \
+            "platforms;android-36" \
+            "platforms;android-36.1" \
+            "build-tools;36.0.0" || true
+
+      - name: Set up Gradle 9.3.1
+        if: steps.version_info.outputs.skip_build != 'true'
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: "9.3.1"
 
       - name: Prepare ephemeral debug keystore for test & debug builds
+        if: steps.version_info.outputs.skip_build != 'true'
         run: |
           set -euo pipefail
           if [[ ! -f debug.keystore ]]; then
             if [[ -f debug.keystore.base64 ]]; then
-              base64 -d debug.keystore.base64 > debug.keystore
+              tr -d '\n\r ' < debug.keystore.base64 | base64 -d > debug.keystore
             else
               keytool -genkeypair -v \
                 -keystore debug.keystore \
@@ -113,12 +141,14 @@ jobs:
           fi
 
       - name: Run automated unit tests
+        if: steps.version_info.outputs.skip_build != 'true'
         run: |
           set -euo pipefail
           # Skip kspDebugUnitTestKotlin (src/test has no KSP annotations; avoids KSP 2.3.5 AWT teardown NPE)
           gradle :app:testDebugUnitTest -x :app:kspDebugUnitTestKotlin --no-parallel --max-workers=1 --stacktrace
 
       - name: Evaluate Android signing secrets
+        if: steps.version_info.outputs.skip_build != 'true'
         id: signing_gate
         env:
           HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
@@ -135,7 +165,7 @@ jobs:
           fi
 
       - name: Decode upload keystore for signed release
-        if: steps.signing_gate.outputs.mode == 'signed_release'
+        if: steps.version_info.outputs.skip_build != 'true' && steps.signing_gate.outputs.mode == 'signed_release'
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
@@ -144,7 +174,7 @@ jobs:
           chmod 600 "${RUNNER_TEMP}/upload-keystore.jks"
 
       - name: Build Signed Release APK and AAB
-        if: steps.signing_gate.outputs.mode == 'signed_release'
+        if: steps.version_info.outputs.skip_build != 'true' && steps.signing_gate.outputs.mode == 'signed_release'
         env:
           KEYSTORE_PATH: ${{ runner.temp }}/upload-keystore.jks
           STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
@@ -154,10 +184,11 @@ jobs:
           gradle :app:assembleRelease :app:bundleRelease --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
 
       - name: Verify Signed Release APK signature and collect APK & AAB
-        if: steps.signing_gate.outputs.mode == 'signed_release'
+        if: steps.version_info.outputs.skip_build != 'true' && steps.signing_gate.outputs.mode == 'signed_release'
+        env:
+          LABEL: ${{ steps.version_info.outputs.label }}
         run: |
           set -euo pipefail
-          LABEL="${{ steps.version_info.outputs.label }}"
           APK_SRC="app/build/outputs/apk/release/app-release.apk"
           AAB_SRC="app/build/outputs/bundle/release/app-release.aab"
 
@@ -188,10 +219,11 @@ jobs:
         run: rm -f "${RUNNER_TEMP}/upload-keystore.jks"
 
       - name: Build Debug Testing APK and AAB (when signing secrets are not set)
-        if: steps.signing_gate.outputs.mode == 'debug_testing'
+        if: steps.version_info.outputs.skip_build != 'true' && steps.signing_gate.outputs.mode == 'debug_testing'
+        env:
+          LABEL: ${{ steps.version_info.outputs.label }}
         run: |
           set -euo pipefail
-          LABEL="${{ steps.version_info.outputs.label }}"
           gradle :app:assembleDebug :app:bundleDebug --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
 
           APK_SRC="app/build/outputs/apk/debug/app-debug.apk"
@@ -213,6 +245,7 @@ jobs:
           ls -lh dist/
 
       - name: Upload APK artifact
+        if: steps.version_info.outputs.skip_build != 'true'
         uses: actions/upload-artifact@v6
         with:
           name: kidz-world-apk-${{ steps.version_info.outputs.label }}
@@ -221,6 +254,7 @@ jobs:
           retention-days: 30
 
       - name: Upload AAB artifact
+        if: steps.version_info.outputs.skip_build != 'true'
         uses: actions/upload-artifact@v6
         with:
           name: kidz-world-aab-${{ steps.version_info.outputs.label }}
@@ -229,6 +263,7 @@ jobs:
           retention-days: 30
 
       - name: Upload SHA-256 Checksums artifact
+        if: steps.version_info.outputs.skip_build != 'true'
         uses: actions/upload-artifact@v6
         with:
           name: kidz-world-checksums-${{ steps.version_info.outputs.label }}
@@ -237,21 +272,26 @@ jobs:
           retention-days: 30
 
       - name: Write build summary
+        if: steps.version_info.outputs.skip_build != 'true'
+        env:
+          LABEL: ${{ steps.version_info.outputs.label }}
+          BUILD_MODE: ${{ steps.signing_gate.outputs.mode }}
+          MANUAL_NOTE: ${{ inputs.release_note_summary }}
         run: |
           {
             echo "## KID'Z WORLD — Android Build Summary"
             echo ""
-            echo "- **Version Label:** \`${{ steps.version_info.outputs.label }}\`"
-            echo "- **Build Mode:** \`${{ steps.signing_gate.outputs.mode }}\`"
+            echo "- **Version Label:** \`${LABEL}\`"
+            echo "- **Build Mode:** \`${BUILD_MODE}\`"
             echo "- **Commit:** \`${GITHUB_SHA::7}\`"
-            if [[ "${{ steps.signing_gate.outputs.mode }}" == "signed_release" ]]; then
+            if [[ "${BUILD_MODE}" == "signed_release" ]]; then
               echo "- **Artifacts Produced:** Signed production **APK** and **AAB** (verified with \`apksigner\`)."
             else
               echo "- **Artifacts Produced:** **Debug Testing APK & AAB** (NOT production signed)."
               echo "- **Enable Signed Production Builds:** Add \`ANDROID_KEYSTORE_BASE64\`, \`ANDROID_STORE_PASSWORD\`, and \`ANDROID_KEY_PASSWORD\` in **Settings -> Secrets and variables -> Actions** (see \`docs/ANDROID_SIGNING.md\`)."
             fi
-            if [[ -n "${{ inputs.release_note_summary }}" ]]; then
-              echo "- **Manual Note:** ${{ inputs.release_note_summary }}"
+            if [[ -n "${MANUAL_NOTE}" ]]; then
+              echo "- **Manual Note:** ${MANUAL_NOTE}"
             fi
             echo ""
             echo "### Generated Files & SHA-256 Checksums"
@@ -261,7 +301,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Generate GitHub Release notes
-        if: steps.version_info.outputs.should_release == 'true'
+        if: steps.version_info.outputs.skip_build != 'true' && steps.version_info.outputs.should_release == 'true'
         id: notes
         env:
           BUILD_MODE: ${{ steps.signing_gate.outputs.mode }}
@@ -333,17 +373,61 @@ jobs:
           EOF
           fi
 
-      - name: Publish GitHub Release with APK and AAB
-        if: steps.version_info.outputs.should_release == 'true'
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: ${{ steps.version_info.outputs.target_tag }}
-          name: ${{ steps.notes.outputs.release_name }}
-          body_path: release-notes.md
-          draft: false
-          prerelease: ${{ steps.notes.outputs.is_prerelease }}
-          fail_on_unmatched_files: true
-          files: |
-            dist/*.apk
-            dist/*.aab
-            dist/SHA256SUMS.txt
+      - name: Publish or Update GitHub Release with APK and AAB
+        if: steps.version_info.outputs.skip_build != 'true' && steps.version_info.outputs.should_release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version_info.outputs.target_tag }}
+          RELEASE_NAME: ${{ steps.notes.outputs.release_name }}
+          IS_PRERELEASE: ${{ steps.notes.outputs.is_prerelease }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          APK_FILES=(dist/*.apk)
+          AAB_FILES=(dist/*.aab)
+
+          if [[ ${#APK_FILES[@]} -eq 0 || ${#AAB_FILES[@]} -eq 0 ]]; then
+            echo "::error::Missing APK or AAB in dist/. Contents:"
+            ls -la dist/
+            exit 1
+          fi
+
+          if gh release view "$TAG" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${TAG} already exists -> uploading APK, AAB, and SHA256SUMS.txt (--clobber)."
+            gh release upload "$TAG" "${APK_FILES[@]}" "${AAB_FILES[@]}" dist/SHA256SUMS.txt \
+              --repo "${GITHUB_REPOSITORY}" \
+              --clobber
+            if [[ "$IS_PRERELEASE" == "true" ]]; then
+              gh release edit "$TAG" \
+                --repo "${GITHUB_REPOSITORY}" \
+                --title "$RELEASE_NAME" \
+                --notes-file release-notes.md \
+                --prerelease
+            else
+              gh release edit "$TAG" \
+                --repo "${GITHUB_REPOSITORY}" \
+                --title "$RELEASE_NAME" \
+                --notes-file release-notes.md \
+                --prerelease=false \
+                --latest
+            fi
+          else
+            echo "Creating GitHub Release ${TAG} with APK, AAB, and SHA256SUMS.txt attached."
+            CREATE_ARGS=(
+              "$TAG"
+              "${APK_FILES[@]}"
+              "${AAB_FILES[@]}"
+              dist/SHA256SUMS.txt
+              --repo "${GITHUB_REPOSITORY}"
+              --target "${GITHUB_SHA}"
+              --title "$RELEASE_NAME"
+              --notes-file release-notes.md
+            )
+            if [[ "$IS_PRERELEASE" == "true" ]]; then
+              CREATE_ARGS+=(--prerelease)
+            fi
+            gh release create "${CREATE_ARGS[@]}"
+          fi
+
+          echo "Verified Release Assets on ${TAG}:"
+          gh release view "$TAG" --repo "${GITHUB_REPOSITORY}" --json assets --jq '.assets[].name'

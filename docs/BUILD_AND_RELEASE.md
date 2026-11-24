@@ -20,14 +20,16 @@ This guide explains how to build, test, and publish **KID'Z WORLD** directly fro
 
 ## 2. How GitHub Actions Works (`.github/workflows/android-release.yml`)
 
-Every workflow run executes on `ubuntu-latest` with pinned Node 24 official actions (`actions/checkout@v5`, `actions/setup-java@v5`, `gradle/actions/setup-gradle@v6`, `actions/upload-artifact@v6`, `softprops/action-gh-release@v3`):
+Every workflow run executes on `ubuntu-latest` with pinned Node 24 official actions (`actions/checkout@v5`, `actions/setup-java@v5`, `gradle/actions/setup-gradle@v6`, `actions/upload-artifact@v6`) and GitHub's built-in `gh` CLI for attaching `.apk` and `.aab` release assets:
 
 | Trigger | Signing Secrets Configured? | Result |
 | :--- | :--- | :--- |
 | Push to `main` or Manual Dispatch | **No** | Runs tests + builds **Debug Testing APK & AAB** uploaded as separate **Actions → Artifacts** (`kidz-world-apk-*` and `kidz-world-aab-*`). |
 | Push to `main` or Manual Dispatch | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** uploaded as separate **Actions → Artifacts**. |
-| Push Version Tag (`v1.0.0`, etc.) or Manual Dispatch (`publish_release = true`) | **No** | Runs tests + builds **Debug Testing APK & AAB** and publishes a clearly labeled **GitHub Pre-Release** (`NOT production signed`) with both APK and AAB attached. |
-| Push Version Tag (`v1.0.0`, etc.) or Manual Dispatch (`publish_release = true`) | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** + automatically creates a **Production GitHub Release** with downloadable APK, AAB, and `SHA256SUMS.txt`. |
+| Push Version Tag (`v1.0.0`, etc.), Publish Release in GitHub UI, or Manual Dispatch (`publish_release = true`) | **No** | Runs tests + builds **Debug Testing APK & AAB** and attaches both files to a clearly labeled **GitHub Pre-Release** (`NOT production signed`). |
+| Push Version Tag (`v1.0.0`, etc.), Publish Release in GitHub UI, or Manual Dispatch (`publish_release = true`) | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** + attaches downloadable APK, AAB, and `SHA256SUMS.txt` directly to the **Production GitHub Release**. |
+
+> **Tip:** After creating or publishing a Release in the GitHub UI, wait **~3–5 minutes** for the **Actions → Android Build & Release** run to turn green, then refresh the Release page to see the `.apk` and `.aab` under **Assets**.
 
 ---
 
