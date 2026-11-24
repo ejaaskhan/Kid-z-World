@@ -33,10 +33,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Temurin JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
@@ -56,7 +56,7 @@ jobs:
             "build-tools;36.0.0" || true
 
       - name: Set up Gradle 9.3.1
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: "9.3.1"
 
@@ -93,7 +93,10 @@ jobs:
           fi
 
       - name: Run automated unit tests
-        run: gradle :app:testDebugUnitTest --stacktrace
+        run: |
+          set -euo pipefail
+          # Skip kspDebugUnitTestKotlin (src/test has no KSP annotations; avoids KSP 2.3.5 AWT teardown NPE)
+          gradle :app:testDebugUnitTest -x :app:kspDebugUnitTestKotlin --no-parallel --max-workers=1 --stacktrace
 
       - name: Evaluate Android signing secrets
         id: signing_gate
@@ -101,23 +104,16 @@ jobs:
           HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
           HAS_STORE_PASS: ${{ secrets.ANDROID_STORE_PASSWORD != '' }}
           HAS_KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD != '' }}
-          IS_TAG: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: |
           set -euo pipefail
           if [[ "$HAS_KEYSTORE" == "true" && "$HAS_STORE_PASS" == "true" && "$HAS_KEY_PASS" == "true" ]]; then
             echo "mode=signed_release" >> "$GITHUB_OUTPUT"
             echo "artifact_name=kidz-world-release-signed" >> "$GITHUB_OUTPUT"
-            echo "All Android signing secrets detected -> Building signed Release APK & AAB."
+            echo "All Android signing secrets detected -> Building signed production Release APK & AAB."
           else
-            if [[ "$IS_TAG" == "true" ]]; then
-              echo "::error::Missing required Android release signing secrets for tagged release ${GITHUB_REF_NAME}."
-              echo "Configure ANDROID_KEYSTORE_BASE64, ANDROID_STORE_PASSWORD, and ANDROID_KEY_PASSWORD in GitHub Secrets."
-              echo "See docs/ANDROID_SIGNING.md for complete step-by-step instructions."
-              exit 1
-            fi
             echo "mode=debug_testing" >> "$GITHUB_OUTPUT"
             echo "artifact_name=kidz-world-debug-testing" >> "$GITHUB_OUTPUT"
-            echo "::notice::Signing secrets not configured yet. Building clearly labeled Debug Testing APK (NOT production signed)."
+            echo "::notice::Android signing secrets are not configured yet. Building clearly labeled Debug Testing APK (NOT production signed). See docs/ANDROID_SIGNING.md to enable signed production APK & AAB releases."
           fi
 
       - name: Decode upload keystore for signed release
@@ -137,7 +133,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           set -euo pipefail
-          gradle :app:assembleRelease :app:bundleRelease --stacktrace
+          gradle :app:assembleRelease :app:bundleRelease --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
 
       - name: Verify Signed Release APK signature and package artifacts
         if: steps.signing_gate.outputs.mode == 'signed_release'
@@ -178,7 +174,7 @@ jobs:
         run: |
           set -euo pipefail
           LABEL="${{ steps.version_info.outputs.label }}"
-          gradle :app:assembleDebug --stacktrace
+          gradle :app:assembleDebug --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
           APK_SRC="app/build/outputs/apk/debug/app-debug.apk"
           if [[ ! -f "$APK_SRC" ]]; then
             echo "::error::Expected debug APK not found at $APK_SRC"
@@ -200,8 +196,8 @@ jobs:
             if [[ "${{ steps.signing_gate.outputs.mode }}" == "signed_release" ]]; then
               echo "- **Status:** Signed production **APK** and **AAB** generated and verified."
             else
-              echo "- **Status:** **Debug Testing APK only** (not production signed)."
-              echo "- **Next Step:** Add \`ANDROID_KEYSTORE_BASE64\`, \`ANDROID_STORE_PASSWORD\`, and \`ANDROID_KEY_PASSWORD\` in **Settings -> Secrets and variables -> Actions** (see \`docs/ANDROID_SIGNING.md\`) before pushing a \`v*\` release tag."
+              echo "- **Status:** **Debug Testing APK only** (NOT production signed)."
+              echo "- **Enable Signed Production Builds:** Add \`ANDROID_KEYSTORE_BASE64\`, \`ANDROID_STORE_PASSWORD\`, and \`ANDROID_KEY_PASSWORD\` in **Settings -> Secrets and variables -> Actions** (see \`docs/ANDROID_SIGNING.md\`)."
             fi
             if [[ -n "${{ github.event.inputs.release_note_summary }}" ]]; then
               echo "- **Manual Note:** ${{ github.event.inputs.release_note_summary }}"
@@ -214,7 +210,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload Android build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.signing_gate.outputs.artifact_name }}
           path: dist/*
@@ -224,24 +220,35 @@ jobs:
   release:
     name: Publish GitHub Release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v') && needs.build.outputs.build_mode == 'signed_release'
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Download signed release artifacts
-        uses: actions/download-artifact@v4
+      - name: Download built Android artifacts
+        uses: actions/download-artifact@v5
         with:
           name: ${{ needs.build.outputs.artifact_name }}
           path: release-assets
 
       - name: Generate release notes
+        id: notes
+        env:
+          BUILD_MODE: ${{ needs.build.outputs.build_mode }}
         run: |
           set -euo pipefail
           TAG="${GITHUB_REF_NAME}"
           BUILD_DATE="$(date -u '+%Y-%m-%d %H:%M UTC')"
-          cat <<EOF > release-notes.md
+
+          if [[ "$BUILD_MODE" == "signed_release" ]]; then
+            echo "release_name=KID'Z WORLD ${TAG}" >> "$GITHUB_OUTPUT"
+            if [[ "$TAG" == *-* ]]; then
+              echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+            fi
+            cat <<EOF > release-notes.md
           # KID'Z WORLD ${TAG}
 
           **Developed by Dev. E** • *Learn • Play • Grow*
@@ -250,6 +257,7 @@ jobs:
 
           ## Release Details
           - **Version:** \`${TAG}\`
+          - **Signing Status:** Production Release Signed (\`apksigner\` verified)
           - **Application ID:** \`com.aistudio.kidzworld.devekw\`
           - **Android Compatibility:** Android 7.0+ (\`minSdk 24\`, \`targetSdk 36\`)
           - **Commit:** \`${GITHUB_SHA::7}\`
@@ -265,16 +273,59 @@ jobs:
           $(cat release-assets/SHA256SUMS.txt)
           \`\`\`
           EOF
+          else
+            echo "release_name=KID'Z WORLD ${TAG} (Debug Testing Build)" >> "$GITHUB_OUTPUT"
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+            cat <<EOF > release-notes.md
+          # KID'Z WORLD ${TAG} — Debug Testing Build
 
-      - name: Create GitHub Release with APK and AAB
-        uses: softprops/action-gh-release@v2
+          > **Testing Build Notice:** This APK is signed with a **debug testing key** and is **NOT a signed production release** (not for Google Play upload).
+          > To build a signed production **APK + AAB**, add \`ANDROID_KEYSTORE_BASE64\`, \`ANDROID_STORE_PASSWORD\`, and \`ANDROID_KEY_PASSWORD\` in **Settings → Secrets and variables → Actions** (see \`docs/ANDROID_SIGNING.md\`) and re-run or tag a new release.
+
+          **Developed by Dev. E** • *Learn • Play • Grow*
+
+          ## Build Details
+          - **Version:** \`${TAG}\`
+          - **Signing Status:** Debug Testing Key (Pre-release only)
+          - **Application ID:** \`com.aistudio.kidzworld.devekw\`
+          - **Android Compatibility:** Android 7.0+ (\`minSdk 24\`, \`targetSdk 36\`)
+          - **Commit:** \`${GITHUB_SHA::7}\`
+          - **Built On:** ${BUILD_DATE}
+
+          ## Included Files
+          - **\`kidz-world-${TAG}-debug-testing.apk\`** — Installable Android testing APK.
+          - **\`SHA256SUMS.txt\`** — SHA-256 integrity checksum.
+
+          ## SHA-256 Checksums
+          \`\`\`text
+          $(cat release-assets/SHA256SUMS.txt)
+          \`\`\`
+          EOF
+          fi
+
+      - name: Create GitHub Release (Signed Production APK & AAB)
+        if: needs.build.outputs.build_mode == 'signed_release'
+        uses: softprops/action-gh-release@v3
         with:
-          name: "KID'Z WORLD ${{ github.ref_name }}"
+          name: ${{ steps.notes.outputs.release_name }}
           body_path: release-notes.md
           draft: false
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          prerelease: ${{ steps.notes.outputs.is_prerelease }}
           fail_on_unmatched_files: true
           files: |
             release-assets/*.apk
             release-assets/*.aab
+            release-assets/SHA256SUMS.txt
+
+      - name: Create GitHub Pre-Release (Debug Testing APK)
+        if: needs.build.outputs.build_mode != 'signed_release'
+        uses: softprops/action-gh-release@v3
+        with:
+          name: ${{ steps.notes.outputs.release_name }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: true
+          fail_on_unmatched_files: true
+          files: |
+            release-assets/*.apk
             release-assets/SHA256SUMS.txt

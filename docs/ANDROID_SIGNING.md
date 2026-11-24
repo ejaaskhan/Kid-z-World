@@ -69,5 +69,5 @@ cat keystore.b64
 - `.gitignore` explicitly blocks `*.jks`, `*.keystore`, `*.p12`, `signing.properties`, `key.properties`, and `.env` from being committed.
 - During GitHub Actions builds, the keystore is decoded only into `${{ runner.temp }}/upload-keystore.jks` (outside the repository folder) and deleted automatically in an `if: always()` cleanup step.
 - Every signed release APK is verified with `apksigner verify` before being uploaded or attached to a GitHub Release.
-- If you push a `v*` tag before adding these three secrets, GitHub Actions will **fail cleanly** instead of publishing an unsigned/debug APK as a production release.
+- If you push a `v*` tag before adding these three secrets, GitHub Actions will **never** falsely label it as production—it publishes a clearly marked **Debug Testing Pre-Release** (`-debug-testing.apk`, `prerelease: true`) until you add the secrets for signed production APK + AAB releases.
 - See `signing.properties.example` at the project root for a secret-free local reference template.

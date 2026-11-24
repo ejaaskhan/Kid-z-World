@@ -81,8 +81,8 @@ This repository includes a ready-to-run workflow at `.github/workflows/android-r
    - If Android signing secrets are **not yet configured**, builds a clearly labeled **Debug Testing APK** (`kidz-world-<version>-debug-testing.apk`) and uploads it under **Actions → Artifacts**.
    - If Android signing secrets **are configured**, builds and cryptographically verifies a signed **Release APK** and **Release AAB** and uploads both under **Actions → Artifacts**.
 2. **Push a Version Tag (e.g., `v1.0.0`)**:
-   - Strictly requires your Android signing secrets (fails clearly with instructions if missing).
-   - Builds, verifies (`apksigner`), hashes (`SHA-256`), and automatically publishes a **GitHub Release** with both the signed **APK** and **AAB** attached.
+   - When signing secrets are configured: builds, verifies (`apksigner`), hashes (`SHA-256`), and automatically publishes a **Signed Production GitHub Release** with both **APK** and **AAB** attached.
+   - Before signing secrets are configured: builds a clearly labeled **Debug Testing APK** and publishes a **GitHub Pre-Release** (`NOT production signed`) so you can still test on a device immediately.
 
 See [`docs/BUILD_AND_RELEASE.md`](docs/BUILD_AND_RELEASE.md) and [`docs/ANDROID_SIGNING.md`](docs/ANDROID_SIGNING.md) for complete setup steps.
 

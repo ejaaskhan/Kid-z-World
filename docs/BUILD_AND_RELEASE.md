@@ -20,14 +20,14 @@ This guide explains how to build, test, and publish **KID'Z WORLD** directly fro
 
 ## 2. How GitHub Actions Works (`.github/workflows/android-release.yml`)
 
-Every workflow run executes on `ubuntu-latest` with pinned official actions (`actions/checkout@v4`, `actions/setup-java@v4`, `gradle/actions/setup-gradle@v4`, `actions/upload-artifact@v4`, `softprops/action-gh-release@v2`):
+Every workflow run executes on `ubuntu-latest` with pinned Node 24 official actions (`actions/checkout@v5`, `actions/setup-java@v5`, `gradle/actions/setup-gradle@v6`, `actions/upload-artifact@v6`, `actions/download-artifact@v5`, `softprops/action-gh-release@v3`):
 
 | Trigger | Signing Secrets Configured? | Result |
 | :--- | :--- | :--- |
 | Push to `main` or Manual Dispatch | **No** | Runs tests + builds **Debug Testing APK** (`kidz-world-*-debug-testing.apk`) uploaded to **Actions → Artifacts**. |
 | Push to `main` or Manual Dispatch | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** uploaded to **Actions → Artifacts**. |
-| Push Version Tag (`v1.0.0`, `v1.1.0`, etc.) | **No** | **Fails clearly** with signing setup guidance (prevents releasing unsigned builds as production). |
-| Push Version Tag (`v1.0.0`, `v1.1.0`, etc.) | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** + automatically creates a **GitHub Release** with downloadable APK, AAB, and `SHA256SUMS.txt`. |
+| Push Version Tag (`v1.0.0`, `v1.1.0`, etc.) | **No** | Runs tests + builds **Debug Testing APK** and publishes a clearly labeled **GitHub Pre-Release** (`NOT production signed`). |
+| Push Version Tag (`v1.0.0`, `v1.1.0`, etc.) | **Yes** | Runs tests + builds & verifies **Signed Release APK & AAB** + automatically creates a **Production GitHub Release** with downloadable APK, AAB, and `SHA256SUMS.txt`. |
 
 ---
 
