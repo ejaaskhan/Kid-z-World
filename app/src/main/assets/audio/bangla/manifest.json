@@ -1,0 +1,3405 @@
+{
+  "version": 1,
+  "locale": "bn-BD",
+  "voiceProfile": "Bangladeshi Bangla Offline Voice Library (24kHz Mono MP3)",
+  "totalClips": 330,
+  "entries": [
+    {
+      "id": "bn_alpha_0",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_0.mp3",
+      "scriptBn": "অ। অ তে অজগর।",
+      "aliases": [
+        "অ",
+        "বর্ণ অ",
+        "অ তে অজগর",
+        "অজগর"
+      ]
+    },
+    {
+      "id": "bn_alpha_1",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_1.mp3",
+      "scriptBn": "আ। আ তে আম।",
+      "aliases": [
+        "আ",
+        "বর্ণ আ",
+        "আ তে আম",
+        "আম"
+      ]
+    },
+    {
+      "id": "bn_alpha_2",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_2.mp3",
+      "scriptBn": "ই। ই তে ইঁদুর।",
+      "aliases": [
+        "ই",
+        "বর্ণ ই",
+        "ই তে ইঁদুর",
+        "ইঁদুর"
+      ]
+    },
+    {
+      "id": "bn_alpha_3",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_3.mp3",
+      "scriptBn": "ঈ। ঈ তে ঈগল।",
+      "aliases": [
+        "ঈ",
+        "বর্ণ ঈ",
+        "ঈ তে ঈগল",
+        "ঈগল"
+      ]
+    },
+    {
+      "id": "bn_alpha_4",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_4.mp3",
+      "scriptBn": "উ। উ তে উট।",
+      "aliases": [
+        "উ",
+        "বর্ণ উ",
+        "উ তে উট",
+        "উট"
+      ]
+    },
+    {
+      "id": "bn_alpha_5",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_5.mp3",
+      "scriptBn": "ঊ। ঊ তে ঊষা।",
+      "aliases": [
+        "ঊ",
+        "বর্ণ ঊ",
+        "ঊ তে ঊষা",
+        "ঊষা"
+      ]
+    },
+    {
+      "id": "bn_alpha_6",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_6.mp3",
+      "scriptBn": "ঋ। ঋ তে ঋতু।",
+      "aliases": [
+        "ঋ",
+        "বর্ণ ঋ",
+        "ঋ তে ঋতু",
+        "ঋতু"
+      ]
+    },
+    {
+      "id": "bn_alpha_7",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_7.mp3",
+      "scriptBn": "এ। এ তে একতারা।",
+      "aliases": [
+        "এ",
+        "বর্ণ এ",
+        "এ তে একতারা",
+        "একতারা"
+      ]
+    },
+    {
+      "id": "bn_alpha_8",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_8.mp3",
+      "scriptBn": "ঐ। ঐ তে ঐরাবত।",
+      "aliases": [
+        "ঐ",
+        "বর্ণ ঐ",
+        "ঐ তে ঐরাবত",
+        "ঐরাবত"
+      ]
+    },
+    {
+      "id": "bn_alpha_9",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_9.mp3",
+      "scriptBn": "ও। ও তে ওল।",
+      "aliases": [
+        "ও",
+        "বর্ণ ও",
+        "ও তে ওল",
+        "ওল"
+      ]
+    },
+    {
+      "id": "bn_alpha_10",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_10.mp3",
+      "scriptBn": "ঔ। ঔ তে ঔষধ।",
+      "aliases": [
+        "ঔ",
+        "বর্ণ ঔ",
+        "ঔ তে ঔষধ",
+        "ঔষধ"
+      ]
+    },
+    {
+      "id": "bn_alpha_11",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_11.mp3",
+      "scriptBn": "ক। ক তে কলা।",
+      "aliases": [
+        "ক",
+        "বর্ণ ক",
+        "ক তে কলা",
+        "কলা"
+      ]
+    },
+    {
+      "id": "bn_alpha_12",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_12.mp3",
+      "scriptBn": "খ। খ তে খরগোশ।",
+      "aliases": [
+        "খ",
+        "বর্ণ খ",
+        "খ তে খরগোশ",
+        "খরগোশ"
+      ]
+    },
+    {
+      "id": "bn_alpha_13",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_13.mp3",
+      "scriptBn": "গ। গ তে গরু।",
+      "aliases": [
+        "গ",
+        "বর্ণ গ",
+        "গ তে গরু",
+        "গরু"
+      ]
+    },
+    {
+      "id": "bn_alpha_14",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_14.mp3",
+      "scriptBn": "ঘ। ঘ তে ঘুড়ি।",
+      "aliases": [
+        "ঘ",
+        "বর্ণ ঘ",
+        "ঘ তে ঘুড়ি",
+        "ঘুড়ি"
+      ]
+    },
+    {
+      "id": "bn_alpha_15",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_15.mp3",
+      "scriptBn": "ঙ। ঙ তে ব্যাঙ।",
+      "aliases": [
+        "ঙ",
+        "বর্ণ ঙ",
+        "ঙ তে ব্যাঙ",
+        "ব্যাঙ"
+      ]
+    },
+    {
+      "id": "bn_alpha_16",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_16.mp3",
+      "scriptBn": "চ। চ তে চাঁদ।",
+      "aliases": [
+        "চ",
+        "বর্ণ চ",
+        "চ তে চাঁদ",
+        "চাঁদ"
+      ]
+    },
+    {
+      "id": "bn_alpha_17",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_17.mp3",
+      "scriptBn": "ছ। ছ তে ছাতা।",
+      "aliases": [
+        "ছ",
+        "বর্ণ ছ",
+        "ছ তে ছাতা",
+        "ছাতা"
+      ]
+    },
+    {
+      "id": "bn_alpha_18",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_18.mp3",
+      "scriptBn": "জ। জ তে জাহাজ।",
+      "aliases": [
+        "জ",
+        "বর্ণ জ",
+        "জ তে জাহাজ",
+        "জাহাজ"
+      ]
+    },
+    {
+      "id": "bn_alpha_19",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_19.mp3",
+      "scriptBn": "ঝ। ঝ তে ঝিনুক।",
+      "aliases": [
+        "ঝ",
+        "বর্ণ ঝ",
+        "ঝ তে ঝিনুক",
+        "ঝিনুক"
+      ]
+    },
+    {
+      "id": "bn_alpha_20",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_20.mp3",
+      "scriptBn": "ট। ট তে টিয়া।",
+      "aliases": [
+        "ট",
+        "বর্ণ ট",
+        "ট তে টিয়া",
+        "টিয়া"
+      ]
+    },
+    {
+      "id": "bn_alpha_21",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_21.mp3",
+      "scriptBn": "ঠ। ঠ তে ঠেলাগাড়ি।",
+      "aliases": [
+        "ঠ",
+        "বর্ণ ঠ",
+        "ঠ তে ঠেলাগাড়ি",
+        "ঠেলাগাড়ি"
+      ]
+    },
+    {
+      "id": "bn_alpha_22",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_22.mp3",
+      "scriptBn": "ড। ড তে ডাব।",
+      "aliases": [
+        "ড",
+        "বর্ণ ড",
+        "ড তে ডাব",
+        "ডাব"
+      ]
+    },
+    {
+      "id": "bn_alpha_23",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_23.mp3",
+      "scriptBn": "ত। ত তে তারা।",
+      "aliases": [
+        "ত",
+        "বর্ণ ত",
+        "ত তে তারা",
+        "তারা"
+      ]
+    },
+    {
+      "id": "bn_alpha_24",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_24.mp3",
+      "scriptBn": "ন। ন তে নৌকা।",
+      "aliases": [
+        "ন",
+        "বর্ণ ন",
+        "ন তে নৌকা",
+        "নৌকা"
+      ]
+    },
+    {
+      "id": "en_alpha_a",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_a.mp3",
+      "scriptBn": "এ। এ ফর আপেল।",
+      "aliases": [
+        "অক্ষর A",
+        "A — আপেল"
+      ]
+    },
+    {
+      "id": "en_alpha_b",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_b.mp3",
+      "scriptBn": "বি। বি ফর বল।",
+      "aliases": [
+        "অক্ষর B",
+        "B — বল"
+      ]
+    },
+    {
+      "id": "en_alpha_c",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_c.mp3",
+      "scriptBn": "সি। সি ফর বিড়াল।",
+      "aliases": [
+        "অক্ষর C",
+        "C — বিড়াল"
+      ]
+    },
+    {
+      "id": "en_alpha_d",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_d.mp3",
+      "scriptBn": "ডি। ডি ফর হাঁস।",
+      "aliases": [
+        "অক্ষর D",
+        "D — হাঁস"
+      ]
+    },
+    {
+      "id": "en_alpha_e",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_e.mp3",
+      "scriptBn": "ই। ই ফর হাতি।",
+      "aliases": [
+        "অক্ষর E",
+        "E — হাতি"
+      ]
+    },
+    {
+      "id": "en_alpha_f",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_f.mp3",
+      "scriptBn": "এফ। এফ ফর মাছ।",
+      "aliases": [
+        "অক্ষর F",
+        "F — মাছ"
+      ]
+    },
+    {
+      "id": "en_alpha_g",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_g.mp3",
+      "scriptBn": "জি। জি ফর আঙুর।",
+      "aliases": [
+        "অক্ষর G",
+        "G — আঙুর"
+      ]
+    },
+    {
+      "id": "en_alpha_h",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_h.mp3",
+      "scriptBn": "এইচ। এইচ ফর বাড়ি।",
+      "aliases": [
+        "অক্ষর H",
+        "H — বাড়ি"
+      ]
+    },
+    {
+      "id": "en_alpha_i",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_i.mp3",
+      "scriptBn": "আই। আই ফর আইসক্রিম।",
+      "aliases": [
+        "অক্ষর I",
+        "I — আইসক্রিম"
+      ]
+    },
+    {
+      "id": "en_alpha_j",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_j.mp3",
+      "scriptBn": "জে। জে ফর জুস।",
+      "aliases": [
+        "অক্ষর J",
+        "J — জুস"
+      ]
+    },
+    {
+      "id": "en_alpha_k",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_k.mp3",
+      "scriptBn": "কে। কে ফর ঘুড়ি।",
+      "aliases": [
+        "অক্ষর K",
+        "K — ঘুড়ি"
+      ]
+    },
+    {
+      "id": "en_alpha_l",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_l.mp3",
+      "scriptBn": "এল। এল ফর সিংহ।",
+      "aliases": [
+        "অক্ষর L",
+        "L — সিংহ"
+      ]
+    },
+    {
+      "id": "en_alpha_m",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_m.mp3",
+      "scriptBn": "এম। এম ফর আম।",
+      "aliases": [
+        "অক্ষর M",
+        "M — আম"
+      ]
+    },
+    {
+      "id": "en_alpha_n",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_n.mp3",
+      "scriptBn": "এন। এন ফর পাখির বাসা।",
+      "aliases": [
+        "অক্ষর N",
+        "N — পাখির বাসা"
+      ]
+    },
+    {
+      "id": "en_alpha_o",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_o.mp3",
+      "scriptBn": "ও। ও ফর পেঁচা।",
+      "aliases": [
+        "অক্ষর O",
+        "O — পেঁচা"
+      ]
+    },
+    {
+      "id": "en_alpha_p",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_p.mp3",
+      "scriptBn": "পি। পি ফর পান্ডা।",
+      "aliases": [
+        "অক্ষর P",
+        "P — পান্ডা"
+      ]
+    },
+    {
+      "id": "en_alpha_q",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_q.mp3",
+      "scriptBn": "কিউ। কিউ ফর রানি।",
+      "aliases": [
+        "অক্ষর Q",
+        "Q — রানি"
+      ]
+    },
+    {
+      "id": "en_alpha_r",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_r.mp3",
+      "scriptBn": "আর। আর ফর রংধনু।",
+      "aliases": [
+        "অক্ষর R",
+        "R — রংধনু"
+      ]
+    },
+    {
+      "id": "en_alpha_s",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_s.mp3",
+      "scriptBn": "এস। এস ফর সূর্য।",
+      "aliases": [
+        "অক্ষর S",
+        "S — সূর্য"
+      ]
+    },
+    {
+      "id": "en_alpha_t",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_t.mp3",
+      "scriptBn": "টি। টি ফর বাঘ।",
+      "aliases": [
+        "অক্ষর T",
+        "T — বাঘ"
+      ]
+    },
+    {
+      "id": "en_alpha_u",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_u.mp3",
+      "scriptBn": "ইউ। ইউ ফর ছাতা।",
+      "aliases": [
+        "অক্ষর U",
+        "U — ছাতা"
+      ]
+    },
+    {
+      "id": "en_alpha_v",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_v.mp3",
+      "scriptBn": "ভি। ভি ফর বেহালা।",
+      "aliases": [
+        "অক্ষর V",
+        "V — বেহালা"
+      ]
+    },
+    {
+      "id": "en_alpha_w",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_w.mp3",
+      "scriptBn": "ডাব্লিউ। ডাব্লিউ ফর তিমি।",
+      "aliases": [
+        "অক্ষর W",
+        "W — তিমি"
+      ]
+    },
+    {
+      "id": "en_alpha_x",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_x.mp3",
+      "scriptBn": "এক্স। এক্স ফর জাইলোফোন।",
+      "aliases": [
+        "অক্ষর X",
+        "X — জাইলোফোন"
+      ]
+    },
+    {
+      "id": "en_alpha_y",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_y.mp3",
+      "scriptBn": "ওয়াই। ওয়াই ফর ইয়ো-ইয়ো।",
+      "aliases": [
+        "অক্ষর Y",
+        "Y — ইয়ো-ইয়ো"
+      ]
+    },
+    {
+      "id": "en_alpha_z",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/en_alpha_z.mp3",
+      "scriptBn": "জেড। জেড ফর জেব্রা।",
+      "aliases": [
+        "অক্ষর Z",
+        "Z — জেব্রা"
+      ]
+    },
+    {
+      "id": "num_0",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_0.mp3",
+      "scriptBn": "শূন্য।",
+      "aliases": [
+        "শূন্য",
+        "০",
+        "0",
+        "সংখ্যা ০"
+      ]
+    },
+    {
+      "id": "num_1",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_1.mp3",
+      "scriptBn": "এক।",
+      "aliases": [
+        "এক",
+        "১",
+        "1",
+        "সংখ্যা ১"
+      ]
+    },
+    {
+      "id": "num_2",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_2.mp3",
+      "scriptBn": "দুই।",
+      "aliases": [
+        "দুই",
+        "২",
+        "2",
+        "সংখ্যা ২"
+      ]
+    },
+    {
+      "id": "num_3",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_3.mp3",
+      "scriptBn": "তিন।",
+      "aliases": [
+        "তিন",
+        "৩",
+        "3",
+        "সংখ্যা ৩"
+      ]
+    },
+    {
+      "id": "num_4",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_4.mp3",
+      "scriptBn": "চার।",
+      "aliases": [
+        "চার",
+        "৪",
+        "4",
+        "সংখ্যা ৪"
+      ]
+    },
+    {
+      "id": "num_5",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_5.mp3",
+      "scriptBn": "পাঁচ।",
+      "aliases": [
+        "পাঁচ",
+        "৫",
+        "5",
+        "সংখ্যা ৫"
+      ]
+    },
+    {
+      "id": "num_6",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_6.mp3",
+      "scriptBn": "ছয়।",
+      "aliases": [
+        "ছয়",
+        "৬",
+        "6",
+        "সংখ্যা ৬"
+      ]
+    },
+    {
+      "id": "num_7",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_7.mp3",
+      "scriptBn": "সাত।",
+      "aliases": [
+        "সাত",
+        "৭",
+        "7",
+        "সংখ্যা ৭"
+      ]
+    },
+    {
+      "id": "num_8",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_8.mp3",
+      "scriptBn": "আট।",
+      "aliases": [
+        "আট",
+        "৮",
+        "8",
+        "সংখ্যা ৮"
+      ]
+    },
+    {
+      "id": "num_9",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_9.mp3",
+      "scriptBn": "নয়।",
+      "aliases": [
+        "নয়",
+        "৯",
+        "9",
+        "সংখ্যা ৯"
+      ]
+    },
+    {
+      "id": "num_10",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_10.mp3",
+      "scriptBn": "দশ।",
+      "aliases": [
+        "দশ",
+        "১০",
+        "10",
+        "সংখ্যা ১০"
+      ]
+    },
+    {
+      "id": "num_11",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_11.mp3",
+      "scriptBn": "এগারো।",
+      "aliases": [
+        "এগারো",
+        "১১",
+        "11",
+        "সংখ্যা ১১"
+      ]
+    },
+    {
+      "id": "num_12",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_12.mp3",
+      "scriptBn": "বারো।",
+      "aliases": [
+        "বারো",
+        "১২",
+        "12",
+        "সংখ্যা ১২"
+      ]
+    },
+    {
+      "id": "num_13",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_13.mp3",
+      "scriptBn": "তেরো।",
+      "aliases": [
+        "তেরো",
+        "১৩",
+        "13",
+        "সংখ্যা ১৩"
+      ]
+    },
+    {
+      "id": "num_14",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_14.mp3",
+      "scriptBn": "চৌদ্দ।",
+      "aliases": [
+        "চৌদ্দ",
+        "১৪",
+        "14",
+        "সংখ্যা ১৪"
+      ]
+    },
+    {
+      "id": "num_15",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_15.mp3",
+      "scriptBn": "পনেরো।",
+      "aliases": [
+        "পনেরো",
+        "১৫",
+        "15",
+        "সংখ্যা ১৫"
+      ]
+    },
+    {
+      "id": "num_16",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_16.mp3",
+      "scriptBn": "ষোলো।",
+      "aliases": [
+        "ষোলো",
+        "১৬",
+        "16",
+        "সংখ্যা ১৬"
+      ]
+    },
+    {
+      "id": "num_17",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_17.mp3",
+      "scriptBn": "সতেরো।",
+      "aliases": [
+        "সতেরো",
+        "১৭",
+        "17",
+        "সংখ্যা ১৭"
+      ]
+    },
+    {
+      "id": "num_18",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_18.mp3",
+      "scriptBn": "আঠারো।",
+      "aliases": [
+        "আঠারো",
+        "১৮",
+        "18",
+        "সংখ্যা ১৮"
+      ]
+    },
+    {
+      "id": "num_19",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_19.mp3",
+      "scriptBn": "উনিশ।",
+      "aliases": [
+        "উনিশ",
+        "১৯",
+        "19",
+        "সংখ্যা ১৯"
+      ]
+    },
+    {
+      "id": "num_20",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_20.mp3",
+      "scriptBn": "বিশ।",
+      "aliases": [
+        "বিশ",
+        "২০",
+        "20",
+        "সংখ্যা ২০"
+      ]
+    },
+    {
+      "id": "num_21",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_21.mp3",
+      "scriptBn": "একুশ।",
+      "aliases": [
+        "একুশ",
+        "২১",
+        "21",
+        "সংখ্যা ২১"
+      ]
+    },
+    {
+      "id": "num_22",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_22.mp3",
+      "scriptBn": "বাইশ।",
+      "aliases": [
+        "বাইশ",
+        "২২",
+        "22",
+        "সংখ্যা ২২"
+      ]
+    },
+    {
+      "id": "num_23",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_23.mp3",
+      "scriptBn": "তেইশ।",
+      "aliases": [
+        "তেইশ",
+        "২৩",
+        "23",
+        "সংখ্যা ২৩"
+      ]
+    },
+    {
+      "id": "num_24",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_24.mp3",
+      "scriptBn": "চব্বিশ।",
+      "aliases": [
+        "চব্বিশ",
+        "২৪",
+        "24",
+        "সংখ্যা ২৪"
+      ]
+    },
+    {
+      "id": "num_25",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_25.mp3",
+      "scriptBn": "পঁচিশ।",
+      "aliases": [
+        "পঁচিশ",
+        "২৫",
+        "25",
+        "সংখ্যা ২৫"
+      ]
+    },
+    {
+      "id": "num_26",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_26.mp3",
+      "scriptBn": "ছাব্বিশ।",
+      "aliases": [
+        "ছাব্বিশ",
+        "২৬",
+        "26",
+        "সংখ্যা ২৬"
+      ]
+    },
+    {
+      "id": "num_27",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_27.mp3",
+      "scriptBn": "সাতাশ।",
+      "aliases": [
+        "সাতাশ",
+        "২৭",
+        "27",
+        "সংখ্যা ২৭"
+      ]
+    },
+    {
+      "id": "num_28",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_28.mp3",
+      "scriptBn": "আটাশ।",
+      "aliases": [
+        "আটাশ",
+        "২৮",
+        "28",
+        "সংখ্যা ২৮"
+      ]
+    },
+    {
+      "id": "num_29",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_29.mp3",
+      "scriptBn": "ঊনত্রিশ।",
+      "aliases": [
+        "ঊনত্রিশ",
+        "২৯",
+        "29",
+        "সংখ্যা ২৯"
+      ]
+    },
+    {
+      "id": "num_30",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_30.mp3",
+      "scriptBn": "ত্রিশ।",
+      "aliases": [
+        "ত্রিশ",
+        "৩০",
+        "30",
+        "সংখ্যা ৩০"
+      ]
+    },
+    {
+      "id": "num_31",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_31.mp3",
+      "scriptBn": "একত্রিশ।",
+      "aliases": [
+        "একত্রিশ",
+        "৩১",
+        "31",
+        "সংখ্যা ৩১"
+      ]
+    },
+    {
+      "id": "num_32",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_32.mp3",
+      "scriptBn": "বত্রিশ।",
+      "aliases": [
+        "বত্রিশ",
+        "৩২",
+        "32",
+        "সংখ্যা ৩২"
+      ]
+    },
+    {
+      "id": "num_33",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_33.mp3",
+      "scriptBn": "তেত্রিশ।",
+      "aliases": [
+        "তেত্রিশ",
+        "৩৩",
+        "33",
+        "সংখ্যা ৩৩"
+      ]
+    },
+    {
+      "id": "num_34",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_34.mp3",
+      "scriptBn": "চৌত্রিশ।",
+      "aliases": [
+        "চৌত্রিশ",
+        "৩৪",
+        "34",
+        "সংখ্যা ৩৪"
+      ]
+    },
+    {
+      "id": "num_35",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_35.mp3",
+      "scriptBn": "পঁয়ত্রিশ।",
+      "aliases": [
+        "পঁয়ত্রিশ",
+        "৩৫",
+        "35",
+        "সংখ্যা ৩৫"
+      ]
+    },
+    {
+      "id": "num_36",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_36.mp3",
+      "scriptBn": "ছত্রিশ।",
+      "aliases": [
+        "ছত্রিশ",
+        "৩৬",
+        "36",
+        "সংখ্যা ৩৬"
+      ]
+    },
+    {
+      "id": "num_37",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_37.mp3",
+      "scriptBn": "সাঁইত্রিশ।",
+      "aliases": [
+        "সাঁইত্রিশ",
+        "৩৭",
+        "37",
+        "সংখ্যা ৩৭"
+      ]
+    },
+    {
+      "id": "num_38",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_38.mp3",
+      "scriptBn": "আটত্রিশ।",
+      "aliases": [
+        "আটত্রিশ",
+        "৩৮",
+        "38",
+        "সংখ্যা ৩৮"
+      ]
+    },
+    {
+      "id": "num_39",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_39.mp3",
+      "scriptBn": "ঊনচল্লিশ।",
+      "aliases": [
+        "ঊনচল্লিশ",
+        "৩৯",
+        "39",
+        "সংখ্যা ৩৯"
+      ]
+    },
+    {
+      "id": "num_40",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_40.mp3",
+      "scriptBn": "চল্লিশ।",
+      "aliases": [
+        "চল্লিশ",
+        "৪০",
+        "40",
+        "সংখ্যা ৪০"
+      ]
+    },
+    {
+      "id": "num_41",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_41.mp3",
+      "scriptBn": "একচল্লিশ।",
+      "aliases": [
+        "একচল্লিশ",
+        "৪১",
+        "41",
+        "সংখ্যা ৪১"
+      ]
+    },
+    {
+      "id": "num_42",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_42.mp3",
+      "scriptBn": "বিয়াল্লিশ।",
+      "aliases": [
+        "বিয়াল্লিশ",
+        "৪২",
+        "42",
+        "সংখ্যা ৪২"
+      ]
+    },
+    {
+      "id": "num_43",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_43.mp3",
+      "scriptBn": "তেতাল্লিশ।",
+      "aliases": [
+        "তেতাল্লিশ",
+        "৪৩",
+        "43",
+        "সংখ্যা ৪৩"
+      ]
+    },
+    {
+      "id": "num_44",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_44.mp3",
+      "scriptBn": "চুয়াল্লিশ।",
+      "aliases": [
+        "চুয়াল্লিশ",
+        "৪৪",
+        "44",
+        "সংখ্যা ৪৪"
+      ]
+    },
+    {
+      "id": "num_45",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_45.mp3",
+      "scriptBn": "পঁয়তাল্লিশ।",
+      "aliases": [
+        "পঁয়তাল্লিশ",
+        "৪৫",
+        "45",
+        "সংখ্যা ৪৫"
+      ]
+    },
+    {
+      "id": "num_46",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_46.mp3",
+      "scriptBn": "ছেচল্লিশ।",
+      "aliases": [
+        "ছেচল্লিশ",
+        "৪৬",
+        "46",
+        "সংখ্যা ৪৬"
+      ]
+    },
+    {
+      "id": "num_47",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_47.mp3",
+      "scriptBn": "সাতচল্লিশ।",
+      "aliases": [
+        "সাতচল্লিশ",
+        "৪৭",
+        "47",
+        "সংখ্যা ৪৭"
+      ]
+    },
+    {
+      "id": "num_48",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_48.mp3",
+      "scriptBn": "আটচল্লিশ।",
+      "aliases": [
+        "আটচল্লিশ",
+        "৪৮",
+        "48",
+        "সংখ্যা ৪৮"
+      ]
+    },
+    {
+      "id": "num_49",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_49.mp3",
+      "scriptBn": "ঊনপঞ্চাশ।",
+      "aliases": [
+        "ঊনপঞ্চাশ",
+        "৪৯",
+        "49",
+        "সংখ্যা ৪৯"
+      ]
+    },
+    {
+      "id": "num_50",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_50.mp3",
+      "scriptBn": "পঞ্চাশ।",
+      "aliases": [
+        "পঞ্চাশ",
+        "৫০",
+        "50",
+        "সংখ্যা ৫০"
+      ]
+    },
+    {
+      "id": "num_51",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_51.mp3",
+      "scriptBn": "একান্ন।",
+      "aliases": [
+        "একান্ন",
+        "৫১",
+        "51",
+        "সংখ্যা ৫১"
+      ]
+    },
+    {
+      "id": "num_52",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_52.mp3",
+      "scriptBn": "বাহান্ন।",
+      "aliases": [
+        "বাহান্ন",
+        "৫২",
+        "52",
+        "সংখ্যা ৫২"
+      ]
+    },
+    {
+      "id": "num_53",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_53.mp3",
+      "scriptBn": "তিপ্পান্ন।",
+      "aliases": [
+        "তিপ্পান্ন",
+        "৫৩",
+        "53",
+        "সংখ্যা ৫৩"
+      ]
+    },
+    {
+      "id": "num_54",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_54.mp3",
+      "scriptBn": "চুয়ান্ন।",
+      "aliases": [
+        "চুয়ান্ন",
+        "৫৪",
+        "54",
+        "সংখ্যা ৫৪"
+      ]
+    },
+    {
+      "id": "num_55",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_55.mp3",
+      "scriptBn": "পঞ্চান্ন।",
+      "aliases": [
+        "পঞ্চান্ন",
+        "৫৫",
+        "55",
+        "সংখ্যা ৫৫"
+      ]
+    },
+    {
+      "id": "num_56",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_56.mp3",
+      "scriptBn": "ছাপ্পান্ন।",
+      "aliases": [
+        "ছাপ্পান্ন",
+        "৫৬",
+        "56",
+        "সংখ্যা ৫৬"
+      ]
+    },
+    {
+      "id": "num_57",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_57.mp3",
+      "scriptBn": "সাতান্ন।",
+      "aliases": [
+        "সাতান্ন",
+        "৫৭",
+        "57",
+        "সংখ্যা ৫৭"
+      ]
+    },
+    {
+      "id": "num_58",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_58.mp3",
+      "scriptBn": "আটান্ন।",
+      "aliases": [
+        "আটান্ন",
+        "৫৮",
+        "58",
+        "সংখ্যা ৫৮"
+      ]
+    },
+    {
+      "id": "num_59",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_59.mp3",
+      "scriptBn": "ঊনষাট।",
+      "aliases": [
+        "ঊনষাট",
+        "৫৯",
+        "59",
+        "সংখ্যা ৫৯"
+      ]
+    },
+    {
+      "id": "num_60",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_60.mp3",
+      "scriptBn": "ষাট।",
+      "aliases": [
+        "ষাট",
+        "৬০",
+        "60",
+        "সংখ্যা ৬০"
+      ]
+    },
+    {
+      "id": "num_61",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_61.mp3",
+      "scriptBn": "একষট্টি।",
+      "aliases": [
+        "একষট্টি",
+        "৬১",
+        "61",
+        "সংখ্যা ৬১"
+      ]
+    },
+    {
+      "id": "num_62",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_62.mp3",
+      "scriptBn": "বাষট্টি।",
+      "aliases": [
+        "বাষট্টি",
+        "৬২",
+        "62",
+        "সংখ্যা ৬২"
+      ]
+    },
+    {
+      "id": "num_63",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_63.mp3",
+      "scriptBn": "তেষট্টি।",
+      "aliases": [
+        "তেষট্টি",
+        "৬৩",
+        "63",
+        "সংখ্যা ৬৩"
+      ]
+    },
+    {
+      "id": "num_64",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_64.mp3",
+      "scriptBn": "চৌষট্টি।",
+      "aliases": [
+        "চৌষট্টি",
+        "৬৪",
+        "64",
+        "সংখ্যা ৬৪"
+      ]
+    },
+    {
+      "id": "num_65",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_65.mp3",
+      "scriptBn": "পঁয়ষট্টি।",
+      "aliases": [
+        "পঁয়ষট্টি",
+        "৬৫",
+        "65",
+        "সংখ্যা ৬৫"
+      ]
+    },
+    {
+      "id": "num_66",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_66.mp3",
+      "scriptBn": "ছেষট্টি।",
+      "aliases": [
+        "ছেষট্টি",
+        "৬৬",
+        "66",
+        "সংখ্যা ৬৬"
+      ]
+    },
+    {
+      "id": "num_67",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_67.mp3",
+      "scriptBn": "সাতষট্টি।",
+      "aliases": [
+        "সাতষট্টি",
+        "৬৭",
+        "67",
+        "সংখ্যা ৬৭"
+      ]
+    },
+    {
+      "id": "num_68",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_68.mp3",
+      "scriptBn": "আটষট্টি।",
+      "aliases": [
+        "আটষট্টি",
+        "৬৮",
+        "68",
+        "সংখ্যা ৬৮"
+      ]
+    },
+    {
+      "id": "num_69",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_69.mp3",
+      "scriptBn": "ঊনসত্তর।",
+      "aliases": [
+        "ঊনসত্তর",
+        "৬৯",
+        "69",
+        "সংখ্যা ৬৯"
+      ]
+    },
+    {
+      "id": "num_70",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_70.mp3",
+      "scriptBn": "সত্তর।",
+      "aliases": [
+        "সত্তর",
+        "৭০",
+        "70",
+        "সংখ্যা ৭০"
+      ]
+    },
+    {
+      "id": "num_71",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_71.mp3",
+      "scriptBn": "একাত্তর।",
+      "aliases": [
+        "একাত্তর",
+        "৭১",
+        "71",
+        "সংখ্যা ৭১"
+      ]
+    },
+    {
+      "id": "num_72",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_72.mp3",
+      "scriptBn": "বাহাত্তর।",
+      "aliases": [
+        "বাহাত্তর",
+        "৭২",
+        "72",
+        "সংখ্যা ৭২"
+      ]
+    },
+    {
+      "id": "num_73",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_73.mp3",
+      "scriptBn": "তিয়াত্তর।",
+      "aliases": [
+        "তিয়াত্তর",
+        "৭৩",
+        "73",
+        "সংখ্যা ৭৩"
+      ]
+    },
+    {
+      "id": "num_74",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_74.mp3",
+      "scriptBn": "চুয়াত্তর।",
+      "aliases": [
+        "চুয়াত্তর",
+        "৭৪",
+        "74",
+        "সংখ্যা ৭৪"
+      ]
+    },
+    {
+      "id": "num_75",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_75.mp3",
+      "scriptBn": "পঁচাত্তর।",
+      "aliases": [
+        "পঁচাত্তর",
+        "৭৫",
+        "75",
+        "সংখ্যা ৭৫"
+      ]
+    },
+    {
+      "id": "num_76",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_76.mp3",
+      "scriptBn": "ছিয়াত্তর।",
+      "aliases": [
+        "ছিয়াত্তর",
+        "৭৬",
+        "76",
+        "সংখ্যা ৭৬"
+      ]
+    },
+    {
+      "id": "num_77",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_77.mp3",
+      "scriptBn": "সাতাত্তর।",
+      "aliases": [
+        "সাতাত্তর",
+        "৭৭",
+        "77",
+        "সংখ্যা ৭৭"
+      ]
+    },
+    {
+      "id": "num_78",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_78.mp3",
+      "scriptBn": "আটাত্তর।",
+      "aliases": [
+        "আটাত্তর",
+        "৭৮",
+        "78",
+        "সংখ্যা ৭৮"
+      ]
+    },
+    {
+      "id": "num_79",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_79.mp3",
+      "scriptBn": "ঊনআশি।",
+      "aliases": [
+        "ঊনআশি",
+        "৭৯",
+        "79",
+        "সংখ্যা ৭৯"
+      ]
+    },
+    {
+      "id": "num_80",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_80.mp3",
+      "scriptBn": "আশি।",
+      "aliases": [
+        "আশি",
+        "৮০",
+        "80",
+        "সংখ্যা ৮০"
+      ]
+    },
+    {
+      "id": "num_81",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_81.mp3",
+      "scriptBn": "একাশি।",
+      "aliases": [
+        "একাশি",
+        "৮১",
+        "81",
+        "সংখ্যা ৮১"
+      ]
+    },
+    {
+      "id": "num_82",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_82.mp3",
+      "scriptBn": "বিরাশি।",
+      "aliases": [
+        "বিরাশি",
+        "৮২",
+        "82",
+        "সংখ্যা ৮২"
+      ]
+    },
+    {
+      "id": "num_83",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_83.mp3",
+      "scriptBn": "তিরাশি।",
+      "aliases": [
+        "তিরাশি",
+        "৮৩",
+        "83",
+        "সংখ্যা ৮৩"
+      ]
+    },
+    {
+      "id": "num_84",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_84.mp3",
+      "scriptBn": "চুরাশি।",
+      "aliases": [
+        "চুরাশি",
+        "৮৪",
+        "84",
+        "সংখ্যা ৮৪"
+      ]
+    },
+    {
+      "id": "num_85",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_85.mp3",
+      "scriptBn": "পঁচাশি।",
+      "aliases": [
+        "পঁচাশি",
+        "৮৫",
+        "85",
+        "সংখ্যা ৮৫"
+      ]
+    },
+    {
+      "id": "num_86",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_86.mp3",
+      "scriptBn": "ছিয়াশি।",
+      "aliases": [
+        "ছিয়াশি",
+        "৮৬",
+        "86",
+        "সংখ্যা ৮৬"
+      ]
+    },
+    {
+      "id": "num_87",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_87.mp3",
+      "scriptBn": "সাতাশি।",
+      "aliases": [
+        "সাতাশি",
+        "৮৭",
+        "87",
+        "সংখ্যা ৮৭"
+      ]
+    },
+    {
+      "id": "num_88",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_88.mp3",
+      "scriptBn": "আটাশি।",
+      "aliases": [
+        "আটাশি",
+        "৮৮",
+        "88",
+        "সংখ্যা ৮৮"
+      ]
+    },
+    {
+      "id": "num_89",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_89.mp3",
+      "scriptBn": "ঊননব্বই।",
+      "aliases": [
+        "ঊননব্বই",
+        "৮৯",
+        "89",
+        "সংখ্যা ৮৯"
+      ]
+    },
+    {
+      "id": "num_90",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_90.mp3",
+      "scriptBn": "নব্বই।",
+      "aliases": [
+        "নব্বই",
+        "৯০",
+        "90",
+        "সংখ্যা ৯০"
+      ]
+    },
+    {
+      "id": "num_91",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_91.mp3",
+      "scriptBn": "একানব্বই।",
+      "aliases": [
+        "একানব্বই",
+        "৯১",
+        "91",
+        "সংখ্যা ৯১"
+      ]
+    },
+    {
+      "id": "num_92",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_92.mp3",
+      "scriptBn": "বিরানব্বই।",
+      "aliases": [
+        "বিরানব্বই",
+        "৯২",
+        "92",
+        "সংখ্যা ৯২"
+      ]
+    },
+    {
+      "id": "num_93",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_93.mp3",
+      "scriptBn": "তিরানব্বই।",
+      "aliases": [
+        "তিরানব্বই",
+        "৯৩",
+        "93",
+        "সংখ্যা ৯৩"
+      ]
+    },
+    {
+      "id": "num_94",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_94.mp3",
+      "scriptBn": "চুরানব্বই।",
+      "aliases": [
+        "চুরানব্বই",
+        "৯৪",
+        "94",
+        "সংখ্যা ৯৪"
+      ]
+    },
+    {
+      "id": "num_95",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_95.mp3",
+      "scriptBn": "পঁচানব্বই।",
+      "aliases": [
+        "পঁচানব্বই",
+        "৯৫",
+        "95",
+        "সংখ্যা ৯৫"
+      ]
+    },
+    {
+      "id": "num_96",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_96.mp3",
+      "scriptBn": "ছিয়ানব্বই।",
+      "aliases": [
+        "ছিয়ানব্বই",
+        "৯৬",
+        "96",
+        "সংখ্যা ৯৬"
+      ]
+    },
+    {
+      "id": "num_97",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_97.mp3",
+      "scriptBn": "সাতানব্বই।",
+      "aliases": [
+        "সাতানব্বই",
+        "৯৭",
+        "97",
+        "সংখ্যা ৯৭"
+      ]
+    },
+    {
+      "id": "num_98",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_98.mp3",
+      "scriptBn": "আটানব্বই।",
+      "aliases": [
+        "আটানব্বই",
+        "৯৮",
+        "98",
+        "সংখ্যা ৯৮"
+      ]
+    },
+    {
+      "id": "num_99",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_99.mp3",
+      "scriptBn": "নিরানব্বই।",
+      "aliases": [
+        "নিরানব্বই",
+        "৯৯",
+        "99",
+        "সংখ্যা ৯৯"
+      ]
+    },
+    {
+      "id": "num_100",
+      "category": "numbers",
+      "assetPath": "audio/bangla/numbers/number_100.mp3",
+      "scriptBn": "একশো।",
+      "aliases": [
+        "একশো",
+        "১০০",
+        "100",
+        "সংখ্যা ১০০"
+      ]
+    },
+    {
+      "id": "fruitveg_mango",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_mango.mp3",
+      "scriptBn": "আম। মিষ্টি রসে ভরা ফলের রাজা।",
+      "aliases": [
+        "আম"
+      ]
+    },
+    {
+      "id": "fruitveg_apple",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_apple.mp3",
+      "scriptBn": "আপেল। কচকচে লাল আপেল শরীর সুস্থ রাখে।",
+      "aliases": [
+        "আপেল"
+      ]
+    },
+    {
+      "id": "fruitveg_banana",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_banana.mp3",
+      "scriptBn": "কলা। নরম হলুদ কলা শক্তি জোগায়।",
+      "aliases": [
+        "কলা"
+      ]
+    },
+    {
+      "id": "fruitveg_watermelon",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_watermelon.mp3",
+      "scriptBn": "তরমুজ। গরমের রসালো মিষ্টি তরমুজ।",
+      "aliases": [
+        "তরমুজ"
+      ]
+    },
+    {
+      "id": "fruitveg_grapes",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_grapes.mp3",
+      "scriptBn": "আঙুর। থোকায় থোকায় মিষ্টি আঙুর।",
+      "aliases": [
+        "আঙুর"
+      ]
+    },
+    {
+      "id": "fruitveg_carrot",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_carrot.mp3",
+      "scriptBn": "গাজর। চোখের জন্য উপকারী কমলা গাজর।",
+      "aliases": [
+        "গাজর"
+      ]
+    },
+    {
+      "id": "fruitveg_tomato",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_tomato.mp3",
+      "scriptBn": "টমেটো। লাল টুকটুকে রসালো টমেটো।",
+      "aliases": [
+        "টমেটো"
+      ]
+    },
+    {
+      "id": "fruitveg_broccoli",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_broccoli.mp3",
+      "scriptBn": "ব্রকলি। ছোট্ট সবুজ গাছের মতো ব্রকলি।",
+      "aliases": [
+        "ব্রকলি"
+      ]
+    },
+    {
+      "id": "fruitveg_potato",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_potato.mp3",
+      "scriptBn": "আলু। মাটির নিচে জন্মানো মজার আলু।",
+      "aliases": [
+        "আলু"
+      ]
+    },
+    {
+      "id": "fruitveg_corn",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/fruitveg_corn.mp3",
+      "scriptBn": "ভুট্টা। হলুদ দানাদার মিষ্টি ভুট্টা।",
+      "aliases": [
+        "ভুট্টা"
+      ]
+    },
+    {
+      "id": "sort_mango",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_mango.mp3",
+      "scriptBn": "আম।",
+      "aliases": [
+        "আম"
+      ]
+    },
+    {
+      "id": "sort_apple",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_apple.mp3",
+      "scriptBn": "আপেল।",
+      "aliases": [
+        "আপেল"
+      ]
+    },
+    {
+      "id": "sort_banana",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_banana.mp3",
+      "scriptBn": "কলা।",
+      "aliases": [
+        "কলা"
+      ]
+    },
+    {
+      "id": "sort_grapes",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_grapes.mp3",
+      "scriptBn": "আঙুর।",
+      "aliases": [
+        "আঙুর"
+      ]
+    },
+    {
+      "id": "sort_watermelon",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_watermelon.mp3",
+      "scriptBn": "তরমুজ।",
+      "aliases": [
+        "তরমুজ"
+      ]
+    },
+    {
+      "id": "sort_orange",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/sort_orange.mp3",
+      "scriptBn": "কমলা।",
+      "aliases": [
+        "কমলা"
+      ]
+    },
+    {
+      "id": "token_strawberry",
+      "category": "fruits",
+      "assetPath": "audio/bangla/fruits/token_strawberry.mp3",
+      "scriptBn": "স্ট্রবেরি।",
+      "aliases": [
+        "স্ট্রবেরি"
+      ]
+    },
+    {
+      "id": "animal_tiger",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_tiger.mp3",
+      "scriptBn": "বাঘ। হালুম! ডোরাকাটা সাহসী বাঘ।",
+      "aliases": [
+        "বাঘ"
+      ]
+    },
+    {
+      "id": "animal_elephant",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_elephant.mp3",
+      "scriptBn": "হাতি। লম্বা শুঁড়ের দয়ালু হাতি।",
+      "aliases": [
+        "হাতি"
+      ]
+    },
+    {
+      "id": "animal_rabbit",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_rabbit.mp3",
+      "scriptBn": "খরগোশ। লাফিয়ে চলা নরম খরগোশ।",
+      "aliases": [
+        "খরগোশ"
+      ]
+    },
+    {
+      "id": "animal_owl",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_owl.mp3",
+      "scriptBn": "পেঁচা। রাতের জ্ঞানী বন্ধু পেঁচা।",
+      "aliases": [
+        "পেঁচা"
+      ]
+    },
+    {
+      "id": "animal_duck",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_duck.mp3",
+      "scriptBn": "হাঁস। প্যাঁক প্যাঁক! পুকুরে সাঁতার কাটে।",
+      "aliases": [
+        "হাঁস"
+      ]
+    },
+    {
+      "id": "animal_cat",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_cat.mp3",
+      "scriptBn": "বিড়াল। মিউ মিউ! আদুরে বন্ধু বিড়াল।",
+      "aliases": [
+        "বিড়াল"
+      ]
+    },
+    {
+      "id": "animal_panda",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_panda.mp3",
+      "scriptBn": "পান্ডা। সবুজ বাঁশ খেতে ভালোবাসে পান্ডা।",
+      "aliases": [
+        "পান্ডা"
+      ]
+    },
+    {
+      "id": "animal_butterfly",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_butterfly.mp3",
+      "scriptBn": "প্রজাপতি। রঙিন ডানায় উড়ে বেড়ায় প্রজাপতি।",
+      "aliases": [
+        "প্রজাপতি"
+      ]
+    },
+    {
+      "id": "animal_peacock",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_peacock.mp3",
+      "scriptBn": "ময়ূর। রঙিন পেখম মেলে নাচে ময়ূর।",
+      "aliases": [
+        "ময়ূর"
+      ]
+    },
+    {
+      "id": "animal_parrot",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/animal_parrot.mp3",
+      "scriptBn": "টিয়া পাখি। সবুজ রঙের মিষ্টি কথা বলা টিয়া।",
+      "aliases": [
+        "টিয়া পাখি"
+      ]
+    },
+    {
+      "id": "sort_lion",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_lion.mp3",
+      "scriptBn": "সিংহ।",
+      "aliases": [
+        "সিংহ"
+      ]
+    },
+    {
+      "id": "sort_tiger",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_tiger.mp3",
+      "scriptBn": "বাঘ।",
+      "aliases": [
+        "বাঘ"
+      ]
+    },
+    {
+      "id": "sort_elephant",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_elephant.mp3",
+      "scriptBn": "হাতি।",
+      "aliases": [
+        "হাতি"
+      ]
+    },
+    {
+      "id": "sort_rabbit",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_rabbit.mp3",
+      "scriptBn": "খরগোশ।",
+      "aliases": [
+        "খরগোশ"
+      ]
+    },
+    {
+      "id": "sort_parrot",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_parrot.mp3",
+      "scriptBn": "তোতা পাখি।",
+      "aliases": [
+        "তোতা পাখি"
+      ]
+    },
+    {
+      "id": "sort_cat",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/sort_cat.mp3",
+      "scriptBn": "বিড়াল।",
+      "aliases": [
+        "বিড়াল"
+      ]
+    },
+    {
+      "id": "token_frog",
+      "category": "animals",
+      "assetPath": "audio/bangla/animals/token_frog.mp3",
+      "scriptBn": "ব্যাঙ।",
+      "aliases": [
+        "ব্যাঙ"
+      ]
+    },
+    {
+      "id": "color_red",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_red.mp3",
+      "scriptBn": "লাল রং। মিষ্টি লাল স্ট্রবেরির মতো।",
+      "aliases": [
+        "লাল",
+        "রং লাল"
+      ]
+    },
+    {
+      "id": "color_blue",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_blue.mp3",
+      "scriptBn": "নীল রং। উজ্জ্বল নীল আকাশের মতো।",
+      "aliases": [
+        "নীল",
+        "রং নীল"
+      ]
+    },
+    {
+      "id": "color_yellow",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_yellow.mp3",
+      "scriptBn": "হলুদ রং। উষ্ণ হলুদ সূর্যের মতো।",
+      "aliases": [
+        "হলুদ",
+        "রং হলুদ"
+      ]
+    },
+    {
+      "id": "color_green",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_green.mp3",
+      "scriptBn": "সবুজ রং। সবুজ গাছের পাতার মতো।",
+      "aliases": [
+        "সবুজ",
+        "রং সবুজ"
+      ]
+    },
+    {
+      "id": "color_orange",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_orange.mp3",
+      "scriptBn": "কমলা রং। রসালো কমলার মতো।",
+      "aliases": [
+        "কমলা",
+        "রং কমলা"
+      ]
+    },
+    {
+      "id": "color_purple",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_purple.mp3",
+      "scriptBn": "বেগুনি রং। মিষ্টি বেগুনি আঙুরের মতো।",
+      "aliases": [
+        "বেগুনি",
+        "রং বেগুনি"
+      ]
+    },
+    {
+      "id": "color_pink",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_pink.mp3",
+      "scriptBn": "গোলাপি রং। সুন্দর গোলাপি পদ্মের মতো।",
+      "aliases": [
+        "গোলাপি",
+        "রং গোলাপি"
+      ]
+    },
+    {
+      "id": "color_teal",
+      "category": "colors",
+      "assetPath": "audio/bangla/colors/color_teal.mp3",
+      "scriptBn": "ফিরোজা রং। ঝিলমিল নদীর ঢেউয়ের মতো।",
+      "aliases": [
+        "ফিরোজা",
+        "রং ফিরোজা"
+      ]
+    },
+    {
+      "id": "shape_circle",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_circle.mp3",
+      "scriptBn": "বৃত্ত। গোল বলের মতো বৃত্ত।",
+      "aliases": [
+        "বৃত্ত",
+        "আকৃতি: বৃত্ত"
+      ]
+    },
+    {
+      "id": "shape_square",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_square.mp3",
+      "scriptBn": "বর্গক্ষেত্র। চারটি সমান বাহু।",
+      "aliases": [
+        "বর্গক্ষেত্র",
+        "আকৃতি: বর্গক্ষেত্র"
+      ]
+    },
+    {
+      "id": "shape_triangle",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_triangle.mp3",
+      "scriptBn": "ত্রিভুজ। তিনটি কোণা যেমন পাহাড়।",
+      "aliases": [
+        "ত্রিভুজ",
+        "আকৃতি: ত্রিভুজ"
+      ]
+    },
+    {
+      "id": "shape_star",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_star.mp3",
+      "scriptBn": "তারা। রাতের আকাশে ঝিকিমিকি তারা।",
+      "aliases": [
+        "তারা",
+        "আকৃতি: তারা"
+      ]
+    },
+    {
+      "id": "shape_heart",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_heart.mp3",
+      "scriptBn": "হৃদয়। ভালোবাসা ও দয়ার প্রতীক।",
+      "aliases": [
+        "হৃদয়",
+        "আকৃতি: হৃদয়"
+      ]
+    },
+    {
+      "id": "shape_diamond",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_diamond.mp3",
+      "scriptBn": "হীরক। উড়ন্ত ঘুড়ির মতো আকৃতি।",
+      "aliases": [
+        "হীরক",
+        "আকৃতি: হীরক"
+      ]
+    },
+    {
+      "id": "shape_rectangle",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_rectangle.mp3",
+      "scriptBn": "আয়তক্ষেত্র। বই বা দরজার মতো আকৃতি।",
+      "aliases": [
+        "আয়তক্ষেত্র",
+        "আকৃতি: আয়তক্ষেত্র"
+      ]
+    },
+    {
+      "id": "shape_oval",
+      "category": "shapes",
+      "assetPath": "audio/bangla/shapes/shape_oval.mp3",
+      "scriptBn": "ডিম্বাকৃতি। ডিমের মতো মসৃণ গোল আকৃতি।",
+      "aliases": [
+        "ডিম্বাকৃতি",
+        "আকৃতি: ডিম্বাকৃতি"
+      ]
+    },
+    {
+      "id": "body_eyes",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_eyes.mp3",
+      "scriptBn": "চোখ। চোখ দিয়ে আমরা সুন্দর পৃথিবী দেখি।",
+      "aliases": [
+        "চোখ"
+      ]
+    },
+    {
+      "id": "body_ears",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_ears.mp3",
+      "scriptBn": "কান। কান দিয়ে আমরা গান ও গল্প শুনি।",
+      "aliases": [
+        "কান"
+      ]
+    },
+    {
+      "id": "body_nose",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_nose.mp3",
+      "scriptBn": "নাক। নাক দিয়ে আমরা ফুলের গন্ধ নিই।",
+      "aliases": [
+        "নাক"
+      ]
+    },
+    {
+      "id": "body_mouth",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_mouth.mp3",
+      "scriptBn": "মুখ ও হাসি। মুখ দিয়ে আমরা মিষ্টি কথা বলি ও খাই।",
+      "aliases": [
+        "মুখ ও হাসি"
+      ]
+    },
+    {
+      "id": "body_hands",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_hands.mp3",
+      "scriptBn": "হাত। হাত দিয়ে আমরা ছবি আঁকি ও সাহায্য করি।",
+      "aliases": [
+        "হাত"
+      ]
+    },
+    {
+      "id": "body_feet",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_feet.mp3",
+      "scriptBn": "পা। পা দিয়ে আমরা হাঁটি ও খেলাধুলা করি।",
+      "aliases": [
+        "পা"
+      ]
+    },
+    {
+      "id": "body_heart",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_heart.mp3",
+      "scriptBn": "হৃদপিণ্ড। সারাদিন ধুকপুক করে আমাদের সুস্থ রাখে।",
+      "aliases": [
+        "হৃদপিণ্ড"
+      ]
+    },
+    {
+      "id": "body_brain",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/body_brain.mp3",
+      "scriptBn": "মস্তিষ্ক। ভাবতে, শিখতে ও স্বপ্ন দেখতে সাহায্য করে।",
+      "aliases": [
+        "মস্তিষ্ক"
+      ]
+    },
+    {
+      "id": "vehicle_car",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_car.mp3",
+      "scriptBn": "গাড়ি। চার চাকায় রাস্তায় ছোটে গাড়ি।",
+      "aliases": [
+        "গাড়ি"
+      ]
+    },
+    {
+      "id": "vehicle_bus",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_bus.mp3",
+      "scriptBn": "স্কুল বাস। বন্ধুদের নিয়ে স্কুলে যায় বাস।",
+      "aliases": [
+        "স্কুল বাস"
+      ]
+    },
+    {
+      "id": "vehicle_train",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_train.mp3",
+      "scriptBn": "ট্রেন। ঝিকঝিক শব্দে রেললাইনে চলে ট্রেন।",
+      "aliases": [
+        "ট্রেন"
+      ]
+    },
+    {
+      "id": "vehicle_boat",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_boat.mp3",
+      "scriptBn": "নৌকা। নদীর ঢেউয়ে ভেসে চলে নৌকা।",
+      "aliases": [
+        "নৌকা"
+      ]
+    },
+    {
+      "id": "vehicle_airplane",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_airplane.mp3",
+      "scriptBn": "উড়োজাহাজ। মেঘের ওপরে আকাশে ওড়ে উড়োজাহাজ।",
+      "aliases": [
+        "উড়োজাহাজ"
+      ]
+    },
+    {
+      "id": "vehicle_bicycle",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_bicycle.mp3",
+      "scriptBn": "সাইকেল। দুই চাকায় প্যাডেল ঘুরিয়ে চলে সাইকেল।",
+      "aliases": [
+        "সাইকেল"
+      ]
+    },
+    {
+      "id": "vehicle_rocket",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_rocket.mp3",
+      "scriptBn": "রকেট। চাঁদ আর তারার দেশে ওড়ে রকেট।",
+      "aliases": [
+        "রকেট"
+      ]
+    },
+    {
+      "id": "vehicle_rickshaw",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/vehicle_rickshaw.mp3",
+      "scriptBn": "রিকশা। রঙিন তিন চাকার চেনা রিকশা।",
+      "aliases": [
+        "রিকশা"
+      ]
+    },
+    {
+      "id": "sort_bus",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_bus.mp3",
+      "scriptBn": "বাস।",
+      "aliases": [
+        "বাস"
+      ]
+    },
+    {
+      "id": "sort_train",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_train.mp3",
+      "scriptBn": "ট্রেন।",
+      "aliases": [
+        "ট্রেন"
+      ]
+    },
+    {
+      "id": "sort_boat",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_boat.mp3",
+      "scriptBn": "নৌকা।",
+      "aliases": [
+        "নৌকা"
+      ]
+    },
+    {
+      "id": "sort_plane",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_plane.mp3",
+      "scriptBn": "বিমান।",
+      "aliases": [
+        "বিমান"
+      ]
+    },
+    {
+      "id": "sort_bike",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_bike.mp3",
+      "scriptBn": "সাইকেল।",
+      "aliases": [
+        "সাইকেল"
+      ]
+    },
+    {
+      "id": "sort_car",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/sort_car.mp3",
+      "scriptBn": "গাড়ি।",
+      "aliases": [
+        "গাড়ি"
+      ]
+    },
+    {
+      "id": "token_blue_circle",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/token_blue_circle.mp3",
+      "scriptBn": "নীল বৃত্ত।",
+      "aliases": [
+        "নীল বৃত্ত"
+      ]
+    },
+    {
+      "id": "token_sunflower",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/token_sunflower.mp3",
+      "scriptBn": "সূর্যমুখী।",
+      "aliases": [
+        "সূর্যমুখী"
+      ]
+    },
+    {
+      "id": "nature_sun",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_sun.mp3",
+      "scriptBn": "সূর্য। পৃথিবীকে আলো আর উষ্ণতা দেয় সূর্য।",
+      "aliases": [
+        "সূর্য"
+      ]
+    },
+    {
+      "id": "nature_moon",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_moon.mp3",
+      "scriptBn": "চাঁদ। রাতের আকাশে মিষ্টি আলো ছড়ায় চাঁদ।",
+      "aliases": [
+        "চাঁদ"
+      ]
+    },
+    {
+      "id": "nature_tree",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_tree.mp3",
+      "scriptBn": "গাছ। আমাদের ছায়া, ফল আর তাজা বাতাস দেয়।",
+      "aliases": [
+        "গাছ"
+      ]
+    },
+    {
+      "id": "nature_river",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_river.mp3",
+      "scriptBn": "নদী। বয়ে চলা স্বচ্ছ জলের সুন্দর নদী।",
+      "aliases": [
+        "নদী"
+      ]
+    },
+    {
+      "id": "nature_rain",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_rain.mp3",
+      "scriptBn": "বৃষ্টি। সবুজ প্রকৃতিকে সতেজ করে বৃষ্টি।",
+      "aliases": [
+        "বৃষ্টি"
+      ]
+    },
+    {
+      "id": "nature_rainbow",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_rainbow.mp3",
+      "scriptBn": "রংধনু। আকাশে আঁকা সাত রঙের রংধনু।",
+      "aliases": [
+        "রংধনু"
+      ]
+    },
+    {
+      "id": "nature_flower",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_flower.mp3",
+      "scriptBn": "ফুল। মৌমাছি ও প্রজাপতির প্রিয় রঙিন ফুল।",
+      "aliases": [
+        "ফুল"
+      ]
+    },
+    {
+      "id": "nature_mountain",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/nature_mountain.mp3",
+      "scriptBn": "পাহাড়। মেঘ ছোঁয়া উঁচু সবুজ পাহাড়।",
+      "aliases": [
+        "পাহাড়"
+      ]
+    },
+    {
+      "id": "lang_word_0",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_0.mp3",
+      "scriptBn": "বই। আমি মজার গল্পের বই পড়ি।",
+      "aliases": [
+        "বই"
+      ]
+    },
+    {
+      "id": "lang_word_1",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_1.mp3",
+      "scriptBn": "পানি। প্রতিদিন বিশুদ্ধ পানি পান করো।",
+      "aliases": [
+        "পানি"
+      ]
+    },
+    {
+      "id": "lang_word_2",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_2.mp3",
+      "scriptBn": "বাড়ি। আমাদের বাড়ি সুন্দর ও আরামদায়ক।",
+      "aliases": [
+        "বাড়ি"
+      ]
+    },
+    {
+      "id": "lang_word_3",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_3.mp3",
+      "scriptBn": "বন্ধু। বন্ধুর সাথে খেলতে খুব ভালো লাগে।",
+      "aliases": [
+        "বন্ধু"
+      ]
+    },
+    {
+      "id": "lang_word_4",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_4.mp3",
+      "scriptBn": "হাসি। একটি মিষ্টি হাসি দিনটা সুন্দর করে।",
+      "aliases": [
+        "হাসি"
+      ]
+    },
+    {
+      "id": "lang_word_5",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_5.mp3",
+      "scriptBn": "তারা। আকাশে ছোট্ট তারাগুলো ঝিকমিক করে।",
+      "aliases": [
+        "তারা"
+      ]
+    },
+    {
+      "id": "lang_word_6",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_6.mp3",
+      "scriptBn": "বল। রঙিন বলটি উঁচু করে বাউন্স করো।",
+      "aliases": [
+        "বল"
+      ]
+    },
+    {
+      "id": "lang_word_7",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_word_7.mp3",
+      "scriptBn": "সংগীত। মিষ্টি গান আমাদের আনন্দ দেয়।",
+      "aliases": [
+        "সংগীত"
+      ]
+    },
+    {
+      "id": "lang_vocab_0",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_0.mp3",
+      "scriptBn": "শুভ সকাল। সকালে হাসিমুখে বলো শুভ সকাল!",
+      "aliases": [
+        "শুভ সকাল"
+      ]
+    },
+    {
+      "id": "lang_vocab_1",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_1.mp3",
+      "scriptBn": "ধন্যবাদ। কেউ সাহায্য করলে বলো ধন্যবাদ।",
+      "aliases": [
+        "ধন্যবাদ"
+      ]
+    },
+    {
+      "id": "lang_vocab_2",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_2.mp3",
+      "scriptBn": "দয়া করে। ভদ্রভাবে কিছু চাইতে বলো দয়া করে।",
+      "aliases": [
+        "দয়া করে"
+      ]
+    },
+    {
+      "id": "lang_vocab_3",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_3.mp3",
+      "scriptBn": "দুঃখিত। ভুল হলে মিষ্টি করে বলো দুঃখিত।",
+      "aliases": [
+        "দুঃখিত"
+      ]
+    },
+    {
+      "id": "lang_vocab_4",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_4.mp3",
+      "scriptBn": "পরিবার। আমার পরিবার আমাকে খুব ভালোবাসে।",
+      "aliases": [
+        "পরিবার"
+      ]
+    },
+    {
+      "id": "lang_vocab_5",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_5.mp3",
+      "scriptBn": "বিদ্যালয়। বিদ্যালয়ে আমরা নতুন অনেক কিছু শিখি।",
+      "aliases": [
+        "বিদ্যালয়"
+      ]
+    },
+    {
+      "id": "lang_vocab_6",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_6.mp3",
+      "scriptBn": "ভাগাভাগি। খেলনা ভাগাভাগি করলে আনন্দ দ্বিগুণ হয়!",
+      "aliases": [
+        "ভাগাভাগি"
+      ]
+    },
+    {
+      "id": "lang_vocab_7",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_vocab_7.mp3",
+      "scriptBn": "শুভরাত্রি। ঘুমানোর আগে সবাইকে বলো শুভরাত্রি।",
+      "aliases": [
+        "শুভরাত্রি"
+      ]
+    },
+    {
+      "id": "lang_sent_0",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_0.mp3",
+      "scriptBn": "আমি শিখতে ভালোবাসি।",
+      "aliases": [
+        "আমি শিখতে ভালোবাসি।"
+      ]
+    },
+    {
+      "id": "lang_sent_1",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_1.mp3",
+      "scriptBn": "সূর্য খুব উজ্জ্বল।",
+      "aliases": [
+        "সূর্য খুব উজ্জ্বল।"
+      ]
+    },
+    {
+      "id": "lang_sent_2",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_2.mp3",
+      "scriptBn": "এটি একটি মিষ্টি আম।",
+      "aliases": [
+        "এটি একটি মিষ্টি আম।"
+      ]
+    },
+    {
+      "id": "lang_sent_3",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_3.mp3",
+      "scriptBn": "পাখিরা আকাশে ওড়ে।",
+      "aliases": [
+        "পাখিরা আকাশে ওড়ে।"
+      ]
+    },
+    {
+      "id": "lang_sent_4",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_4.mp3",
+      "scriptBn": "আমি আমার বন্ধুদের সাহায্য করি।",
+      "aliases": [
+        "আমি আমার বন্ধুদের সাহায্য করি।"
+      ]
+    },
+    {
+      "id": "lang_sent_5",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_5.mp3",
+      "scriptBn": "রাতে চাঁদ আলো দেয়।",
+      "aliases": [
+        "রাতে চাঁদ আলো দেয়।"
+      ]
+    },
+    {
+      "id": "lang_sent_6",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_6.mp3",
+      "scriptBn": "আমি প্রতিদিন দাঁত ব্রাশ করি।",
+      "aliases": [
+        "আমি প্রতিদিন দাঁত ব্রাশ করি।"
+      ]
+    },
+    {
+      "id": "lang_sent_7",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_sent_7.mp3",
+      "scriptBn": "সবুজ গাছ আমাদের বাতাস দেয়।",
+      "aliases": [
+        "সবুজ গাছ আমাদের বাতাস দেয়।"
+      ]
+    },
+    {
+      "id": "lang_bn_0",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_0.mp3",
+      "scriptBn": "ভালোবাসা। পরিবার ও বন্ধুদের প্রতি ভালোবাসা।",
+      "aliases": [
+        "ভালোবাসা"
+      ]
+    },
+    {
+      "id": "lang_bn_1",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_1.mp3",
+      "scriptBn": "আকাশ। নীল আকাশে সাদা মেঘ ভাসে।",
+      "aliases": [
+        "আকাশ"
+      ]
+    },
+    {
+      "id": "lang_bn_2",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_2.mp3",
+      "scriptBn": "পাখি। ভোরবেলা পাখিরা মিষ্টি গান গায়।",
+      "aliases": [
+        "পাখি"
+      ]
+    },
+    {
+      "id": "lang_bn_3",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_3.mp3",
+      "scriptBn": "ফুল। বাগানে রঙিন ফুল ফুটেছে।",
+      "aliases": [
+        "ফুল"
+      ]
+    },
+    {
+      "id": "lang_bn_4",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_4.mp3",
+      "scriptBn": "নদী। বাংলাদেশ সুন্দর নদীর দেশ।",
+      "aliases": [
+        "নদী"
+      ]
+    },
+    {
+      "id": "lang_bn_5",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_5.mp3",
+      "scriptBn": "বৃষ্টি। টাপুর টুপুর বৃষ্টি পড়ে।",
+      "aliases": [
+        "বৃষ্টি"
+      ]
+    },
+    {
+      "id": "lang_bn_6",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_6.mp3",
+      "scriptBn": "স্বপ্ন। বড় হয়ে ভালো মানুষ হওয়ার স্বপ্ন।",
+      "aliases": [
+        "স্বপ্ন"
+      ]
+    },
+    {
+      "id": "lang_bn_7",
+      "category": "common_words",
+      "assetPath": "audio/bangla/common_words/lang_bn_7.mp3",
+      "scriptBn": "আনন্দ। একসাথে শিখতে অনেক আনন্দ!",
+      "aliases": [
+        "আনন্দ"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_title",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_title.mp3",
+      "scriptBn": "সাহসী ছোট্ট বাঘ",
+      "aliases": [
+        "সাহসী ছোট্ট বাঘ"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_moral",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_moral.mp3",
+      "scriptBn": "সত্যিকারের সাহস হলো ছোট্ট বন্ধুকেও ভালোবাসা ও সাহায্য করা।",
+      "aliases": [
+        "সত্যিকারের সাহস হলো ছোট্ট বন্ধুকেও ভালোবাসা ও সাহায্য করা।"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_1",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_page_1.mp3",
+      "scriptBn": "রোদেলা সুন্দরবনের ভেতরে থাকত টিকু নামের এক হাসিখুশি ছোট্ট বাঘছানা। সে তার লাল স্কার্ফ পরতে খুব ভালোবাসত।",
+      "aliases": [
+        "রোদেলা সুন্দরবনের ভেতরে থাকত টিকু নামের এক হাসিখুশি ছোট্ট বাঘছানা। সে তার লাল স্কার্ফ পরতে খুব ভালোবাসত।"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_2",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_page_2.mp3",
+      "scriptBn": "এক সোনালি সকালে কাঠের সেতুর কাছে টিকু শুনল ছোট্ট 'কিচির মিচির' ডাক। একটি হলুদ পাখি ছানা নদী পার হতে ভয় পাচ্ছিল।",
+      "aliases": [
+        "এক সোনালি সকালে কাঠের সেতুর কাছে টিকু শুনল ছোট্ট 'কিচির মিচির' ডাক। একটি হলুদ পাখি ছানা নদী পার হতে ভয় পাচ্ছিল।"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_3",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_page_3.mp3",
+      "scriptBn": "টিকু আস্তে আস্তে সেতুতে পা রাখল, মিষ্টি করে হাসল এবং ছোট্ট পাখিটিকে নিরাপদে ঝিলমিল নদী পার করে দিল।",
+      "aliases": [
+        "টিকু আস্তে আস্তে সেতুতে পা রাখল, মিষ্টি করে হাসল এবং ছোট্ট পাখিটিকে নিরাপদে ঝিলমিল নদী পার করে দিল।"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_4",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_brave_tiger_page_4.mp3",
+      "scriptBn": "পাখিটি খুশিতে মিষ্টি গান গাইল, আর পুরো বন হাততালি দিয়ে বলল—টিকু সবচেয়ে দয়ালু আর সাহসী বাঘছানা!",
+      "aliases": [
+        "পাখিটি খুশিতে মিষ্টি গান গাইল, আর পুরো বন হাততালি দিয়ে বলল—টিকু সবচেয়ে দয়ালু আর সাহসী বাঘছানা!"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_title",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_title.mp3",
+      "scriptBn": "চালাক খরগোশ ও চাঁদের হাসি",
+      "aliases": [
+        "চালাক খরগোশ ও চাঁদের হাসি"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_moral",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_moral.mp3",
+      "scriptBn": "কৌতূহল আর শান্ত মন অন্ধকার রাতকেও আলোকিত করে।",
+      "aliases": [
+        "কৌতূহল আর শান্ত মন অন্ধকার রাতকেও আলোকিত করে।"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_1",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_page_1.mp3",
+      "scriptBn": "প্রতি সন্ধ্যায় তুলতুলে ছোট্ট খরগোশ মিতু ফুলের টিলায় লাফিয়ে উঠত রাতের আকাশের তারা গুনতে।",
+      "aliases": [
+        "প্রতি সন্ধ্যায় তুলতুলে ছোট্ট খরগোশ মিতু ফুলের টিলায় লাফিয়ে উঠত রাতের আকাশের তারা গুনতে।"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_2",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_page_2.mp3",
+      "scriptBn": "আজ রাতে মিতু দেখল আকাশে একটি বড় সোনালি চাঁদ—আর শান্ত পুকুরের জলেও আরেকটি চাঁদ হাসছে!",
+      "aliases": [
+        "আজ রাতে মিতু দেখল আকাশে একটি বড় সোনালি চাঁদ—আর শান্ত পুকুরের জলেও আরেকটি চাঁদ হাসছে!"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_3",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_page_3.mp3",
+      "scriptBn": "মিতু আস্তে করে জলে ছোঁয়া দিল। ঢেউয়ের তালে চাঁদটা নেচে উঠল! মিতু হেসে বলল, 'আহা! পুকুরটা তো চাঁদের আয়না!'",
+      "aliases": [
+        "মিতু আস্তে করে জলে ছোঁয়া দিল। ঢেউয়ের তালে চাঁদটা নেচে উঠল! মিতু হেসে বলল, 'আহা! পুকুরটা তো চাঁদের আয়না!'"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_4",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_rabbit_moon_page_4.mp3",
+      "scriptBn": "খুশি মনে মিতু হাসিমুখ চাঁদকে শুভরাত্রি জানিয়ে মিষ্টি স্বপ্নের দেশে ঘুমিয়ে পড়ল।",
+      "aliases": [
+        "খুশি মনে মিতু হাসিমুখ চাঁদকে শুভরাত্রি জানিয়ে মিষ্টি স্বপ্নের দেশে ঘুমিয়ে পড়ল।"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_title",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_title.mp3",
+      "scriptBn": "দয়ালু ছোট্ট হাতি",
+      "aliases": [
+        "দয়ালু ছোট্ট হাতি"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_moral",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_moral.mp3",
+      "scriptBn": "আনন্দ ও সাহায্য ভাগাভাগি করলে সবাই একসাথে হাসে।",
+      "aliases": [
+        "আনন্দ ও সাহায্য ভাগাভাগি করলে সবাই একসাথে হাসে।"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_1",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_page_1.mp3",
+      "scriptBn": "রোদেলা নদীর তীরে থাকত গোলু নামের এক মিষ্টি হাতিছানা। তার মাথায় ছিল সবুজ পাতার সুন্দর মুকুট।",
+      "aliases": [
+        "রোদেলা নদীর তীরে থাকত গোলু নামের এক মিষ্টি হাতিছানা। তার মাথায় ছিল সবুজ পাতার সুন্দর মুকুট।"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_2",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_page_2.mp3",
+      "scriptBn": "এক গরম দুপুরে গোলাপি পদ্মফুলগুলো তৃষ্ণার্ত হয়ে পড়ল, আর চারটি ছোট্ট হাঁসছানা ঠান্ডা জলের খেলা চাইল।",
+      "aliases": [
+        "এক গরম দুপুরে গোলাপি পদ্মফুলগুলো তৃষ্ণার্ত হয়ে পড়ল, আর চারটি ছোট্ট হাঁসছানা ঠান্ডা জলের খেলা চাইল।"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_3",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_page_3.mp3",
+      "scriptBn": "গোলু তার প্রিয় নীল ঝাঁঝরি ভরে পদ্মফুল আর হাসিখুশি হাঁসছানাদের ওপর রংধনুর মতো ঝিলমিল জল ছিটিয়ে দিল।",
+      "aliases": [
+        "গোলু তার প্রিয় নীল ঝাঁঝরি ভরে পদ্মফুল আর হাসিখুশি হাঁসছানাদের ওপর রংধনুর মতো ঝিলমিল জল ছিটিয়ে দিল।"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_4",
+      "category": "stories",
+      "assetPath": "audio/bangla/stories/story_kind_elephant_page_4.mp3",
+      "scriptBn": "আকাশ জুড়ে ভেসে উঠল এক বিশাল রংধনু, আর সবাই আনন্দে নেচে উঠল। দয়াই পৃথিবীকে সবচেয়ে সুন্দর করে!",
+      "aliases": [
+        "আকাশ জুড়ে ভেসে উঠল এক বিশাল রংধনু, আর সবাই আনন্দে নেচে উঠল। দয়াই পৃথিবীকে সবচেয়ে সুন্দর করে!"
+      ]
+    },
+    {
+      "id": "poem_chand_mama_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_chand_mama_title.mp3",
+      "scriptBn": "আয় আয় চাঁদ মামা",
+      "aliases": [
+        "আয় আয় চাঁদ মামা"
+      ]
+    },
+    {
+      "id": "poem_chand_mama_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_chand_mama_stanza_0.mp3",
+      "scriptBn": "আয় আয় চাঁদ মামা, টিপ দিয়ে যা। চাঁদের কপালে চাঁদ, টিপ দিয়ে যা।",
+      "aliases": [
+        "আয় আয় চাঁদ মামা, টিপ দিয়ে যা। চাঁদের কপালে চাঁদ, টিপ দিয়ে যা।"
+      ]
+    },
+    {
+      "id": "poem_chand_mama_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_chand_mama_stanza_1.mp3",
+      "scriptBn": "মাছ কাটলে মুড়ো দেবো, ধান ভানলে কুঁড়ো দেবো।",
+      "aliases": [
+        "মাছ কাটলে মুড়ো দেবো, ধান ভানলে কুঁড়ো দেবো।"
+      ]
+    },
+    {
+      "id": "poem_chand_mama_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_chand_mama_stanza_2.mp3",
+      "scriptBn": "কালো গরুর দুধ দেবো, দুধ খাবার বাটি দেবো।",
+      "aliases": [
+        "কালো গরুর দুধ দেবো, দুধ খাবার বাটি দেবো।"
+      ]
+    },
+    {
+      "id": "poem_chand_mama_stanza_3",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_chand_mama_stanza_3.mp3",
+      "scriptBn": "চাঁদের কপালে চাঁদ, টিপ দিয়ে যা।",
+      "aliases": [
+        "চাঁদের কপালে চাঁদ, টিপ দিয়ে যা।"
+      ]
+    },
+    {
+      "id": "poem_hattimatim_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_hattimatim_title.mp3",
+      "scriptBn": "হাট্টিমাটিম টিম",
+      "aliases": [
+        "হাট্টিমাটিম টিম"
+      ]
+    },
+    {
+      "id": "poem_hattimatim_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_hattimatim_stanza_0.mp3",
+      "scriptBn": "হাট্টিমাটিম টিম, তারা মাঠে পাড়ে ডিম।",
+      "aliases": [
+        "হাট্টিমাটিম টিম, তারা মাঠে পাড়ে ডিম।"
+      ]
+    },
+    {
+      "id": "poem_hattimatim_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_hattimatim_stanza_1.mp3",
+      "scriptBn": "তাদের খাড়া দুটো শিং, তারা হাট্টিমাটিম টিম।",
+      "aliases": [
+        "তাদের খাড়া দুটো শিং, তারা হাট্টিমাটিম টিম।"
+      ]
+    },
+    {
+      "id": "poem_hattimatim_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_hattimatim_stanza_2.mp3",
+      "scriptBn": "খেলছে মাঠে সারাবেলা, আনন্দময় ছড়ার মেলা।",
+      "aliases": [
+        "খেলছে মাঠে সারাবেলা, আনন্দময় ছড়ার মেলা।"
+      ]
+    },
+    {
+      "id": "poem_ata_gachhe_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ata_gachhe_title.mp3",
+      "scriptBn": "আতা গাছে তোতা পাখি",
+      "aliases": [
+        "আতা গাছে তোতা পাখি"
+      ]
+    },
+    {
+      "id": "poem_ata_gachhe_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ata_gachhe_stanza_0.mp3",
+      "scriptBn": "আতা গাছে তোতা পাখি, ডালিম গাছে মৌ।",
+      "aliases": [
+        "আতা গাছে তোতা পাখি, ডালিম গাছে মৌ।"
+      ]
+    },
+    {
+      "id": "poem_ata_gachhe_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ata_gachhe_stanza_1.mp3",
+      "scriptBn": "এত ডাকি তবু কথা, কও না কেন বউ?",
+      "aliases": [
+        "এত ডাকি তবু কথা, কও না কেন বউ?"
+      ]
+    },
+    {
+      "id": "poem_ata_gachhe_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ata_gachhe_stanza_2.mp3",
+      "scriptBn": "গাছের ডালে মিষ্টি গান, জুড়িয়ে দেয় সবার প্রাণ।",
+      "aliases": [
+        "গাছের ডালে মিষ্টি গান, জুড়িয়ে দেয় সবার প্রাণ।"
+      ]
+    },
+    {
+      "id": "poem_ay_brishti_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ay_brishti_title.mp3",
+      "scriptBn": "আয় বৃষ্টি ঝেঁপে",
+      "aliases": [
+        "আয় বৃষ্টি ঝেঁপে"
+      ]
+    },
+    {
+      "id": "poem_ay_brishti_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ay_brishti_stanza_0.mp3",
+      "scriptBn": "আয় বৃষ্টি ঝেঁপে, ধান দেবো মেপে।",
+      "aliases": [
+        "আয় বৃষ্টি ঝেঁপে, ধান দেবো মেপে।"
+      ]
+    },
+    {
+      "id": "poem_ay_brishti_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ay_brishti_stanza_1.mp3",
+      "scriptBn": "লেবুর পাতা করমচা, যা বৃষ্টি ধরে যা।",
+      "aliases": [
+        "লেবুর পাতা করমচা, যা বৃষ্টি ধরে যা।"
+      ]
+    },
+    {
+      "id": "poem_ay_brishti_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_ay_brishti_stanza_2.mp3",
+      "scriptBn": "টাপুর টুপুর বৃষ্টি পড়ে, ছোট্ট খুকু হাসে ঘরে।",
+      "aliases": [
+        "টাপুর টুপুর বৃষ্টি পড়ে, ছোট্ট খুকু হাসে ঘরে।"
+      ]
+    },
+    {
+      "id": "poem_tai_tai_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_tai_tai_title.mp3",
+      "scriptBn": "তাই তাই তাই",
+      "aliases": [
+        "তাই তাই তাই"
+      ]
+    },
+    {
+      "id": "poem_tai_tai_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_tai_tai_stanza_0.mp3",
+      "scriptBn": "তাই তাই তাই, মামা বাড়ি যাই।",
+      "aliases": [
+        "তাই তাই তাই, মামা বাড়ি যাই।"
+      ]
+    },
+    {
+      "id": "poem_tai_tai_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_tai_tai_stanza_1.mp3",
+      "scriptBn": "মামি দিলো দুধ-ভাত, দুয়ারে বসে খাই।",
+      "aliases": [
+        "মামি দিলো দুধ-ভাত, দুয়ারে বসে খাই।"
+      ]
+    },
+    {
+      "id": "poem_tai_tai_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_tai_tai_stanza_2.mp3",
+      "scriptBn": "মামা এলো লাঠি হাতে, হাসি খুশি সবাই সাথে।",
+      "aliases": [
+        "মামা এলো লাঠি হাতে, হাসি খুশি সবাই সাথে।"
+      ]
+    },
+    {
+      "id": "poem_noton_payra_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_noton_payra_title.mp3",
+      "scriptBn": "নোটন নোটন পায়রাগুলি",
+      "aliases": [
+        "নোটন নোটন পায়রাগুলি"
+      ]
+    },
+    {
+      "id": "poem_noton_payra_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_noton_payra_stanza_0.mp3",
+      "scriptBn": "নোটন নোটন পায়রাগুলি, ঝোঁটন বেঁধেছে।",
+      "aliases": [
+        "নোটন নোটন পায়রাগুলি, ঝোঁটন বেঁধেছে।"
+      ]
+    },
+    {
+      "id": "poem_noton_payra_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_noton_payra_stanza_1.mp3",
+      "scriptBn": "বড় সাহেবের বিবিগুলি, নাইতে এসেছে।",
+      "aliases": [
+        "বড় সাহেবের বিবিগুলি, নাইতে এসেছে।"
+      ]
+    },
+    {
+      "id": "poem_noton_payra_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_noton_payra_stanza_2.mp3",
+      "scriptBn": "দুই পারে দুই রুই কাতলা, ভেসে উঠেছে।",
+      "aliases": [
+        "দুই পারে দুই রুই কাতলা, ভেসে উঠেছে।"
+      ]
+    },
+    {
+      "id": "poem_noton_payra_stanza_3",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_noton_payra_stanza_3.mp3",
+      "scriptBn": "কে দেখেছে কে দেখেছে, দাদা দেখেছে।",
+      "aliases": [
+        "কে দেখেছে কে দেখেছে, দাদা দেখেছে।"
+      ]
+    },
+    {
+      "id": "poem_khokon_khokon_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_khokon_khokon_title.mp3",
+      "scriptBn": "খোকন খোকন ডাক পাড়ি",
+      "aliases": [
+        "খোকন খোকন ডাক পাড়ি"
+      ]
+    },
+    {
+      "id": "poem_khokon_khokon_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_khokon_khokon_stanza_0.mp3",
+      "scriptBn": "খোকন খোকন ডাক পাড়ি, খোকন মোদের কার বাড়ি?",
+      "aliases": [
+        "খোকন খোকন ডাক পাড়ি, খোকন মোদের কার বাড়ি?"
+      ]
+    },
+    {
+      "id": "poem_khokon_khokon_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_khokon_khokon_stanza_1.mp3",
+      "scriptBn": "আয় রে খোকন ঘরে আয়, দুধ-মাখা ভাত কাকে খায়।",
+      "aliases": [
+        "আয় রে খোকন ঘরে আয়, দুধ-মাখা ভাত কাকে খায়।"
+      ]
+    },
+    {
+      "id": "poem_khokon_khokon_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_khokon_khokon_stanza_2.mp3",
+      "scriptBn": "খোকন যাবে নায়ে, লাল জুতো পায়ে।",
+      "aliases": [
+        "খোকন যাবে নায়ে, লাল জুতো পায়ে।"
+      ]
+    },
+    {
+      "id": "poem_aam_pata_title",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_aam_pata_title.mp3",
+      "scriptBn": "আম পাতা জোড়া জোড়া",
+      "aliases": [
+        "আম পাতা জোড়া জোড়া"
+      ]
+    },
+    {
+      "id": "poem_aam_pata_stanza_0",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_aam_pata_stanza_0.mp3",
+      "scriptBn": "আম পাতা জোড়া জোড়া, মারবো চাবুক চড়বো ঘোড়া।",
+      "aliases": [
+        "আম পাতা জোড়া জোড়া, মারবো চাবুক চড়বো ঘোড়া।"
+      ]
+    },
+    {
+      "id": "poem_aam_pata_stanza_1",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_aam_pata_stanza_1.mp3",
+      "scriptBn": "ওরে বুবু সরে দাঁড়া, আসছে আমার পাগলা ঘোড়া।",
+      "aliases": [
+        "ওরে বুবু সরে দাঁড়া, আসছে আমার পাগলা ঘোড়া।"
+      ]
+    },
+    {
+      "id": "poem_aam_pata_stanza_2",
+      "category": "poems",
+      "assetPath": "audio/bangla/poems/poem_aam_pata_stanza_2.mp3",
+      "scriptBn": "পাগলা ঘোড়া ক্ষেপেছে, আনন্দে মন মেতেছে।",
+      "aliases": [
+        "পাগলা ঘোড়া ক্ষেপেছে, আনন্দে মন মেতেছে।"
+      ]
+    },
+    {
+      "id": "inst_welcome",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/welcome_bn.mp3",
+      "scriptBn": "স্বাগতম কিড'জ ওয়ার্ল্ডে! এসো খেলি, শিখি আর বড় হই।",
+      "aliases": [
+        "স্বাগতম কিড'জ ওয়ার্ল্ডে!",
+        "স্বাগতম কিড'জ ওয়ার্ল্ডে"
+      ]
+    },
+    {
+      "id": "inst_test_voice",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/test_voice_bn.mp3",
+      "scriptBn": "আয় আয় চাঁদ মামা, টিপ দিয়ে যা। কিড'জ ওয়ার্ল্ডে স্বাগতম!",
+      "aliases": [
+        "আয় আয় চাঁদ মামা, টিপ দিয়ে যা। কিড'জ ওয়ার্ল্ডে স্বাগতম!"
+      ]
+    },
+    {
+      "id": "inst_tap_to_hear",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/tap_to_hear_bn.mp3",
+      "scriptBn": "শুনতে ট্যাপ করো!",
+      "aliases": [
+        "শুনতে ট্যাপ করো",
+        "শুনতে ট্যাপ করো!"
+      ]
+    },
+    {
+      "id": "inst_great_job",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/great_job_bn.mp3",
+      "scriptBn": "দারুণ করেছ! শাবাশ!",
+      "aliases": [
+        "দারুণ করেছ!",
+        "দারুণ!",
+        "শাবাশ!"
+      ]
+    },
+    {
+      "id": "inst_try_again",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/try_again_bn.mp3",
+      "scriptBn": "আবার চেষ্টা করো, তুমি পারবে!",
+      "aliases": [
+        "আবার চেষ্টা করো!",
+        "আবার চেষ্টা করো"
+      ]
+    },
+    {
+      "id": "inst_jigsaw_solved",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/jigsaw_solved_bn.mp3",
+      "scriptBn": "বাহ! দারুণ ছবি মিলিয়েছ!",
+      "aliases": [
+        "বাহ! দারুণ ছবি মিলিয়েছ!"
+      ]
+    },
+    {
+      "id": "inst_sorting_prompt",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/sorting_prompt_bn.mp3",
+      "scriptBn": "এটি কোন ঝুড়িতে যাবে?",
+      "aliases": [
+        "এটি কোন ঝুড়িতে যাবে?"
+      ]
+    },
+    {
+      "id": "inst_pattern_prompt",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/pattern_prompt_bn.mp3",
+      "scriptBn": "এর পরে কী আসবে?",
+      "aliases": [
+        "এর পরে কী আসবে?"
+      ]
+    },
+    {
+      "id": "inst_quiz_find",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/quiz_find_bn.mp3",
+      "scriptBn": "খুঁজে বের করো",
+      "aliases": [
+        "খুঁজে বের করো",
+        "খুঁজে বের করো:"
+      ]
+    },
+    {
+      "id": "inst_math_plus",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/math_plus_bn.mp3",
+      "scriptBn": "যোগ",
+      "aliases": [
+        "যোগ"
+      ]
+    },
+    {
+      "id": "inst_math_minus",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/math_minus_bn.mp3",
+      "scriptBn": "বিয়োগ",
+      "aliases": [
+        "বিয়োগ"
+      ]
+    },
+    {
+      "id": "inst_math_equals_what",
+      "category": "instructions",
+      "assetPath": "audio/bangla/instructions/math_equals_what_bn.mp3",
+      "scriptBn": "সমান কত?",
+      "aliases": [
+        "সমান কত?",
+        "সমান কত"
+      ]
+    }
+  ]
+}

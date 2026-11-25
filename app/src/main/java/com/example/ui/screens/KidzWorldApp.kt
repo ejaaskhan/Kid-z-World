@@ -12,6 +12,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -57,7 +58,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -73,6 +73,7 @@ import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.AppSettings
 import com.example.domain.model.BanglaPoem
+import com.example.domain.model.BundledBanglaAudioStatus
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
@@ -82,7 +83,6 @@ import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
 import com.example.domain.model.UiState
-import com.example.domain.model.VoicePackStatus
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonBackground
@@ -104,6 +104,7 @@ const val ROUTE_POEMS = "poems"
 const val ROUTE_GAMES = "games"
 const val ROUTE_STORIES = "stories"
 const val ROUTE_PROFILE = "profile"
+const val ROUTE_SETTINGS = "settings"
 const val ROUTE_PARENTS = "parents"
 const val ROUTE_ABOUT = "about"
 
@@ -129,13 +130,15 @@ fun KidzWorldApp(
     val celebrationMessage by viewModel.celebrationMessage.collectAsStateWithLifecycle()
     val isSpeaking by viewModel.isSpeaking.collectAsStateWithLifecycle()
     val activeUtteranceIndex by viewModel.activeUtteranceIndex.collectAsStateWithLifecycle()
-    val voiceStatus by viewModel.voiceStatus.collectAsStateWithLifecycle()
+    val bundledAudioStatus by viewModel.bundledAudioStatus.collectAsStateWithLifecycle()
     val showOnboardingReplay by viewModel.showOnboardingReplay.collectAsStateWithLifecycle()
 
     var splashCompleted by rememberSaveable { mutableStateOf(false) }
 
+    val isDarkTheme = settings.themeMode.resolveDarkTheme(isSystemInDarkTheme())
+
     KidzWorldTheme(
-        darkTheme = settings.darkModeEnabled,
+        darkTheme = isDarkTheme,
         language = settings.language
     ) {
         val strings = LocalAppStrings.current
@@ -146,7 +149,7 @@ fun KidzWorldApp(
         }
 
         CartoonBackground(
-            darkMode = settings.darkModeEnabled,
+            darkMode = isDarkTheme,
             modifier = modifier
         ) {
             when (val state = initState) {
@@ -198,7 +201,7 @@ fun KidzWorldApp(
                                 celebrationMessage = celebrationMessage,
                                 isSpeaking = isSpeaking,
                                 activeUtteranceIndex = activeUtteranceIndex,
-                                voiceStatus = voiceStatus,
+                                bundledAudioStatus = bundledAudioStatus,
                                 strings = strings
                             )
                         }
@@ -226,7 +229,7 @@ private fun MainKidzWorldShell(
     celebrationMessage: String?,
     isSpeaking: Boolean,
     activeUtteranceIndex: Int?,
-    voiceStatus: VoicePackStatus,
+    bundledAudioStatus: BundledBanglaAudioStatus,
     strings: com.example.core.localization.AppStrings
 ) {
     val navController = rememberNavController()
@@ -261,8 +264,19 @@ private fun MainKidzWorldShell(
 
     fun isTabSelected(tabRoute: String): Boolean {
         if (currentRoute == tabRoute) return true
-        return tabRoute == ROUTE_PROFILE && (currentRoute == ROUTE_PARENTS || currentRoute == ROUTE_ABOUT)
+        return tabRoute == ROUTE_PROFILE && (
+            currentRoute == ROUTE_PARENTS ||
+                currentRoute == ROUTE_ABOUT ||
+                currentRoute == ROUTE_SETTINGS
+            )
     }
+
+    val utilitySubRoutes = setOf(
+        ROUTE_PROFILE,
+        ROUTE_SETTINGS,
+        ROUTE_ABOUT,
+        ROUTE_PARENTS
+    )
 
     fun navigateToTab(route: String, resetLearnHub: Boolean = false) {
         viewModel.stopSpeaking()
@@ -273,12 +287,31 @@ private fun MainKidzWorldShell(
         } else if (route != ROUTE_LEARN) {
             activeLearnLessonId = null
         }
+
+        val startDestId = navController.graph.findStartDestination().id
+        val leavingSubRoute = currentRoute in utilitySubRoutes
+
+        if (route == ROUTE_HOME) {
+            val popped = navController.popBackStack(ROUTE_HOME, inclusive = false)
+            if (!popped) {
+                navController.navigate(ROUTE_HOME) {
+                    popUpTo(startDestId) {
+                        inclusive = false
+                        saveState = false
+                    }
+                    launchSingleTop = true
+                    restoreState = false
+                }
+            }
+            return
+        }
+
         navController.navigate(route) {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
+            popUpTo(startDestId) {
+                saveState = !leavingSubRoute
             }
             launchSingleTop = true
-            restoreState = true
+            restoreState = route !in utilitySubRoutes
         }
     }
 
@@ -371,7 +404,7 @@ private fun MainKidzWorldShell(
                         moduleProgress = moduleProgress,
                         isSpeaking = isSpeaking,
                         activeUtteranceIndex = activeUtteranceIndex,
-                        voiceStatus = voiceStatus,
+                        bundledAudioStatus = bundledAudioStatus,
                         onOpenChildSwitcher = { showChildSheet = true },
                         onOpenAddChild = { showQuickAddChild = true },
                         onNavigateToTab = { navigateToTab(it) },
@@ -416,7 +449,7 @@ private fun MainKidzWorldShell(
                     moduleProgress = moduleProgress,
                     isSpeaking = isSpeaking,
                     activeUtteranceIndex = activeUtteranceIndex,
-                    voiceStatus = voiceStatus,
+                    bundledAudioStatus = bundledAudioStatus,
                     onOpenChildSwitcher = { showChildSheet = true },
                     onOpenAddChild = { showQuickAddChild = true },
                     onNavigateToTab = { navigateToTab(it) },
@@ -517,15 +550,13 @@ private fun KidzNavHost(
     moduleProgress: Map<ModuleType, ModuleProgress>,
     isSpeaking: Boolean,
     activeUtteranceIndex: Int?,
-    voiceStatus: VoicePackStatus,
+    bundledAudioStatus: BundledBanglaAudioStatus,
     onOpenChildSwitcher: () -> Unit,
     onOpenAddChild: () -> Unit,
     onNavigateToTab: (String) -> Unit,
     onNavigateToSubRoute: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-
     NavHost(
         navController = navController,
         startDestination = ROUTE_HOME,
@@ -587,12 +618,7 @@ private fun KidzNavHost(
                 onToggleLanguage = { viewModel.toggleLanguage() },
                 onSpeakLesson = { viewModel.speakLesson(it) },
                 onSpeakText = { viewModel.speakText(it) },
-                onSpeakCount = { number ->
-                    viewModel.speakText(
-                        text = number.toLocalizedDigits(settings.language),
-                        language = settings.language
-                    )
-                },
+                onSpeakCount = { number -> viewModel.speakNumber(number) },
                 onPlayEffect = { viewModel.playEffect(it) },
                 onMarkLearned = { viewModel.markLessonLearned(it) },
                 onRecordQuizScore = { type, score, stars ->
@@ -607,16 +633,13 @@ private fun KidzNavHost(
                 language = settings.language,
                 isSpeaking = isSpeaking,
                 activeUtteranceIndex = activeUtteranceIndex,
-                voiceStatus = voiceStatus,
                 isWideScreen = isWideScreen,
                 onToggleLanguage = { viewModel.toggleLanguage() },
                 onRecitePoem = { poem, slow -> viewModel.recitePoem(poem, slow) },
-                onReciteStanza = { text, slow -> viewModel.recitePoemStanza(text, slow) },
+                onReciteStanza = { poemId, idx, slow -> viewModel.recitePoemStanza(poemId, idx, slow) },
                 onStopSpeaking = { viewModel.stopSpeaking() },
                 onPlayEffect = { viewModel.playEffect(it) },
-                onCompletePoem = { viewModel.completePoem(it) },
-                onInstallBanglaPack = { viewModel.openBanglaVoicePackInstaller(context) },
-                onRefreshVoices = { viewModel.refreshVoices() }
+                onCompletePoem = { viewModel.completePoem(it) }
             )
         }
 
@@ -644,7 +667,9 @@ private fun KidzNavHost(
                 isSpeaking = isSpeaking,
                 isWideScreen = isWideScreen,
                 onToggleLanguage = { viewModel.toggleLanguage() },
-                onSpeakText = { viewModel.speakText(it) },
+                onSpeakStoryPage = { storyId, pageNumber, fallbackEn ->
+                    viewModel.speakStoryPage(storyId, pageNumber, fallbackEn)
+                },
                 onStopSpeaking = { viewModel.stopSpeaking() },
                 onPlayEffect = { viewModel.playEffect(it) },
                 onCompleteStory = { viewModel.completeStory(it) }
@@ -671,9 +696,26 @@ private fun KidzNavHost(
                 },
                 onOpenPoems = { onNavigateToTab(ROUTE_POEMS) },
                 onOpenStories = { onNavigateToTab(ROUTE_STORIES) },
+                onOpenSettings = { onNavigateToSubRoute(ROUTE_SETTINGS) },
                 onOpenParentZone = { onNavigateToSubRoute(ROUTE_PARENTS) },
                 onOpenAboutApp = { onNavigateToSubRoute(ROUTE_ABOUT) },
                 onBack = if (!isWideScreen) ({ navController.popBackStack() }) else null
+            )
+        }
+
+        composable(ROUTE_SETTINGS) {
+            SettingsScreen(
+                settings = settings,
+                audioStatus = bundledAudioStatus,
+                onBack = { navController.popBackStack() },
+                onToggleLanguage = { viewModel.toggleLanguage() },
+                onSetThemeMode = { viewModel.setThemeMode(it) },
+                onSetSoundFx = { viewModel.setSoundFxEnabled(it) },
+                onSetTts = { viewModel.setTtsEnabled(it) },
+                onSetSpeechRate = { viewModel.setSpeechRate(it) },
+                onTestBanglaVoice = { viewModel.testBanglaAudio() },
+                onTestEnglishVoice = { viewModel.testEnglishAudio() },
+                onPlayEffect = { viewModel.playEffect(it) }
             )
         }
 
@@ -685,7 +727,7 @@ private fun KidzNavHost(
                 moduleProgress = moduleProgress,
                 stories = stories,
                 poems = poems,
-                voiceStatus = voiceStatus,
+                audioStatus = bundledAudioStatus,
                 onSelectChild = { viewModel.selectChild(it) },
                 onAddChild = { name, age, avatar -> viewModel.addChild(name, age, avatar) },
                 onDeleteChild = { viewModel.deleteChild(it) },
@@ -693,10 +735,9 @@ private fun KidzNavHost(
                 onSetSoundFx = { viewModel.setSoundFxEnabled(it) },
                 onSetTts = { viewModel.setTtsEnabled(it) },
                 onSetSpeechRate = { viewModel.setSpeechRate(it) },
-                onSetDarkMode = { viewModel.setDarkModeEnabled(it) },
-                onInstallBanglaPack = { viewModel.openBanglaVoicePackInstaller(context) },
-                onRefreshVoices = { viewModel.refreshVoices() },
-                onTestVoice = { text, lang -> viewModel.speakText(text, lang) },
+                onSetThemeMode = { viewModel.setThemeMode(it) },
+                onTestBanglaVoice = { viewModel.testBanglaAudio() },
+                onTestEnglishVoice = { viewModel.testEnglishAudio() },
                 onResetProgress = { viewModel.resetActiveChildProgress() },
                 onBack = { navController.popBackStack() },
                 onOpenAboutApp = { onNavigateToSubRoute(ROUTE_ABOUT) }
@@ -709,7 +750,8 @@ private fun KidzNavHost(
                 onBack = { navController.popBackStack() },
                 onToggleLanguage = { viewModel.toggleLanguage() },
                 onReplayOnboarding = { viewModel.replayOnboarding() },
-                onOpenParentZone = { onNavigateToSubRoute(ROUTE_PARENTS) }
+                onOpenParentZone = { onNavigateToSubRoute(ROUTE_PARENTS) },
+                onPlayEffect = { viewModel.playEffect(it) }
             )
         }
     }

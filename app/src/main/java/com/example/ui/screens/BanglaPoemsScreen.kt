@@ -63,8 +63,6 @@ import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.BanglaPoem
-import com.example.domain.model.VoicePackStatus
-import com.example.ui.components.BanglaVoicePackPromptCard
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
 import com.example.ui.components.Cartoon3DCircleIconButton
@@ -88,16 +86,13 @@ fun BanglaPoemsScreen(
     language: AppLanguage,
     isSpeaking: Boolean,
     activeUtteranceIndex: Int?,
-    voiceStatus: VoicePackStatus,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
     onRecitePoem: (BanglaPoem, Boolean) -> Unit,
-    onReciteStanza: (String, Boolean) -> Unit,
+    onReciteStanza: (String, Int, Boolean) -> Unit,
     onStopSpeaking: () -> Unit,
     onPlayEffect: (SoundEffect) -> Unit,
     onCompletePoem: (BanglaPoem) -> Unit,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var activePoemId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -119,15 +114,12 @@ fun BanglaPoemsScreen(
         PoemsShelfView(
             poems = poems,
             language = language,
-            voiceStatus = voiceStatus,
             isWideScreen = isWideScreen,
             onToggleLanguage = onToggleLanguage,
             onSelectPoem = { poem ->
                 onPlayEffect(SoundEffect.PAGE_TURN)
                 activePoemId = poem.id
             },
-            onInstallBanglaPack = onInstallBanglaPack,
-            onRefreshVoices = onRefreshVoices,
             modifier = modifier
         )
     } else {
@@ -136,7 +128,6 @@ fun BanglaPoemsScreen(
             language = language,
             isSpeaking = isSpeaking,
             activeUtteranceIndex = activeUtteranceIndex,
-            voiceStatus = voiceStatus,
             onBack = {
                 onStopSpeaking()
                 onPlayEffect(SoundEffect.TAP_POP)
@@ -149,8 +140,6 @@ fun BanglaPoemsScreen(
                 onStopSpeaking()
                 onCompletePoem(activePoem)
             },
-            onInstallBanglaPack = onInstallBanglaPack,
-            onRefreshVoices = onRefreshVoices,
             modifier = modifier
         )
     }
@@ -160,12 +149,9 @@ fun BanglaPoemsScreen(
 private fun PoemsShelfView(
     poems: List<BanglaPoem>,
     language: AppLanguage,
-    voiceStatus: VoicePackStatus,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
     onSelectPoem: (BanglaPoem) -> Unit,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
@@ -276,17 +262,6 @@ private fun PoemsShelfView(
                         )
                     }
                 }
-            }
-        }
-
-        // One-tap Bangla Voice Pack prompt when missing on the device
-        if (voiceStatus.isInitialized && !voiceStatus.banglaInstalled) {
-            item {
-                BanglaVoicePackPromptCard(
-                    voiceStatus = voiceStatus,
-                    onInstallBanglaPack = onInstallBanglaPack,
-                    onRefreshVoices = onRefreshVoices
-                )
             }
         }
 
@@ -420,14 +395,11 @@ private fun PoemTheatreView(
     language: AppLanguage,
     isSpeaking: Boolean,
     activeUtteranceIndex: Int?,
-    voiceStatus: VoicePackStatus,
     onBack: () -> Unit,
     onRecitePoem: (BanglaPoem, Boolean) -> Unit,
-    onReciteStanza: (String, Boolean) -> Unit,
+    onReciteStanza: (String, Int, Boolean) -> Unit,
     onStopSpeaking: () -> Unit,
     onCompletePoem: () -> Unit,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
@@ -573,16 +545,6 @@ private fun PoemTheatreView(
             }
         }
 
-        if (voiceStatus.isInitialized && !voiceStatus.banglaInstalled) {
-            item {
-                BanglaVoicePackPromptCard(
-                    voiceStatus = voiceStatus,
-                    onInstallBanglaPack = onInstallBanglaPack,
-                    onRefreshVoices = onRefreshVoices
-                )
-            }
-        }
-
         // Primary Recite + Reward Controls (Big 56dp+ Kid Targets)
         item {
             Row(
@@ -636,7 +598,7 @@ private fun PoemTheatreView(
                 cornerRadius = 24.dp,
                 bevelDepth = if (isHighlighted) 6.dp else 4.dp,
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 18.dp),
-                onClick = { onReciteStanza(stanza, slowMode) },
+                onClick = { onReciteStanza(poem.id, index, slowMode) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .scale(scale)

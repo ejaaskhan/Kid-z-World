@@ -114,15 +114,34 @@ data class ChildProfile(
     val createdAt: Long = System.currentTimeMillis()
 )
 
+enum class ThemeMode(val key: String) {
+    LIGHT("light"),
+    DARK("dark"),
+    SYSTEM("system");
+
+    fun resolveDarkTheme(isSystemDark: Boolean): Boolean = when (this) {
+        LIGHT -> false
+        DARK -> true
+        SYSTEM -> isSystemDark
+    }
+
+    companion object {
+        fun fromKey(key: String?): ThemeMode =
+            entries.firstOrNull { it.key.equals(key, ignoreCase = true) } ?: SYSTEM
+    }
+}
+
 data class AppSettings(
     val language: AppLanguage = AppLanguage.BANGLA,
     val activeChildId: Long = 1L,
     val soundFxEnabled: Boolean = true,
     val ttsEnabled: Boolean = true,
-    val speechRate: Float = 0.84f,
-    val darkModeEnabled: Boolean = false,
+    val speechRate: Float = 0.86f,
+    val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val onboardingCompleted: Boolean = false
-)
+) {
+    val darkModeEnabled: Boolean get() = themeMode == ThemeMode.DARK
+}
 
 data class LessonItem(
     val id: String,
@@ -180,13 +199,11 @@ data class BanglaPoem(
         if (language == AppLanguage.BANGLA) titleBn else "$titleBn ($titleEn)"
 }
 
-data class VoicePackStatus(
-    val banglaInstalled: Boolean = true,
-    val englishInstalled: Boolean = true,
-    val isHighQualityBangla: Boolean = false,
-    val selectedBanglaVoiceLabel: String = "bn-BD",
-    val selectedEnglishVoiceLabel: String = "en-US",
-    val isInitialized: Boolean = false
+data class BundledBanglaAudioStatus(
+    val isReady: Boolean = true,
+    val verifiedClipsCount: Int = 0,
+    val totalClipsCount: Int = 0,
+    val localeLabel: String = "বাংলা (bn-BD Offline Audio)"
 )
 
 data class StoryPage(

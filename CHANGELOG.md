@@ -4,6 +4,18 @@ All notable changes to **KID'Z WORLD** (by **Dev. E**) are documented in this fi
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-11-25
+
+### Added
+- **Dedicated 3D Cartoon Settings Screen**: Directly accessible from both the Home header and Profile Hub, neatly organized into **General** (*Theme Mode* & *Language*), **Sound** (*UI Sound On/Off*, *Educational Voice Narration*, *Voice Speed*, and *Live Audio Testers*), and **About** (*App Information* & *Developer Website*).
+- **Light Mode, Dark Mode & System Default Theme**: Full Material 3 Light and Cozy Bedtime Dark color schemes plus dynamic **System Default** (`isSystemInDarkTheme()`), persisted locally in Jetpack DataStore with backward-compatible migration and instant switching (including Android status/navigation bar contrast) without restarting the app.
+- **Clickable Developer Website Link (`Dev. E`)**: Both the Settings → About card and the About KID'Z WORLD screen display `KID'Z WORLD`, `Dev. E` (with external-link icon), and `Learn • Play • Grow`, opening `https://ebrahimjamansumon.blogspot.com` in the external browser via a crash-safe Android intent launcher with localized error feedback.
+
+### Improved
+- **Independent Global UI Sound On/Off**: Centralized in `KidzAudioEngine` + `SettingsDataStore` so turning off UI Sound silences all button taps, navigation clicks, and UI chimes while keeping bundled Bangla MP3 audio, English pronunciation, poems, and story narration completely independent.
+- **Natural Bangla & English Voice Quality**: Preserved all 330 bundled offline Bangladeshi Bangla (`bn-BD`) MP3 files at natural `1.0x` studio cadence while upgrading English TTS to prefer Google Speech Services (with automatic default fallback), prioritize local high-quality/neural `en-US`/`en-GB` voices over robotic synthesizers, lock pitch strictly to natural `1.0f` (zero artificial pitch shift), and apply comfortable child-friendly pacing (`0.86x` default) with gentle pauses.
+- **Version & CI Workflow Update**: Bumped app version to `1.1.1` (`versionCode = 3`) without resetting user data or progress, and updated `.github/workflows/android-release.yml` defaults and release notes for `v1.1.1`.
+
 ## [1.1.0] - 2026-11-25
 
 ### Added
@@ -12,11 +24,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
   - **Picture Jigsaw Puzzle**: `2×2` (Easy) and `3×3` (Fun) tap-to-swap puzzle boards featuring 5 bundled 3D Pixar-style artworks and a helpful **Hint Peek** preview.
   - **Animal & Fruit Sorting Puzzle**: 18 bilingual items sorted into Animals, Fruits, and Vehicles baskets with automatic voice pronunciation.
   - **Pattern & Sequence Puzzle**: 5-round visual logic puzzle (ABAB, AABB, ABC) with glowing mystery slot and instant cheerful audio feedback.
-- **Natural Bangla & English Offline Voice Pack Engine**: Automatically prioritizes Google Speech Services (`com.google.android.tts`) and selects the highest-quality local offline Bangla (`bn-BD` / `bn-IN`) and English (`en-US` / `en-GB`) voices with warm child-friendly pitch and pacing (`0.84x` default), plus a **one-tap Bangla voice pack installer** (`ACTION_INSTALL_TTS_DATA`) and interactive voice test buttons in Parent Zone.
+- **Built-In Offline Bangladeshi Bangla Audio Library (Zero Android System TTS)**: Bundled **330 real pre-recorded Bangladeshi Bangla (`bn-BD`) MP3 files** directly inside `app/src/main/assets/audio/bangla/` (with `manifest.json` and uncompressed APK packaging via `noCompress += "mp3"`) covering Bangla alphabets (`অ–ঔ` & `ক–ন`), English `A–Z` Bangla support, numbers `0–100`, fruits, animals, colors, shapes, body/vehicles/nature/vocabulary, learning instructions, math operators, all 8 Bangla poems (title + every stanza), and all 3 illustrated stories (title + every page + moral). Completely removed Android System TTS, Google Speech Services checks, voice-pack install prompts, and Android TTS settings navigation for Bangla; playback uses native Android `MediaPlayer` with zero overlap, replay, stop, and speed control.
 
 ### Changed
 - **Bangla (`বাংলা`) as Default Language**: Fresh installs launch directly in **বাংলা** (with Bangla alphabet default in Learn Studio and Bangla-first Onboarding) while preserving instant one-tap **বাং / EN** switching across every screen.
-- **Child UX Optimizations**: Animated speaking-wave visual indicators (`SpeakingWaveBadge`), larger kid-safe touch targets, top-right Profile quick access on Home, and updated GitHub Actions CI/CD workflow defaults for `v1.1.0`.
+- **Child UX Optimizations & CI Asset Verification**: Animated speaking-wave visual indicators (`SpeakingWaveBadge`), larger kid-safe touch targets, top-right Profile quick access on Home, bundled audio health status & test buttons in Parent Zone, and GitHub Actions verification that all 330 Bangla MP3 files are packaged inside every APK.
 
 ## [1.0.0] - 2026-11-24
 

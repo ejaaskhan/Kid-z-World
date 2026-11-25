@@ -1,9 +1,9 @@
 package com.example.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.core.audio.BanglaAudioManifest
 import com.example.core.audio.KidzAudioEngine
 import com.example.core.audio.SoundEffect
 import com.example.core.localization.AppLanguage
@@ -11,6 +11,7 @@ import com.example.data.local.BanglaPoemsCatalog
 import com.example.data.repository.KidzWorldRepository
 import com.example.domain.model.AppSettings
 import com.example.domain.model.BanglaPoem
+import com.example.domain.model.BundledBanglaAudioStatus
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
@@ -19,8 +20,8 @@ import com.example.domain.model.LessonItem
 import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
+import com.example.domain.model.ThemeMode
 import com.example.domain.model.UiState
-import com.example.domain.model.VoicePackStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -146,8 +147,7 @@ class KidzWorldViewModel(
 
     val isSpeaking: StateFlow<Boolean> = audioEngine.isSpeaking
     val activeUtteranceIndex: StateFlow<Int?> = audioEngine.activeUtteranceIndex
-    val banglaVoiceAvailable: StateFlow<Boolean> = audioEngine.banglaVoiceAvailable
-    val voiceStatus: StateFlow<VoicePackStatus> = audioEngine.voiceStatus
+    val bundledAudioStatus: StateFlow<BundledBanglaAudioStatus> = audioEngine.bundledAudioStatus
 
     init {
         viewModelScope.launch {
@@ -213,47 +213,65 @@ class KidzWorldViewModel(
 
     fun speakLesson(item: LessonItem) {
         val lang = settings.value.language
-        val speechLang = when (item.moduleType) {
-            ModuleType.ALPHABET_BN, ModuleType.BANGLA_VOCAB -> AppLanguage.BANGLA
-            ModuleType.ALPHABET_EN -> AppLanguage.ENGLISH
-            else -> lang
+        val useBanglaBundled = when (item.moduleType) {
+            ModuleType.ALPHABET_BN, ModuleType.BANGLA_VOCAB -> true
+            ModuleType.ALPHABET_EN -> lang == AppLanguage.BANGLA
+            else -> lang == AppLanguage.BANGLA
         }
         audioEngine.playEffect(SoundEffect.TAP_POP)
-        audioEngine.speak(item.speechPrompt(speechLang), speechLang)
+        if (useBanglaBundled) {
+            audioEngine.playBanglaLesson(item.id)
+        } else {
+            audioEngine.speak(item.speechPrompt(AppLanguage.ENGLISH), AppLanguage.ENGLISH)
+        }
+    }
+
+    fun speakNumber(number: Int) {
+        if (settings.value.language == AppLanguage.BANGLA) {
+            audioEngine.playBanglaNumber(number)
+        } else {
+            audioEngine.speak(number.toString(), AppLanguage.ENGLISH)
+        }
+    }
+
+    fun speakStoryPage(storyId: String, pageNumber: Int, fallbackEnglishText: String) {
+        if (settings.value.language == AppLanguage.BANGLA) {
+            audioEngine.playBanglaStoryPage(storyId, pageNumber)
+        } else {
+            audioEngine.speak(fallbackEnglishText, AppLanguage.ENGLISH)
+        }
     }
 
     fun speakText(text: String, language: AppLanguage = settings.value.language) {
         audioEngine.speak(text, language)
     }
 
+    fun testBanglaAudio() {
+        audioEngine.playEffect(SoundEffect.TAP_POP)
+        audioEngine.playBanglaInstruction(BanglaAudioManifest.INST_TEST_VOICE)
+    }
+
+    fun testEnglishAudio() {
+        audioEngine.playEffect(SoundEffect.TAP_POP)
+        audioEngine.speak("Welcome to Kid'z World! Learn, play, and grow.", AppLanguage.ENGLISH)
+    }
+
     fun recitePoem(poem: BanglaPoem, slowMode: Boolean = false) {
         audioEngine.playEffect(SoundEffect.TAP_POP)
-        val lines = buildList {
-            add(poem.titleBn)
-            addAll(poem.stanzasBn)
-        }
-        audioEngine.speakSequence(
-            lines = lines,
-            language = AppLanguage.BANGLA,
-            rateMultiplier = if (slowMode) 0.84f else 0.96f
+        audioEngine.playBanglaPoem(
+            poemId = poem.id,
+            stanzaCount = poem.stanzasBn.size,
+            slowMode = slowMode
         )
     }
 
-    fun recitePoemStanza(stanzaText: String, slowMode: Boolean = false) {
+    fun recitePoemStanza(poemId: String, stanzaIndex: Int, slowMode: Boolean = false) {
         audioEngine.playEffect(SoundEffect.TAP_POP)
-        audioEngine.speak(
-            text = stanzaText,
-            language = AppLanguage.BANGLA,
-            rateMultiplier = if (slowMode) 0.84f else 0.96f
+        audioEngine.playBanglaPoemStanza(
+            poemId = poemId,
+            stanzaIndex = stanzaIndex,
+            slowMode = slowMode
         )
-    }
-
-    fun refreshVoices() {
-        audioEngine.refreshVoices()
-    }
-
-    fun openBanglaVoicePackInstaller(context: Context) {
-        audioEngine.openBanglaVoicePackInstaller(context)
     }
 
     fun stopSpeaking() {
@@ -350,20 +368,31 @@ class KidzWorldViewModel(
     }
 
     fun setSoundFxEnabled(enabled: Boolean) {
+        audioEngine.soundFxEnabled = enabled
+        if (enabled) {
+            audioEngine.playEffect(SoundEffect.TAP_POP)
+        }
         viewModelScope.launch { repository.setSoundFxEnabled(enabled) }
     }
 
     fun setTtsEnabled(enabled: Boolean) {
+        audioEngine.ttsEnabled = enabled
         if (!enabled) audioEngine.stopSpeaking()
         viewModelScope.launch { repository.setTtsEnabled(enabled) }
     }
 
     fun setSpeechRate(rate: Float) {
+        audioEngine.speechRate = rate
         viewModelScope.launch { repository.setSpeechRate(rate) }
     }
 
+    fun setThemeMode(mode: ThemeMode) {
+        audioEngine.playEffect(SoundEffect.TAP_POP)
+        viewModelScope.launch { repository.setThemeMode(mode) }
+    }
+
     fun setDarkModeEnabled(enabled: Boolean) {
-        viewModelScope.launch { repository.setDarkModeEnabled(enabled) }
+        setThemeMode(if (enabled) ThemeMode.DARK else ThemeMode.LIGHT)
     }
 
     fun completeOnboarding(childName: String, age: Int, avatarKey: String) {

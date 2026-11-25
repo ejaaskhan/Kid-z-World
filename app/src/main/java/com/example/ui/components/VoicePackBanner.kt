@@ -8,24 +8,18 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.GraphicEq
-import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,171 +33,68 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
-import com.example.domain.model.VoicePackStatus
+import com.example.core.localization.toLocalizedDigits
+import com.example.domain.model.BundledBanglaAudioStatus
 import com.example.ui.theme.CeruleanRim
 import com.example.ui.theme.CeruleanSky
 import com.example.ui.theme.EmeraldMeadow
 import com.example.ui.theme.EmeraldRim
-import com.example.ui.theme.HoneyGold
 import com.example.ui.theme.MangoPrimary
-import com.example.ui.theme.MangoRim
-import com.example.ui.theme.darkenForRim
 
 /**
- * Friendly, non-blocking 3D card prompting parents/users to download Android's free
- * offline Bangla TTS voice pack if missing, with a one-tap installer + refresh button.
+ * Clean built-in offline Bangla audio status badge + voice test controls for Parent Zone.
+ * Zero Android TTS settings redirects and zero voice pack installation prompts.
  */
 @Composable
-fun BanglaVoicePackPromptCard(
-    voiceStatus: VoicePackStatus,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    if (!voiceStatus.isInitialized || voiceStatus.banglaInstalled) return
-    val strings = LocalAppStrings.current
-
-    Cartoon3DCard(
-        containerColor = HoneyGold.copy(alpha = 0.2f),
-        rimColor = HoneyGold.darkenForRim(0.8f),
-        cornerRadius = 24.dp,
-        bevelDepth = 4.dp,
-        contentPadding = PaddingValues(16.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .testTag("bangla_voice_pack_prompt_card")
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(42.dp)
-                        .clip(CircleShape)
-                        .background(MangoPrimary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Rounded.VolumeUp,
-                        contentDescription = strings.voicePackTitle,
-                        tint = Color.White,
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = strings.voicePackTitle,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = strings.voicePackMissingBody,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Cartoon3DButton(
-                    text = strings.installBanglaPackButton,
-                    icon = Icons.Rounded.Download,
-                    containerColor = MangoPrimary,
-                    rimColor = MangoRim,
-                    onClick = onInstallBanglaPack,
-                    modifier = Modifier
-                        .weight(1.4f)
-                        .testTag("install_bangla_voice_button")
-                )
-                Cartoon3DButton(
-                    text = strings.refreshVoicesButton,
-                    icon = Icons.Rounded.Refresh,
-                    containerColor = CeruleanSky,
-                    rimColor = CeruleanRim,
-                    onClick = onRefreshVoices,
-                    modifier = Modifier
-                        .weight(1f)
-                        .testTag("refresh_voices_button")
-                )
-            }
-        }
-    }
-}
-
-/**
- * Compact status pill + voice test controls for Parent Zone audio settings.
- */
-@Composable
-fun VoicePackStatusSection(
-    voiceStatus: VoicePackStatus,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
+fun BundledAudioStatusSection(
+    audioStatus: BundledBanglaAudioStatus,
+    language: AppLanguage,
     onTestBanglaVoice: () -> Unit,
     onTestEnglishVoice: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("bundled_audio_status_section"),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        if (voiceStatus.banglaInstalled) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(EmeraldMeadow.copy(alpha = 0.14f))
-                    .padding(horizontal = 12.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.CheckCircle,
-                        contentDescription = strings.voiceReadyBadge,
-                        tint = EmeraldMeadow,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Column {
-                        Text(
-                            text = strings.voiceReadyBadge,
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = "${voiceStatus.selectedBanglaVoiceLabel} • ${voiceStatus.selectedEnglishVoiceLabel}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(EmeraldMeadow.copy(alpha = 0.14f))
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.CheckCircle,
+                contentDescription = strings.voiceReadyBadge,
+                tint = EmeraldMeadow,
+                modifier = Modifier.size(24.dp)
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = strings.voiceReadyBadge,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                val countSummary = if (audioStatus.totalClipsCount > 0) {
+                    "${audioStatus.verifiedClipsCount.toLocalizedDigits(language)}/${audioStatus.totalClipsCount.toLocalizedDigits(language)} ${strings.bundledAudioClipsSuffix}"
+                } else {
+                    audioStatus.localeLabel
                 }
-                Cartoon3DCircleIconButton(
-                    icon = Icons.Rounded.Refresh,
-                    contentDescription = strings.refreshVoicesButton,
-                    containerColor = EmeraldMeadow,
-                    size = 42.dp,
-                    onClick = onRefreshVoices,
-                    modifier = Modifier.testTag("parent_refresh_voices_button")
+                Text(
+                    text = countSummary,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-        } else {
-            BanglaVoicePackPromptCard(
-                voiceStatus = voiceStatus,
-                onInstallBanglaPack = onInstallBanglaPack,
-                onRefreshVoices = onRefreshVoices
-            )
         }
 
         Row(

@@ -19,10 +19,10 @@ on:
         required: false
         default: true
       release_tag:
-        description: "Release tag to create/update when publish_release is enabled (e.g. v1.1.0)"
+        description: "Release tag to create/update when publish_release is enabled (e.g. v1.1.1)"
         type: string
         required: false
-        default: "v1.1.0"
+        default: "v1.1.1"
       release_note_summary:
         description: "Optional note included in the build summary"
         type: string
@@ -74,13 +74,13 @@ jobs:
           elif [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${INPUT_PUBLISH_RELEASE}" == "true" ]]; then
             TARGET_TAG="${INPUT_RELEASE_TAG}"
             if [[ -z "$TARGET_TAG" ]]; then
-              TARGET_TAG="v1.1.0"
+              TARGET_TAG="v1.1.1"
             fi
             LABEL="${TARGET_TAG}"
             SHOULD_RELEASE="true"
           else
             SHORT_SHA="${GITHUB_SHA::7}"
-            LABEL="v1.1.0-${SHORT_SHA}"
+            LABEL="v1.1.1-${SHORT_SHA}"
             SHOULD_RELEASE="false"
             TARGET_TAG=""
           fi
@@ -142,6 +142,16 @@ jobs:
                 -validity 10000 \
                 -dname "CN=Android Debug,O=Android,C=US"
             fi
+          fi
+
+      - name: Verify bundled offline Bangladeshi Bangla MP3 audio assets
+        if: steps.version_info.outputs.skip_build != 'true'
+        run: |
+          set -euo pipefail
+          if ! python3 scripts/generate_bangla_audio.py --verify-only; then
+            echo "Missing or incomplete Bangla MP3 assets detected -> installing ffmpeg and generating..."
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+            python3 scripts/generate_bangla_audio.py --workers 6
           fi
 
       - name: Run automated unit tests
@@ -211,6 +221,14 @@ jobs:
           fi
           "$APKSIGNER" verify --print-certs "$APK_SRC"
 
+          BUNDLED_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
+          echo "Bundled offline Bangla MP3 files in Release APK: ${BUNDLED_MP3_COUNT}"
+          if [[ "$BUNDLED_MP3_COUNT" -lt 330 ]]; then
+            echo "::error::Expected at least 330 bundled Bangla MP3 files in Release APK, found ${BUNDLED_MP3_COUNT}"
+            exit 1
+          fi
+          unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
+
           rm -rf dist && mkdir -p dist
           cp "$APK_SRC" "dist/kidz-world-${LABEL}-release-signed.apk"
           cp "$AAB_SRC" "dist/kidz-world-${LABEL}-release-signed.aab"
@@ -240,6 +258,14 @@ jobs:
             echo "::error::Expected debug AAB not found at $AAB_SRC"
             exit 1
           fi
+
+          BUNDLED_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
+          echo "Bundled offline Bangla MP3 files in Debug Testing APK: ${BUNDLED_MP3_COUNT}"
+          if [[ "$BUNDLED_MP3_COUNT" -lt 330 ]]; then
+            echo "::error::Expected at least 330 bundled Bangla MP3 files in Debug APK, found ${BUNDLED_MP3_COUNT}"
+            exit 1
+          fi
+          unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
 
           rm -rf dist && mkdir -p dist
           cp "$APK_SRC" "dist/kidz-world-${LABEL}-debug-testing.apk"
@@ -328,10 +354,11 @@ jobs:
           Bilingual (**বাংলা & English**, Bangla default) offline-first Android educational app for children ages 3–8 featuring a Pixar-inspired 3D cartoon UI.
 
           ## What's New in ${TAG}
-          - **Bangla Default & Natural Child-Friendly Voice Engine**: Launches in **বাংলা (Bangla)** by default with upgraded offline voice selection (`bn-BD` / `bn-IN` & `en-US` / `en-GB`), warmer child-friendly pacing, and a one-tap Bangla TTS language pack installer & voice tester.
-          - **Bangla Children's Poems (ছড়া)**: New dedicated **Poems** tab & Home card featuring 8 classic traditional Bangla rhymes with illustrated 3D theatre, stanza-by-stanza Bangla recitation & live glow highlighting, Slow/Normal pace toggle, and `+15★` rewards.
-          - **3 New Child-Friendly Puzzle Games**: **Picture Jigsaw Puzzle** (`2×2` & `3×3` with Hint Peek), **Animal & Fruit Sorting Puzzle** (18 bilingual items with auto-voice), and **Pattern & Sequence Puzzle** (5-round visual logic).
-          - **Child UX Polish**: Larger tactile touch targets, animated speaking-wave badges, and smoother Home-to-Profile navigation.
+          - **Streamlined Profile & Navigation**: Clean Home header with quick Profile access, reliable one-tap Home return from Profile and Settings, and organized Profile flow (Profile Info → Learning Progress → Achievements → Parent Zone → Settings → About KID'Z WORLD).
+          - **Dedicated 3D Cartoon Settings Screen**: Organized inside Profile into **General** (Light / Dark / System Default Theme Mode & Language) and **Sound** (independent UI Sound On/Off, Educational Voice, Speed & Live Audio Testers), persisted locally via DataStore.
+          - **Light Mode, Dark Mode & System Default Theme**: Full Material 3 Light & Cozy Bedtime Dark themes plus live **System Default** following Android's theme immediately without restarting.
+          - **About KID'Z WORLD & Dev. E Profile Card**: Features the bundled offline developer photo for **Dev. E** alongside a clickable external link to \`https://ebrahimjamansumon.blogspot.com\` with graceful fallback handling.
+          - **Natural Bangla & English Voice Quality**: Keeps all **330 bundled offline Bangladeshi Bangla (\`bn-BD\`) MP3 files** (zero Android System TTS required for Bangla) while upgrading English TTS to natural \`1.0x\` pitch (no artificial pitch shift), high-quality local neural voice ranking, and comfortable child-friendly pacing.
 
           ## Release Details
           - **Version:** \`${TAG}\`
@@ -363,9 +390,9 @@ jobs:
           **Developed by Dev. E** • *Learn • Play • Grow*
 
           ## Highlights in ${TAG}
-          - **Bangla Default & Natural Voice Engine** (offline `bn-BD` / `en-US` local voice ranking + one-tap Bangla language pack installer)
-          - **Bangla Children's Poems (ছড়া)** — 8 classic rhymes with stanza-by-stanza Bangla recitation & live glow highlight
-          - **3 New Child-Friendly Puzzle Games** — Picture Jigsaw (`2×2` & `3×3`), Animal & Fruit Sorting, and Pattern & Sequence
+          - **Refined Profile, Settings & About** — Organized Profile hub (Learning Progress → Achievements → Parent Zone → Settings → About KID'Z WORLD), fixed Home navigation from Profile/Settings, **Light / Dark / System Default** themes, independent **UI Sound On/Off**, and **Dev. E** developer photo + clickable website link
+          - **Built-In Offline Bangladeshi Bangla Audio + Natural English TTS** — 330 real bundled \`bn-BD\` MP3 clips inside the APK (zero Bangla System TTS) + natural \`1.0x\` pitch English pronunciation
+          - **Bangla Poems (ছড়া) & 3 Child-Friendly Puzzle Games** — 8 classic Bangla rhymes, Picture Jigsaw, Animal & Fruit Sorting, and Pattern & Sequence
 
           ## Build Details
           - **Version:** \`${TAG}\`

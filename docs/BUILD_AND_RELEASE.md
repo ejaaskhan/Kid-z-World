@@ -11,16 +11,17 @@ This guide explains how to build, test, and publish **KID'Z WORLD** directly fro
 | **App Name** | `Kid'z World` (Launcher) / `KID'Z WORLD` (In-App Brand) |
 | **Developer** | `Dev. E` |
 | **Application ID** | `com.aistudio.kidzworld.devekw` |
-| **Version** | `1.1.0` (`versionCode = 2`) |
+| **Version** | `1.1.1` (`versionCode = 3`) |
 | **Min / Target / Compile SDK** | `minSdk = 24` (Android 7.0) / `targetSdk = 36` / `compileSdk = 36` |
 | **Toolchain** | Temurin JDK `21` + Gradle `9.3.1` + Android Gradle Plugin `9.1.1` |
-| **R8 Code Shrinking** | Disabled (`isMinifyEnabled = false`) for safe `v1.1.0` release; keep rules prepared in `app/proguard-rules.pro` |
+| **Offline Bangla Audio** | 330 bundled `bn-BD` MP3 files under `app/src/main/assets/audio/bangla/` (`manifest.json`, uncompressed via `noCompress += "mp3"`; zero Android System TTS required for Bangla). Verify/regenerate via `python3 scripts/generate_bangla_audio.py --verify-only` |
+| **R8 Code Shrinking** | Disabled (`isMinifyEnabled = false`) for safe `v1.1.1` release; keep rules prepared in `app/proguard-rules.pro` |
 
 ---
 
 ## 2. How GitHub Actions Works (`.github/workflows/android-release.yml`)
 
-Every workflow run executes on `ubuntu-latest` with pinned Node 24 official actions (`actions/checkout@v5`, `actions/setup-java@v5`, `gradle/actions/setup-gradle@v6`, `actions/upload-artifact@v6`) and GitHub's built-in `gh` CLI for attaching `.apk` and `.aab` release assets:
+Every workflow run executes on `ubuntu-latest` with pinned Node 24 official actions (`actions/checkout@v5`, `actions/setup-java@v5`, `gradle/actions/setup-gradle@v6`, `actions/upload-artifact@v6`), verifies all 330 bundled offline Bangla MP3 assets (`scripts/generate_bangla_audio.py --verify-only`), confirms the built APK contains the full `assets/audio/bangla/` bundle, and uses GitHub's built-in `gh` CLI for attaching `.apk` and `.aab` release assets:
 
 | Trigger | Signing Secrets Configured? | Result |
 | :--- | :--- | :--- |

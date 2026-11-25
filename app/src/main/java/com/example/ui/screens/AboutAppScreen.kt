@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.ChildCare
 import androidx.compose.material.icons.rounded.CloudOff
@@ -34,19 +36,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.BuildConfig
 import com.example.core.assets.LocalAssetRegistry
+import com.example.core.audio.SoundEffect
 import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
+import com.example.core.util.ExternalLinkOpener
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
 import com.example.ui.components.Cartoon3DCircleIconButton
@@ -70,9 +76,11 @@ fun AboutAppScreen(
     onToggleLanguage: () -> Unit,
     onReplayOnboarding: () -> Unit,
     onOpenParentZone: () -> Unit,
+    onPlayEffect: (SoundEffect) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = modifier
@@ -186,7 +194,7 @@ fun AboutAppScreen(
             }
         }
 
-        // Studio Spotlight Card: Developed by Dev. E
+        // Studio Spotlight Card: Clickable Developer Link (Dev. E -> official website)
         item {
             Cartoon3DCard(
                 containerColor = GrapePop,
@@ -194,6 +202,16 @@ fun AboutAppScreen(
                 cornerRadius = 26.dp,
                 bevelDepth = 6.dp,
                 contentPadding = PaddingValues(20.dp),
+                onClick = {
+                    onPlayEffect(SoundEffect.TAP_POP)
+                    val opened = ExternalLinkOpener.openExternalUrl(
+                        context = context,
+                        url = ExternalLinkOpener.DEVELOPER_WEBSITE_URL
+                    )
+                    if (!opened) {
+                        Toast.makeText(context, strings.openWebsiteError, Toast.LENGTH_LONG).show()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("about_dev_e_card")
@@ -203,19 +221,28 @@ fun AboutAppScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
+                    val avatarShape = RoundedCornerShape(20.dp)
                     Box(
                         modifier = Modifier
                             .size(64.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color.White.copy(alpha = 0.22f))
-                            .border(2.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(20.dp)),
+                            .shadow(
+                                elevation = 6.dp,
+                                shape = avatarShape,
+                                ambientColor = GrapeRim.copy(alpha = 0.55f),
+                                spotColor = GrapeRim.copy(alpha = 0.72f)
+                            )
+                            .clip(avatarShape)
+                            .background(Color.White)
+                            .border(2.5.dp, Color.White.copy(alpha = 0.85f), avatarShape)
+                            .testTag("about_dev_e_photo"),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "E",
-                            fontSize = 32.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = Color.White
+                        Image(
+                            painter = painterResource(id = LocalAssetRegistry.developerPhoto),
+                            contentDescription = "${strings.developerLabel}: ${ExternalLinkOpener.DEVELOPER_NAME}",
+                            contentScale = ContentScale.Crop,
+                            alignment = Alignment.TopCenter,
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                     Column(modifier = Modifier.weight(1f)) {
@@ -228,10 +255,18 @@ fun AboutAppScreen(
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = strings.developerCredit,
+                                text = "${strings.developerLabel}: ${ExternalLinkOpener.DEVELOPER_NAME}",
                                 style = MaterialTheme.typography.titleLarge,
                                 color = Color.White,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.ExtraBold,
+                                textDecoration = TextDecoration.Underline
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+                                contentDescription = strings.visitWebsiteHint,
+                                tint = HoneyGold,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                         Spacer(modifier = Modifier.height(4.dp))
@@ -239,6 +274,12 @@ fun AboutAppScreen(
                             text = strings.aboutStudioRole,
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.White.copy(alpha = 0.92f)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "${strings.visitWebsiteHint} • ebrahimjamansumon.blogspot.com",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = HoneyGold
                         )
                     }
                 }

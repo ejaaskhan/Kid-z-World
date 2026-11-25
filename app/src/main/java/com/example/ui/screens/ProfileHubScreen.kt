@@ -25,6 +25,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.PersonAdd
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Icon
@@ -90,6 +91,7 @@ fun ProfileHubScreen(
     onOpenLearnModule: (ModuleType) -> Unit,
     onOpenPoems: () -> Unit,
     onOpenStories: () -> Unit,
+    onOpenSettings: () -> Unit,
     onOpenParentZone: () -> Unit,
     onOpenAboutApp: () -> Unit,
     onBack: (() -> Unit)? = null,
@@ -283,50 +285,7 @@ fun ProfileHubScreen(
             }
         }
 
-        // Achievements Shelf
-        item {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(
-                    text = "🏅 ${strings.achievementsTitle}",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    items(badges) { badge ->
-                        Cartoon3DCard(
-                            containerColor = if (badge.unlocked) badge.color else MaterialTheme.colorScheme.surface,
-                            rimColor = if (badge.unlocked) badge.color.darkenForRim(0.75f) else MaterialTheme.colorScheme.outline,
-                            cornerRadius = 22.dp,
-                            bevelDepth = 4.dp,
-                            contentPadding = PaddingValues(12.dp),
-                            modifier = Modifier
-                                .width(114.dp)
-                                .alpha(if (badge.unlocked) 1f else 0.65f)
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Text(text = badge.emoji, fontSize = 30.sp)
-                                Spacer(modifier = Modifier.height(6.dp))
-                                Text(
-                                    text = badge.title,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = if (badge.unlocked) Color.White else MaterialTheme.colorScheme.onSurface,
-                                    textAlign = TextAlign.Center,
-                                    maxLines = 2
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Interactive Mastery Snapshot (each row opens its corresponding learning world!)
+        // Interactive Learning Progress Snapshot (each row opens its corresponding learning world!)
         item {
             Cartoon3DCard(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -400,6 +359,49 @@ fun ProfileHubScreen(
             }
         }
 
+        // Achievements Shelf
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(
+                    text = "🏅 ${strings.achievementsTitle}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(badges) { badge ->
+                        Cartoon3DCard(
+                            containerColor = if (badge.unlocked) badge.color else MaterialTheme.colorScheme.surface,
+                            rimColor = if (badge.unlocked) badge.color.darkenForRim(0.75f) else MaterialTheme.colorScheme.outline,
+                            cornerRadius = 22.dp,
+                            bevelDepth = 4.dp,
+                            contentPadding = PaddingValues(12.dp),
+                            modifier = Modifier
+                                .width(114.dp)
+                                .alpha(if (badge.unlocked) 1f else 0.65f)
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(text = badge.emoji, fontSize = 30.sp)
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = badge.title,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = if (badge.unlocked) Color.White else MaterialTheme.colorScheme.onSurface,
+                                    textAlign = TextAlign.Center,
+                                    maxLines = 2
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // Parent Zone Entry Card (Math Gate)
         item {
             Cartoon3DCard(
@@ -445,6 +447,66 @@ fun ProfileHubScreen(
                             )
                             Text(
                                 text = strings.openParentZoneSub,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.White.copy(alpha = 0.9f)
+                            )
+                        }
+                    }
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+        }
+
+        // Settings Card (Theme Mode, UI Sound On/Off, Voice & About)
+        item {
+            Cartoon3DCard(
+                containerColor = CeruleanSky,
+                rimColor = CeruleanRim,
+                cornerRadius = 24.dp,
+                bevelDepth = 6.dp,
+                contentPadding = PaddingValues(18.dp),
+                onClick = onOpenSettings,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("profile_open_settings")
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(CircleShape)
+                                .background(Color.White.copy(alpha = 0.22f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Settings,
+                                contentDescription = strings.settingsTitle,
+                                tint = Color.White,
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(14.dp))
+                        Column {
+                            Text(
+                                text = strings.settingsTitle,
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.White
+                            )
+                            Text(
+                                text = strings.settingsSubtitle,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = Color.White.copy(alpha = 0.9f)
                             )

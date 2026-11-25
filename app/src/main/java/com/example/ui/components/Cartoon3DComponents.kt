@@ -711,7 +711,7 @@ fun Floating3DPillNavBar(
                 )
                 .clip(shape)
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.96f))
-                .border(2.dp, Color.White.copy(alpha = 0.72f), shape)
+                .border(2.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.65f), shape)
                 .padding(horizontal = 8.dp, vertical = 7.dp)
         ) {
             Row(

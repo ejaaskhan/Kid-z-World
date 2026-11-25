@@ -14,6 +14,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.example.core.localization.AppLanguage
 import com.example.domain.model.AppSettings
 import com.example.domain.model.DailyStreak
+import com.example.domain.model.ThemeMode
 import com.example.domain.model.currentLocalEpochDay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -35,6 +36,7 @@ class SettingsDataStore(context: Context) {
         val TTS_ENABLED = booleanPreferencesKey("tts_enabled")
         val SPEECH_RATE = floatPreferencesKey("speech_rate")
         val DARK_MODE = booleanPreferencesKey("dark_mode_enabled")
+        val THEME_MODE = stringPreferencesKey("theme_mode")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
     }
 
@@ -43,13 +45,24 @@ class SettingsDataStore(context: Context) {
             if (e is IOException) emit(emptyPreferences()) else throw e
         }
         .map { prefs ->
+            val storedTheme = prefs[Keys.THEME_MODE]
+            val resolvedThemeMode = if (storedTheme != null) {
+                ThemeMode.fromKey(storedTheme)
+            } else {
+                // Backward-compatible migration from v1.1.0 boolean preference
+                when (prefs[Keys.DARK_MODE]) {
+                    true -> ThemeMode.DARK
+                    false -> ThemeMode.LIGHT
+                    null -> ThemeMode.SYSTEM
+                }
+            }
             AppSettings(
                 language = AppLanguage.fromCode(prefs[Keys.LANGUAGE]),
                 activeChildId = prefs[Keys.ACTIVE_CHILD_ID] ?: 1L,
                 soundFxEnabled = prefs[Keys.SOUND_FX] ?: true,
                 ttsEnabled = prefs[Keys.TTS_ENABLED] ?: true,
-                speechRate = prefs[Keys.SPEECH_RATE] ?: 0.84f,
-                darkModeEnabled = prefs[Keys.DARK_MODE] ?: false,
+                speechRate = prefs[Keys.SPEECH_RATE] ?: 0.86f,
+                themeMode = resolvedThemeMode,
                 onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false
             )
         }
@@ -74,8 +87,15 @@ class SettingsDataStore(context: Context) {
         dataStore.edit { it[Keys.SPEECH_RATE] = rate.coerceIn(0.65f, 1.25f) }
     }
 
+    suspend fun setThemeMode(mode: ThemeMode) {
+        dataStore.edit {
+            it[Keys.THEME_MODE] = mode.key
+            it[Keys.DARK_MODE] = (mode == ThemeMode.DARK)
+        }
+    }
+
     suspend fun setDarkModeEnabled(enabled: Boolean) {
-        dataStore.edit { it[Keys.DARK_MODE] = enabled }
+        setThemeMode(if (enabled) ThemeMode.DARK else ThemeMode.LIGHT)
     }
 
     suspend fun setOnboardingCompleted(completed: Boolean) {

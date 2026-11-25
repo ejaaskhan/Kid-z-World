@@ -1,7 +1,9 @@
 package com.example
 
+import com.example.core.audio.BanglaAudioManifest
 import com.example.core.localization.AppLanguage
 import com.example.core.localization.toLocalizedDigits
+import com.example.core.util.ExternalLinkOpener
 import com.example.data.local.BanglaPoemsCatalog
 import com.example.data.local.SeedContentProvider
 import com.example.domain.engine.MathOperation
@@ -11,14 +13,17 @@ import com.example.domain.model.AppSettings
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.LearningPillar
 import com.example.domain.model.ModuleType
+import com.example.domain.model.ThemeMode
 import com.example.ui.components.PatternPuzzleGenerator
 import com.example.ui.components.SortingCategory
 import com.example.ui.components.SortingPuzzleCatalog
 import com.example.ui.components.generateShuffledJigsawBoard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 import kotlin.random.Random
 
 class EducationalModulesUnitTest {
@@ -256,6 +261,183 @@ class EducationalModulesUnitTest {
             assertTrue("Answer must be in choices", round.choices.any { it.emoji == round.answer.emoji })
         }
     }
+
+    private fun resolveAssetsDir(): File {
+        val candidates = listOf(
+            File("src/main/assets"),
+            File("app/src/main/assets")
+        )
+        return candidates.firstOrNull { it.isDirectory }
+            ?: error("Could not locate app/src/main/assets from ${File(".").absolutePath}")
+    }
+
+    private fun assertValidMp3Asset(assetsDir: File, assetPath: String, context: String) {
+        val file = File(assetsDir, assetPath)
+        assertTrue("Missing bundled MP3 for $context at ${file.path}", file.isFile)
+        assertTrue(
+            "Bundled MP3 too small (${file.length()} bytes) for $context at ${file.path}",
+            file.length() >= 1200L
+        )
+        val header = file.inputStream().use { stream ->
+            val buf = ByteArray(3)
+            stream.read(buf)
+            buf
+        }
+        val isId3 = header[0] == 'I'.code.toByte() && header[1] == 'D'.code.toByte() && header[2] == '3'.code.toByte()
+        val isMpegSync = (header[0].toInt() and 0xFF) == 0xFF && (header[1].toInt() and 0xE0) == 0xE0
+        assertTrue("Invalid MP3 header for $context at $assetPath", isId3 || isMpegSync)
+    }
+
+    @Test
+    fun `bundled offline bangla audio manifest covers every lesson number poem story and puzzle with real mp3s`() {
+        val assetsDir = resolveAssetsDir()
+        val manifestFile = File(assetsDir, BanglaAudioManifest.MANIFEST_ASSET_PATH)
+        assertTrue("manifest.json must exist at ${manifestFile.path}", manifestFile.isFile)
+
+        val manifest = manifestFile.inputStream().use { BanglaAudioManifest.parseJsonStream(it) }
+        assertTrue("Expected at least 330 bundled Bangla clips, found ${manifest.totalEntries}", manifest.totalEntries >= 330)
+
+        // 1. Every manifest entry points to a real, non-empty, valid MP3 file
+        manifest.entries.forEach { entry ->
+            assertValidMp3Asset(assetsDir, entry.assetPath, "manifest entry ${entry.id}")
+        }
+
+        // 2. Every single Room lesson (all 247 lessons across alphabets, numbers, world, language) has an exact MP3
+        val allLessons = SeedContentProvider.buildAllLessons()
+        allLessons.forEach { lesson ->
+            val path = manifest.assetForLesson(lesson.id)
+            assertNotNull("Missing bundled Bangla audio for lesson ${lesson.id}", path)
+            assertValidMp3Asset(assetsDir, path!!, "lesson ${lesson.id}")
+        }
+
+        // 3. Numbers 0 to 100 all resolve to real MP3 files
+        for (n in 0..100) {
+            val path = manifest.assetForNumber(n)
+            assertNotNull("Missing bundled Bangla audio for number $n", path)
+            assertValidMp3Asset(assetsDir, path!!, "number $n")
+        }
+
+        // 4. Every Bangla poem title and every individual stanza resolves to a real MP3 file
+        BanglaPoemsCatalog.poems.forEach { poem ->
+            val fullSequence = manifest.assetsForPoem(poem.id, poem.stanzasBn.size)
+            assertEquals(
+                "Expected title + ${poem.stanzasBn.size} stanzas for ${poem.id}",
+                poem.stanzasBn.size + 1,
+                fullSequence.size
+            )
+            fullSequence.forEach { assetPath ->
+                assertValidMp3Asset(assetsDir, assetPath, "poem ${poem.id}")
+            }
+            poem.stanzasBn.indices.forEach { idx ->
+                val stanzaAsset = manifest.assetForPoemStanza(poem.id, idx)
+                assertNotNull("Missing stanza $idx audio for ${poem.id}", stanzaAsset)
+                assertValidMp3Asset(assetsDir, stanzaAsset!!, "poem ${poem.id} stanza $idx")
+            }
+        }
+
+        // 5. Every story page and moral resolves to a real MP3 file
+        val (stories, pages) = SeedContentProvider.buildStories()
+        stories.forEach { story ->
+            val moralAsset = manifest.assetForStoryMoral(story.id)
+            assertNotNull("Missing moral audio for ${story.id}", moralAsset)
+            assertValidMp3Asset(assetsDir, moralAsset!!, "story ${story.id} moral")
+
+            val storyPages = pages.filter { it.storyId == story.id }
+            storyPages.forEach { page ->
+                val pageAsset = manifest.assetForStoryPage(story.id, page.pageNumber)
+                assertNotNull("Missing page ${page.pageNumber} audio for ${story.id}", pageAsset)
+                assertValidMp3Asset(assetsDir, pageAsset!!, "story ${story.id} page ${page.pageNumber}")
+            }
+        }
+
+        // 6. Dynamic Bangla text resolution (Visual Math, Picture Quiz, Sorting & Pattern Puzzles, Instructions)
+        val addSeq = manifest.resolveAssetsForBanglaText("৩ যোগ ২ সমান কত?")
+        assertEquals("Math addition equation must map to 4 bundled clips", 4, addSeq.size)
+        addSeq.forEach { assertValidMp3Asset(assetsDir, it, "math add $it") }
+
+        val subSeq = manifest.resolveAssetsForBanglaText("১০ বিয়োগ ৪ সমান কত?")
+        assertEquals("Math subtraction equation must map to 4 bundled clips", 4, subSeq.size)
+        subSeq.forEach { assertValidMp3Asset(assetsDir, it, "math sub $it") }
+
+        val quizSeq = manifest.resolveAssetsForBanglaText("খুঁজে বের করো আম")
+        assertEquals("Picture quiz prompt must map to find + target clips", 2, quizSeq.size)
+        quizSeq.forEach { assertValidMp3Asset(assetsDir, it, "quiz $it") }
+
+        SortingPuzzleCatalog.items.forEach { item ->
+            val resolved = manifest.resolveAssetsForBanglaText(item.nameBn)
+            assertTrue("Sorting item '${item.nameBn}' must resolve to bundled MP3", resolved.isNotEmpty())
+            resolved.forEach { assertValidMp3Asset(assetsDir, it, "sorting ${item.nameBn}") }
+        }
+
+        val patternRounds = PatternPuzzleGenerator.generateRounds(count = 5)
+        patternRounds.forEach { round ->
+            (round.sequence + round.choices).forEach { token ->
+                val resolved = manifest.resolveAssetsForBanglaText(token.labelBn)
+                assertTrue("Pattern token '${token.labelBn}' must resolve to bundled MP3", resolved.isNotEmpty())
+                resolved.forEach { assertValidMp3Asset(assetsDir, it, "pattern ${token.labelBn}") }
+            }
+        }
+
+        assertTrue(
+            "Pattern prompt must resolve to bundled MP3",
+            manifest.resolveAssetsForBanglaText("এর পরে কী আসবে?").isNotEmpty()
+        )
+    }
+
+    @Test
+    fun `theme mode resolves light dark and system default accurately and keeps ui sound independent`() {
+        assertFalse(ThemeMode.LIGHT.resolveDarkTheme(isSystemDark = false))
+        assertFalse(ThemeMode.LIGHT.resolveDarkTheme(isSystemDark = true))
+        assertTrue(ThemeMode.DARK.resolveDarkTheme(isSystemDark = false))
+        assertTrue(ThemeMode.DARK.resolveDarkTheme(isSystemDark = true))
+        assertFalse(ThemeMode.SYSTEM.resolveDarkTheme(isSystemDark = false))
+        assertTrue(ThemeMode.SYSTEM.resolveDarkTheme(isSystemDark = true))
+
+        assertEquals(ThemeMode.LIGHT, ThemeMode.fromKey("light"))
+        assertEquals(ThemeMode.DARK, ThemeMode.fromKey("DARK"))
+        assertEquals(ThemeMode.SYSTEM, ThemeMode.fromKey("system"))
+        assertEquals(ThemeMode.SYSTEM, ThemeMode.fromKey(null))
+        assertEquals(ThemeMode.SYSTEM, ThemeMode.fromKey("unknown"))
+
+        // UI sound FX toggle must remain independent from educational voice narration
+        val mutedUiOnly = AppSettings(soundFxEnabled = false, ttsEnabled = true, themeMode = ThemeMode.DARK)
+        assertFalse(mutedUiOnly.soundFxEnabled)
+        assertTrue(mutedUiOnly.ttsEnabled)
+        assertTrue(mutedUiOnly.darkModeEnabled)
+
+        val en = com.example.core.localization.stringsFor(AppLanguage.ENGLISH)
+        val bn = com.example.core.localization.stringsFor(AppLanguage.BANGLA)
+        assertTrue(en.settingsTitle.isNotBlank() && bn.settingsTitle.isNotBlank())
+        assertTrue(en.themeModeSystem.isNotBlank() && bn.themeModeSystem.isNotBlank())
+        assertTrue(en.developerWebsiteLabel.isNotBlank() && bn.developerWebsiteLabel.isNotBlank())
+        assertTrue(en.openWebsiteError.isNotBlank() && bn.openWebsiteError.isNotBlank())
+    }
+
+    @Test
+    fun `developer website link constant and url validator match official Dev E url`() {
+        assertEquals("Dev. E", ExternalLinkOpener.DEVELOPER_NAME)
+        assertEquals("https://ebrahimjamansumon.blogspot.com", ExternalLinkOpener.DEVELOPER_WEBSITE_URL)
+        assertTrue(ExternalLinkOpener.isValidWebUrl(ExternalLinkOpener.DEVELOPER_WEBSITE_URL))
+        assertFalse(ExternalLinkOpener.isValidWebUrl(""))
+        assertFalse(ExternalLinkOpener.isValidWebUrl("javascript:alert(1)"))
+    }
+
+    @Test
+    fun `bundled offline developer photo drawable exists and app logo remains distinct`() {
+        val drawableCandidates = listOf(
+            File("src/main/res/drawable/img_dev_e_photo.webp"),
+            File("app/src/main/res/drawable/img_dev_e_photo.webp")
+        )
+        val photoFile = drawableCandidates.firstOrNull { it.isFile }
+        assertNotNull("Bundled developer photo drawable must exist for offline APK packaging", photoFile)
+        val bytes = photoFile!!.readBytes()
+        assertTrue("Developer photo must be non-empty", bytes.size > 10_000)
+        assertEquals("RIFF", String(bytes.copyOfRange(0, 4)))
+        assertEquals("WEBP", String(bytes.copyOfRange(8, 12)))
+        assertTrue(
+            "Developer photo resource must remain distinct from KID'Z WORLD app logo",
+            com.example.core.assets.LocalAssetRegistry.developerPhoto !=
+                com.example.core.assets.LocalAssetRegistry.appCrestArtwork
+        )
+    }
 }
-
-

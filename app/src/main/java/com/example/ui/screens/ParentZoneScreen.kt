@@ -64,19 +64,20 @@ import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.AppSettings
 import com.example.domain.model.BanglaPoem
+import com.example.domain.model.BundledBanglaAudioStatus
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.LearningPillar
 import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
-import com.example.domain.model.VoicePackStatus
+import com.example.domain.model.ThemeMode
+import com.example.ui.components.BundledAudioStatusSection
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
 import com.example.ui.components.Cartoon3DCircleIconButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonProgressBar
 import com.example.ui.components.LanguageTogglePill
-import com.example.ui.components.VoicePackStatusSection
 import com.example.ui.theme.BerryCoral
 import com.example.ui.theme.CeruleanSky
 import com.example.ui.theme.EmeraldMeadow
@@ -94,7 +95,7 @@ fun ParentZoneScreen(
     moduleProgress: Map<ModuleType, ModuleProgress>,
     stories: List<Story>,
     poems: List<BanglaPoem>,
-    voiceStatus: VoicePackStatus,
+    audioStatus: BundledBanglaAudioStatus,
     onSelectChild: (Long) -> Unit,
     onAddChild: (String, Int, String) -> Unit,
     onDeleteChild: (Long) -> Unit,
@@ -102,10 +103,9 @@ fun ParentZoneScreen(
     onSetSoundFx: (Boolean) -> Unit,
     onSetTts: (Boolean) -> Unit,
     onSetSpeechRate: (Float) -> Unit,
-    onSetDarkMode: (Boolean) -> Unit,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
-    onTestVoice: (String, AppLanguage) -> Unit,
+    onSetThemeMode: (ThemeMode) -> Unit,
+    onTestBanglaVoice: () -> Unit,
+    onTestEnglishVoice: () -> Unit,
     onResetProgress: () -> Unit,
     onBack: (() -> Unit)? = null,
     onOpenAboutApp: (() -> Unit)? = null,
@@ -128,7 +128,7 @@ fun ParentZoneScreen(
             moduleProgress = moduleProgress,
             stories = stories,
             poems = poems,
-            voiceStatus = voiceStatus,
+            audioStatus = audioStatus,
             onLock = { unlocked = false },
             onBack = onBack,
             onOpenAboutApp = onOpenAboutApp,
@@ -139,10 +139,9 @@ fun ParentZoneScreen(
             onSetSoundFx = onSetSoundFx,
             onSetTts = onSetTts,
             onSetSpeechRate = onSetSpeechRate,
-            onSetDarkMode = onSetDarkMode,
-            onInstallBanglaPack = onInstallBanglaPack,
-            onRefreshVoices = onRefreshVoices,
-            onTestVoice = onTestVoice,
+            onSetThemeMode = onSetThemeMode,
+            onTestBanglaVoice = onTestBanglaVoice,
+            onTestEnglishVoice = onTestEnglishVoice,
             onResetProgress = onResetProgress,
             modifier = modifier
         )
@@ -314,7 +313,7 @@ private fun ParentDashboardView(
     moduleProgress: Map<ModuleType, ModuleProgress>,
     stories: List<Story>,
     poems: List<BanglaPoem>,
-    voiceStatus: VoicePackStatus,
+    audioStatus: BundledBanglaAudioStatus,
     onLock: () -> Unit,
     onBack: (() -> Unit)?,
     onOpenAboutApp: (() -> Unit)?,
@@ -325,10 +324,9 @@ private fun ParentDashboardView(
     onSetSoundFx: (Boolean) -> Unit,
     onSetTts: (Boolean) -> Unit,
     onSetSpeechRate: (Float) -> Unit,
-    onSetDarkMode: (Boolean) -> Unit,
-    onInstallBanglaPack: () -> Unit,
-    onRefreshVoices: () -> Unit,
-    onTestVoice: (String, AppLanguage) -> Unit,
+    onSetThemeMode: (ThemeMode) -> Unit,
+    onTestBanglaVoice: () -> Unit,
+    onTestEnglishVoice: () -> Unit,
     onResetProgress: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -621,22 +619,21 @@ private fun ParentDashboardView(
                         )
                     }
 
-                    VoicePackStatusSection(
-                        voiceStatus = voiceStatus,
-                        onInstallBanglaPack = onInstallBanglaPack,
-                        onRefreshVoices = onRefreshVoices,
-                        onTestBanglaVoice = {
-                            onTestVoice("আয় আয় চাঁদ মামা, টিপ দিয়ে যা। কিড'জ ওয়ার্ল্ডে স্বাগতম!", AppLanguage.BANGLA)
-                        },
-                        onTestEnglishVoice = {
-                            onTestVoice("Welcome to Kid'z World! Learn, play, and grow.", AppLanguage.ENGLISH)
-                        }
+                    BundledAudioStatusSection(
+                        audioStatus = audioStatus,
+                        language = lang,
+                        onTestBanglaVoice = onTestBanglaVoice,
+                        onTestEnglishVoice = onTestEnglishVoice
                     )
 
-                    SettingsToggleRow(
-                        label = strings.bedtimeModeLabel,
-                        checked = settings.darkModeEnabled,
-                        onCheckedChange = onSetDarkMode
+                    Text(
+                        text = strings.themeModeTitle,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    ThemeModeSelectorRow(
+                        selectedMode = settings.themeMode,
+                        onSelectMode = onSetThemeMode
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))

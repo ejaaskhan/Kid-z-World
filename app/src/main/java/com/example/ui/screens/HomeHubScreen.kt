@@ -296,7 +296,7 @@ fun HomeHubScreen(
                             )
                             .clip(pillShape)
                             .background(MaterialTheme.colorScheme.surface)
-                            .border(2.dp, Color.White.copy(alpha = 0.85f), pillShape)
+                            .border(2.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.55f), pillShape)
                             .clickable(onClick = onOpenChildSwitcher)
                             .padding(start = 6.dp, end = 14.dp, top = 5.dp, bottom = 5.dp),
                         verticalAlignment = Alignment.CenterVertically

@@ -8,7 +8,7 @@
 
 ## Key Features
 
-- **100% Bilingual UI & Natural Offline Voice (বাংলা Default & English)**: Launches in **বাংলা (Bangla)** by default with an instant **বাং / EN** toggle. Ranks installed high-quality local Bangla (`bn-BD` / `bn-IN`) and English (`en-US` / `en-GB`) TTS voices for warm, natural child-friendly pronunciation, and includes a one-tap Bangla voice pack installer if the language pack is not yet installed.
+- **100% Bilingual UI & Built-In Offline Bangladeshi Bangla Audio (Zero System TTS)**: Launches in **বাংলা (Bangla)** by default with an instant **বাং / EN** toggle. Bundles **330 real Bangladeshi Bangla (`bn-BD`) MP3 clips** directly inside the APK (`app/src/main/assets/audio/bangla/`) for instant offline playback via native `MediaPlayer` — no internet, no Android Bangla TTS voice packs, and no phone language setup required. English mode uses lightweight on-device English speech.
 - **Bangla Children's Poems (ছড়া)**: Dedicated **Poems** tab & Home card featuring **8 classic traditional Bangla rhymes** with illustrated 3D theatre, rhythmic stanza-by-stanza Bangla recitation with live glow highlighting, Slow/Normal speed toggle, and `+15★` star rewards.
 - **4 Complete Educational Learning Modules (247+ Offline Lessons)**:
   1. **Alphabet Adventure**: Full Bangla **স্বরবর্ণ (অ–ঔ) & ব্যঞ্জনবর্ণ** and English **A–Z** with **Learn**, **Crayon Tracing Studio**, and **Quiz** modes, spacious 3D illustrated letter cards, and a full-screen active lesson stage with extruded 3D letters, replayable audio, and star reward bursts.
@@ -18,8 +18,8 @@
 - **Interactive Puzzles & Mini-Games Arcade**: **Picture Jigsaw Puzzle** (`2×2` & `3×3` with Hint Peek), **Animal & Fruit Sorting Puzzle**, **Pattern & Sequence Puzzle**, **3D Memory Match**, and **Sound & Picture Quiz** with star rewards and local high-score tracking.
 - **Illustrated Story World**: Curated multi-page bilingual moral stories with page-by-page voice narration and completion badges.
 - **Daily Learning Streak & Rewards**: Local **Jetpack DataStore** streak tracker with an animated flame badge, daily bonus stars, and unlockable trophy medallions.
-- **Multi-Child Profiles & Math-Gated Parent Zone**: Create independent child profiles (custom name, age 3–8, selectable 3D animal mascot avatar) with a parent multiplication gate guarding analytics, voice pack status/tester, speech rate controls, bedtime dark mode, and progress reset.
-- **Zero Dangerous Permissions & Kid-Safe**: Completely offline; declares only install-time `VIBRATE` and offline `TTS_SERVICE` engine discovery.
+- **Multi-Child Profiles & Math-Gated Parent Zone**: Create independent child profiles (custom name, age 3–8, selectable 3D animal mascot avatar) with a parent multiplication gate guarding analytics, built-in offline Bangla audio status & tester, speech speed controls, bedtime dark mode, and progress reset.
+- **Zero Dangerous Permissions & Kid-Safe**: Completely offline; declares only install-time `VIBRATE` and offline English `TTS_SERVICE` discovery.
 
 ---
 
@@ -30,10 +30,10 @@
 | **Launch & Setup** | Animated 3D Splash Screen (`KID'Z WORLD` • `Developed by Dev. E`) & 3-step First-Time Onboarding (Language, Feature Tour, Child Profile Setup — replayable anytime). |
 | **Home Dashboard** | Animated profile mascot hero, Daily Streak flame badge, **Continue Learning** spotlight, **Daily Challenge** launcher, 7 colorful 3D learning world cards (including **Bangla Poems**), top-right Profile shortcut, and Rewards shelf. |
 | **Learn Studio** | 4-Module Hub, **Alphabet Adventure** (`Learn` / `Trace` / `Quiz`), **Full-Screen Active Lesson Stage**, **1–100 Numbers & Math Lab**, **World Exploration**, and **Language Studio**. |
-| **Bangla Poems (ছড়া)** | 8 classic Bangla children's rhymes with illustrated 3D stage, stanza-by-stanza Bangla recitation & live highlight, Slow/Normal speed toggle, and one-tap Bangla voice pack helper. |
+| **Bangla Poems (ছড়া)** | 8 classic Bangla children's rhymes with illustrated 3D stage, stanza-by-stanza built-in Bangla MP3 recitation & live highlight, and Slow/Normal speed toggle. |
 | **Games & Puzzles Arcade** | **Picture Jigsaw Puzzle**, **Animal & Fruit Sorting Puzzle**, **Pattern & Sequence Puzzle**, **3D Memory Match**, **Picture & Sound Quiz**, and local Recent High Scores board. |
-| **Story World** | Illustrated story shelf & interactive page-turning reader with bilingual **Read Aloud** and moral takeaways. |
-| **Profile, Parents & About** | Child switcher, trophy badges, mastery tracker, math-gated **Parent Zone** (with Voice Pack status & tester), and **About App** (`Dev. E` studio credits & onboarding replay). |
+| **Story World** | Illustrated story shelf & interactive page-turning reader with bundled Bangla MP3 & English **Read Aloud** and moral takeaways. |
+| **Profile, Parents & About** | Child switcher, trophy badges, mastery tracker, math-gated **Parent Zone** (with Built-In Offline Bangla Audio status & tester), and **About App** (`Dev. E` studio credits & onboarding replay). |
 
 ---
 
@@ -42,7 +42,7 @@
 - **Language & UI**: Kotlin, Jetpack Compose, Material Design 3, Custom Canvas 3D Artwork
 - **Architecture**: MVVM + Clean Modular Layering (`core`, `data`, `di`, `domain`, `ui`), StateFlow & Kotlin Coroutines
 - **Local Persistence**: Room SQLite (`KSP`) + Jetpack DataStore Preferences (100% Offline)
-- **Audio Engine**: Android On-Device `TextToSpeech` (`en-US` / `bn-BD`) + Synthesized PCM Sound FX
+- **Audio Engine**: Built-in Offline Bangladeshi Bangla (`bn-BD`) MP3 Library (330 bundled assets via native `MediaPlayer` + `AssetFileDescriptor` with `noCompress += "mp3"`) + English-only `TextToSpeech` + Synthesized PCM Sound FX
 - **Navigation**: Jetpack Navigation Compose + Floating 3D Pill Dock (Phones) & Side Navigation Rail (Tablets)
 - **Build & CI/CD**: Gradle `9.3.1` (Kotlin DSL), Android Gradle Plugin `9.1.1`, Temurin JDK `21`, GitHub Actions (`minSdk 24`, `targetSdk 36`)
 

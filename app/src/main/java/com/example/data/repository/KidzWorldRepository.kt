@@ -18,6 +18,7 @@ import com.example.domain.model.LessonItem
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
 import com.example.domain.model.StoryPage
+import com.example.domain.model.ThemeMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -317,6 +318,7 @@ class KidzWorldRepository(
     suspend fun setSoundFxEnabled(enabled: Boolean) = settingsStore.setSoundFxEnabled(enabled)
     suspend fun setTtsEnabled(enabled: Boolean) = settingsStore.setTtsEnabled(enabled)
     suspend fun setSpeechRate(rate: Float) = settingsStore.setSpeechRate(rate)
+    suspend fun setThemeMode(mode: ThemeMode) = settingsStore.setThemeMode(mode)
     suspend fun setDarkModeEnabled(enabled: Boolean) = settingsStore.setDarkModeEnabled(enabled)
     suspend fun setOnboardingCompleted(completed: Boolean) = settingsStore.setOnboardingCompleted(completed)
 

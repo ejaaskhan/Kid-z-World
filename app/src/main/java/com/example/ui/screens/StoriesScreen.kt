@@ -75,7 +75,7 @@ fun StoriesScreen(
     isSpeaking: Boolean,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
-    onSpeakText: (String) -> Unit,
+    onSpeakStoryPage: (storyId: String, pageNumber: Int, fallbackEnglishText: String) -> Unit,
     onStopSpeaking: () -> Unit,
     onPlayEffect: (SoundEffect) -> Unit,
     onCompleteStory: (Story) -> Unit,
@@ -117,7 +117,7 @@ fun StoriesScreen(
                 onStopSpeaking()
                 onToggleLanguage()
             },
-            onSpeakText = onSpeakText,
+            onSpeakStoryPage = onSpeakStoryPage,
             onStopSpeaking = onStopSpeaking,
             onPlayEffect = onPlayEffect,
             onComplete = {
@@ -336,7 +336,7 @@ private fun StoryReaderView(
     isSpeaking: Boolean,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
-    onSpeakText: (String) -> Unit,
+    onSpeakStoryPage: (storyId: String, pageNumber: Int, fallbackEnglishText: String) -> Unit,
     onStopSpeaking: () -> Unit,
     onPlayEffect: (SoundEffect) -> Unit,
     onComplete: () -> Unit,
@@ -417,7 +417,11 @@ private fun StoryReaderView(
                             language = language,
                             accent = accent,
                             onReadAloud = {
-                                if (isSpeaking) onStopSpeaking() else onSpeakText(currentPage.text(language))
+                                if (isSpeaking) {
+                                    onStopSpeaking()
+                                } else {
+                                    onSpeakStoryPage(story.id, currentPage.pageNumber, currentPage.textEn)
+                                }
                             }
                         )
                     }
@@ -453,7 +457,11 @@ private fun StoryReaderView(
                         language = language,
                         accent = accent,
                         onReadAloud = {
-                            if (isSpeaking) onStopSpeaking() else onSpeakText(currentPage.text(language))
+                            if (isSpeaking) {
+                                onStopSpeaking()
+                            } else {
+                                onSpeakStoryPage(story.id, currentPage.pageNumber, currentPage.textEn)
+                            }
                         }
                     )
                 }
