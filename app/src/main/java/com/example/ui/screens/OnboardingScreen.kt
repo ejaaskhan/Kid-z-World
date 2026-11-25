@@ -300,10 +300,10 @@ private fun OnboardingLanguageStep(
         textAlign = TextAlign.Center
     )
 
-    // Giant Tactile 3D Language Cards
+    // Giant Tactile 3D Language Cards (Bangla first as default)
     val options = listOf(
-        Triple(AppLanguage.ENGLISH, "English", "A–Z • Numbers • Stories") to (CeruleanSky to CeruleanRim),
-        Triple(AppLanguage.BANGLA, "বাংলা (Bangla)", "অ–ন • সংখ্যা • গল্পের আসর") to (EmeraldMeadow to EmeraldRim)
+        Triple(AppLanguage.BANGLA, "বাংলা (Bangla)", "অ–ঔ • ছড়া • সংখ্যা • গল্প") to (EmeraldMeadow to EmeraldRim),
+        Triple(AppLanguage.ENGLISH, "English", "A–Z • Poems • Numbers • Stories") to (CeruleanSky to CeruleanRim)
     )
 
     Column(

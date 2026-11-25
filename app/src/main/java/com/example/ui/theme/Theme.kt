@@ -53,7 +53,7 @@ private val KidzLightColorScheme = lightColorScheme(
 @Composable
 fun KidzWorldTheme(
     darkTheme: Boolean = false,
-    language: AppLanguage = AppLanguage.ENGLISH,
+    language: AppLanguage = AppLanguage.BANGLA,
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) KidzDarkColorScheme else KidzLightColorScheme

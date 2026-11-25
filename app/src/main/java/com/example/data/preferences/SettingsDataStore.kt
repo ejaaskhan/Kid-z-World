@@ -48,7 +48,7 @@ class SettingsDataStore(context: Context) {
                 activeChildId = prefs[Keys.ACTIVE_CHILD_ID] ?: 1L,
                 soundFxEnabled = prefs[Keys.SOUND_FX] ?: true,
                 ttsEnabled = prefs[Keys.TTS_ENABLED] ?: true,
-                speechRate = prefs[Keys.SPEECH_RATE] ?: 0.88f,
+                speechRate = prefs[Keys.SPEECH_RATE] ?: 0.84f,
                 darkModeEnabled = prefs[Keys.DARK_MODE] ?: false,
                 onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false
             )

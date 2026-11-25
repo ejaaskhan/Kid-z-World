@@ -32,6 +32,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.PersonAdd
 import androidx.compose.material.icons.rounded.School
@@ -56,6 +57,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -70,6 +72,7 @@ import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.AppSettings
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
@@ -79,6 +82,7 @@ import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
 import com.example.domain.model.UiState
+import com.example.domain.model.VoicePackStatus
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonBackground
@@ -96,6 +100,7 @@ import com.example.ui.viewmodel.KidzWorldViewModel
 
 const val ROUTE_HOME = "home"
 const val ROUTE_LEARN = "learn"
+const val ROUTE_POEMS = "poems"
 const val ROUTE_GAMES = "games"
 const val ROUTE_STORIES = "stories"
 const val ROUTE_PROFILE = "profile"
@@ -117,12 +122,14 @@ fun KidzWorldApp(
     val lessons by viewModel.lessons.collectAsStateWithLifecycle()
     val nextRecommendedLesson by viewModel.nextRecommendedLesson.collectAsStateWithLifecycle()
     val stories by viewModel.stories.collectAsStateWithLifecycle()
+    val poems by viewModel.poems.collectAsStateWithLifecycle()
     val recentScores by viewModel.recentScores.collectAsStateWithLifecycle()
     val dailyStreak by viewModel.dailyStreak.collectAsStateWithLifecycle()
     val moduleProgress by viewModel.moduleProgressMap.collectAsStateWithLifecycle()
     val celebrationMessage by viewModel.celebrationMessage.collectAsStateWithLifecycle()
     val isSpeaking by viewModel.isSpeaking.collectAsStateWithLifecycle()
-    val banglaVoiceAvailable by viewModel.banglaVoiceAvailable.collectAsStateWithLifecycle()
+    val activeUtteranceIndex by viewModel.activeUtteranceIndex.collectAsStateWithLifecycle()
+    val voiceStatus by viewModel.voiceStatus.collectAsStateWithLifecycle()
     val showOnboardingReplay by viewModel.showOnboardingReplay.collectAsStateWithLifecycle()
 
     var splashCompleted by rememberSaveable { mutableStateOf(false) }
@@ -184,12 +191,14 @@ fun KidzWorldApp(
                                 lessons = lessons,
                                 nextRecommendedLesson = nextRecommendedLesson,
                                 stories = stories,
+                                poems = poems,
                                 recentScores = recentScores,
                                 dailyStreak = dailyStreak,
                                 moduleProgress = moduleProgress,
                                 celebrationMessage = celebrationMessage,
                                 isSpeaking = isSpeaking,
-                                banglaVoiceAvailable = banglaVoiceAvailable,
+                                activeUtteranceIndex = activeUtteranceIndex,
+                                voiceStatus = voiceStatus,
                                 strings = strings
                             )
                         }
@@ -210,31 +219,44 @@ private fun MainKidzWorldShell(
     lessons: List<LessonItem>,
     nextRecommendedLesson: LessonItem?,
     stories: List<Story>,
+    poems: List<BanglaPoem>,
     recentScores: List<GameScore>,
     dailyStreak: DailyStreak,
     moduleProgress: Map<ModuleType, ModuleProgress>,
     celebrationMessage: String?,
     isSpeaking: Boolean,
-    banglaVoiceAvailable: Boolean,
+    activeUtteranceIndex: Int?,
+    voiceStatus: VoicePackStatus,
     strings: com.example.core.localization.AppStrings
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route ?: ROUTE_HOME
 
-    var selectedLearnModule by remember { mutableStateOf(ModuleType.ALPHABET_EN) }
+    var selectedLearnModule by remember {
+        mutableStateOf(
+            if (settings.language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
+        )
+    }
     var activeLearnPillar by remember { mutableStateOf<LearningPillar?>(null) }
     var activeLearnLessonId by remember { mutableStateOf<String?>(null) }
     var autoStartDailyChallengeQuiz by remember { mutableStateOf(false) }
     var showChildSheet by remember { mutableStateOf(false) }
     var showQuickAddChild by remember { mutableStateOf(false) }
 
-    val destinations = listOf(
+    val phoneDestinations = listOf(
         FloatingNavItemData(ROUTE_HOME, strings.navHome, Icons.Rounded.Home, MangoPrimary),
         FloatingNavItemData(ROUTE_LEARN, strings.navLearn, Icons.Rounded.School, CeruleanSky),
+        FloatingNavItemData(ROUTE_POEMS, strings.navPoems, Icons.Rounded.MusicNote, Color(0xFF6B5CE7)),
         FloatingNavItemData(ROUTE_GAMES, strings.navGames, Icons.Rounded.SportsEsports, GrapePop),
-        FloatingNavItemData(ROUTE_STORIES, strings.navStories, Icons.Rounded.AutoStories, HoneyGold),
-        FloatingNavItemData(ROUTE_PROFILE, strings.navProfile, Icons.Rounded.Person, EmeraldMeadow)
+        FloatingNavItemData(ROUTE_STORIES, strings.navStories, Icons.Rounded.AutoStories, HoneyGold)
+    )
+
+    val railDestinations = phoneDestinations + FloatingNavItemData(
+        ROUTE_PROFILE,
+        strings.navProfile,
+        Icons.Rounded.Person,
+        EmeraldMeadow
     )
 
     fun isTabSelected(tabRoute: String): Boolean {
@@ -289,7 +311,7 @@ private fun MainKidzWorldShell(
                             .clip(RoundedCornerShape(28.dp))
                     ) {
                         Spacer(modifier = Modifier.height(14.dp))
-                        destinations.forEach { dest ->
+                        railDestinations.forEach { dest ->
                             val selected = isTabSelected(dest.route)
                             NavigationRailItem(
                                 selected = selected,
@@ -343,11 +365,13 @@ private fun MainKidzWorldShell(
                         lessons = lessons,
                         nextRecommendedLesson = nextRecommendedLesson,
                         stories = stories,
+                        poems = poems,
                         recentScores = recentScores,
                         dailyStreak = dailyStreak,
                         moduleProgress = moduleProgress,
                         isSpeaking = isSpeaking,
-                        banglaVoiceAvailable = banglaVoiceAvailable,
+                        activeUtteranceIndex = activeUtteranceIndex,
+                        voiceStatus = voiceStatus,
                         onOpenChildSwitcher = { showChildSheet = true },
                         onOpenAddChild = { showQuickAddChild = true },
                         onNavigateToTab = { navigateToTab(it) },
@@ -386,11 +410,13 @@ private fun MainKidzWorldShell(
                     lessons = lessons,
                     nextRecommendedLesson = nextRecommendedLesson,
                     stories = stories,
+                    poems = poems,
                     recentScores = recentScores,
                     dailyStreak = dailyStreak,
                     moduleProgress = moduleProgress,
                     isSpeaking = isSpeaking,
-                    banglaVoiceAvailable = banglaVoiceAvailable,
+                    activeUtteranceIndex = activeUtteranceIndex,
+                    voiceStatus = voiceStatus,
                     onOpenChildSwitcher = { showChildSheet = true },
                     onOpenAddChild = { showQuickAddChild = true },
                     onNavigateToTab = { navigateToTab(it) },
@@ -409,7 +435,7 @@ private fun MainKidzWorldShell(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 ) {
                     Floating3DPillNavBar(
-                        items = destinations,
+                        items = phoneDestinations,
                         isSelected = { isTabSelected(it) },
                         onSelect = { route ->
                             navigateToTab(route, resetLearnHub = route == ROUTE_LEARN)
@@ -485,17 +511,21 @@ private fun KidzNavHost(
     lessons: List<LessonItem>,
     nextRecommendedLesson: LessonItem?,
     stories: List<Story>,
+    poems: List<BanglaPoem>,
     recentScores: List<GameScore>,
     dailyStreak: DailyStreak,
     moduleProgress: Map<ModuleType, ModuleProgress>,
     isSpeaking: Boolean,
-    banglaVoiceAvailable: Boolean,
+    activeUtteranceIndex: Int?,
+    voiceStatus: VoicePackStatus,
     onOpenChildSwitcher: () -> Unit,
     onOpenAddChild: () -> Unit,
     onNavigateToTab: (String) -> Unit,
     onNavigateToSubRoute: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     NavHost(
         navController = navController,
         startDestination = ROUTE_HOME,
@@ -513,6 +543,7 @@ private fun KidzNavHost(
                 moduleProgress = moduleProgress,
                 nextRecommendedLesson = nextRecommendedLesson,
                 stories = stories,
+                poems = poems,
                 gamesPlayedCount = recentScores.size,
                 isWideScreen = isWideScreen,
                 onToggleLanguage = { viewModel.toggleLanguage() },
@@ -531,9 +562,10 @@ private fun KidzNavHost(
                     onOpenActiveLesson(null)
                     onNavigateToTab(ROUTE_LEARN)
                 },
+                onNavigateToPoems = { onNavigateToTab(ROUTE_POEMS) },
                 onNavigateToGames = { onNavigateToTab(ROUTE_GAMES) },
                 onNavigateToStories = { onNavigateToTab(ROUTE_STORIES) },
-                onOpenRewards = { onNavigateToTab(ROUTE_PROFILE) }
+                onOpenRewards = { onNavigateToSubRoute(ROUTE_PROFILE) }
             )
         }
 
@@ -566,6 +598,25 @@ private fun KidzNavHost(
                 onRecordQuizScore = { type, score, stars ->
                     viewModel.recordGameResult(type, score, stars)
                 }
+            )
+        }
+
+        composable(ROUTE_POEMS) {
+            BanglaPoemsScreen(
+                poems = poems,
+                language = settings.language,
+                isSpeaking = isSpeaking,
+                activeUtteranceIndex = activeUtteranceIndex,
+                voiceStatus = voiceStatus,
+                isWideScreen = isWideScreen,
+                onToggleLanguage = { viewModel.toggleLanguage() },
+                onRecitePoem = { poem, slow -> viewModel.recitePoem(poem, slow) },
+                onReciteStanza = { text, slow -> viewModel.recitePoemStanza(text, slow) },
+                onStopSpeaking = { viewModel.stopSpeaking() },
+                onPlayEffect = { viewModel.playEffect(it) },
+                onCompletePoem = { viewModel.completePoem(it) },
+                onInstallBanglaPack = { viewModel.openBanglaVoicePackInstaller(context) },
+                onRefreshVoices = { viewModel.refreshVoices() }
             )
         }
 
@@ -607,6 +658,7 @@ private fun KidzNavHost(
                 language = settings.language,
                 moduleProgress = moduleProgress,
                 stories = stories,
+                poems = poems,
                 recentScores = recentScores,
                 onToggleLanguage = { viewModel.toggleLanguage() },
                 onSelectChild = { viewModel.selectChild(it) },
@@ -617,9 +669,11 @@ private fun KidzNavHost(
                     onOpenActiveLesson(null)
                     onNavigateToTab(ROUTE_LEARN)
                 },
+                onOpenPoems = { onNavigateToTab(ROUTE_POEMS) },
                 onOpenStories = { onNavigateToTab(ROUTE_STORIES) },
                 onOpenParentZone = { onNavigateToSubRoute(ROUTE_PARENTS) },
-                onOpenAboutApp = { onNavigateToSubRoute(ROUTE_ABOUT) }
+                onOpenAboutApp = { onNavigateToSubRoute(ROUTE_ABOUT) },
+                onBack = if (!isWideScreen) ({ navController.popBackStack() }) else null
             )
         }
 
@@ -630,7 +684,8 @@ private fun KidzNavHost(
                 activeChild = activeChild,
                 moduleProgress = moduleProgress,
                 stories = stories,
-                banglaVoiceAvailable = banglaVoiceAvailable,
+                poems = poems,
+                voiceStatus = voiceStatus,
                 onSelectChild = { viewModel.selectChild(it) },
                 onAddChild = { name, age, avatar -> viewModel.addChild(name, age, avatar) },
                 onDeleteChild = { viewModel.deleteChild(it) },
@@ -639,6 +694,9 @@ private fun KidzNavHost(
                 onSetTts = { viewModel.setTtsEnabled(it) },
                 onSetSpeechRate = { viewModel.setSpeechRate(it) },
                 onSetDarkMode = { viewModel.setDarkModeEnabled(it) },
+                onInstallBanglaPack = { viewModel.openBanglaVoicePackInstaller(context) },
+                onRefreshVoices = { viewModel.refreshVoices() },
+                onTestVoice = { text, lang -> viewModel.speakText(text, lang) },
                 onResetProgress = { viewModel.resetActiveChildProgress() },
                 onBack = { navController.popBackStack() },
                 onOpenAboutApp = { onNavigateToSubRoute(ROUTE_ABOUT) }

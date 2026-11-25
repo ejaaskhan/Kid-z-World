@@ -2,13 +2,19 @@ package com.example
 
 import com.example.core.localization.AppLanguage
 import com.example.core.localization.toLocalizedDigits
+import com.example.data.local.BanglaPoemsCatalog
 import com.example.data.local.SeedContentProvider
 import com.example.domain.engine.MathOperation
 import com.example.domain.engine.MathProblemGenerator
 import com.example.domain.model.AgeDifficulty
+import com.example.domain.model.AppSettings
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.LearningPillar
 import com.example.domain.model.ModuleType
+import com.example.ui.components.PatternPuzzleGenerator
+import com.example.ui.components.SortingCategory
+import com.example.ui.components.SortingPuzzleCatalog
+import com.example.ui.components.generateShuffledJigsawBoard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -192,6 +198,64 @@ class EducationalModulesUnitTest {
         assertTrue(bn.dailyChallengeTitle.isNotBlank())
         assertEquals("১২৩৪৫৬৭৮৯০", 1234567890.toLocalizedDigits(AppLanguage.BANGLA))
         assertEquals("1234567890", 1234567890.toLocalizedDigits(AppLanguage.ENGLISH))
+        assertEquals(AppLanguage.BANGLA, AppSettings().language)
+        assertEquals(AppLanguage.BANGLA, AppLanguage.fromCode(null))
+        assertTrue(en.poemsShelfTitle.isNotBlank())
+        assertTrue(bn.poemsShelfTitle.isNotBlank())
+    }
+
+    @Test
+    fun `bangla poems catalog provides 8 unique classic poems with rhythmic stanzas`() {
+        val poems = BanglaPoemsCatalog.poems
+        assertEquals("Expected 8 classic Bangla children's poems", 8, poems.size)
+        assertEquals("Poem IDs must be unique", poems.size, poems.map { it.id }.toSet().size)
+
+        poems.forEach { poem ->
+            assertTrue("Missing Bangla title for ${poem.id}", poem.titleBn.isNotBlank())
+            assertTrue("Missing English title for ${poem.id}", poem.titleEn.isNotBlank())
+            assertTrue("Missing emoji for ${poem.id}", poem.emoji.isNotBlank())
+            assertTrue("Poem ${poem.id} must have at least 3 stanzas", poem.stanzasBn.size >= 3)
+            poem.stanzasBn.forEach { stanza ->
+                assertTrue("Blank stanza in ${poem.id}", stanza.isNotBlank())
+            }
+            assertTrue("Missing meaning summary for ${poem.id}", poem.meaningEn.isNotBlank())
+        }
+    }
+
+    @Test
+    fun `new child-friendly puzzle generators produce valid playable puzzles`() {
+        // 1. Picture Jigsaw Puzzle (2x2 and 3x3 never start solved and retain exact tiles)
+        listOf(4, 9).forEach { tileCount ->
+            repeat(20) {
+                val board = generateShuffledJigsawBoard(tileCount)
+                assertEquals(tileCount, board.size)
+                assertEquals((0 until tileCount).toList(), board.sorted())
+                assertFalse("Board of $tileCount must not start already solved", board == (0 until tileCount).toList())
+            }
+        }
+
+        // 2. Animal & Fruit Sorting Puzzle covers all 3 baskets with bilingual labels
+        assertTrue("Expected at least 15 sorting items", SortingPuzzleCatalog.items.size >= 15)
+        SortingCategory.entries.forEach { cat ->
+            val count = SortingPuzzleCatalog.items.count { it.category == cat }
+            assertTrue("Category $cat must have at least 5 items", count >= 5)
+        }
+        SortingPuzzleCatalog.items.forEach { item ->
+            assertTrue(item.nameBn.isNotBlank())
+            assertTrue(item.nameEn.isNotBlank())
+            assertTrue(item.emoji.isNotBlank())
+        }
+
+        // 3. Pattern & Sequence Puzzle produces 5 rounds with valid choices containing the answer
+        val rounds = PatternPuzzleGenerator.generateRounds(count = 5)
+        assertEquals(5, rounds.size)
+        rounds.forEach { round ->
+            assertTrue("Sequence must have at least 4 tokens", round.sequence.size >= 4)
+            assertEquals("Each round must offer 3 choices", 3, round.choices.size)
+            assertEquals("Choices must be distinct", 3, round.choices.map { it.emoji }.toSet().size)
+            assertTrue("Answer must be in choices", round.choices.any { it.emoji == round.answer.emoji })
+        }
     }
 }
+
 

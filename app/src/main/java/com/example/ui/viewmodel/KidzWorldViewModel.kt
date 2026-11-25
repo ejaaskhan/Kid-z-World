@@ -1,13 +1,16 @@
 package com.example.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.core.audio.KidzAudioEngine
 import com.example.core.audio.SoundEffect
 import com.example.core.localization.AppLanguage
+import com.example.data.local.BanglaPoemsCatalog
 import com.example.data.repository.KidzWorldRepository
 import com.example.domain.model.AppSettings
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
@@ -17,6 +20,7 @@ import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
 import com.example.domain.model.UiState
+import com.example.domain.model.VoicePackStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -64,6 +68,12 @@ class KidzWorldViewModel(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyList()
+    )
+
+    val poems: StateFlow<List<BanglaPoem>> = repository.activePoemsFlow.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = BanglaPoemsCatalog.poems
     )
 
     val recentScores: StateFlow<List<GameScore>> = repository.activeScoresFlow.stateIn(
@@ -135,7 +145,9 @@ class KidzWorldViewModel(
     val showOnboardingReplay: StateFlow<Boolean> = _showOnboardingReplay.asStateFlow()
 
     val isSpeaking: StateFlow<Boolean> = audioEngine.isSpeaking
+    val activeUtteranceIndex: StateFlow<Int?> = audioEngine.activeUtteranceIndex
     val banglaVoiceAvailable: StateFlow<Boolean> = audioEngine.banglaVoiceAvailable
+    val voiceStatus: StateFlow<VoicePackStatus> = audioEngine.voiceStatus
 
     init {
         viewModelScope.launch {
@@ -214,6 +226,36 @@ class KidzWorldViewModel(
         audioEngine.speak(text, language)
     }
 
+    fun recitePoem(poem: BanglaPoem, slowMode: Boolean = false) {
+        audioEngine.playEffect(SoundEffect.TAP_POP)
+        val lines = buildList {
+            add(poem.titleBn)
+            addAll(poem.stanzasBn)
+        }
+        audioEngine.speakSequence(
+            lines = lines,
+            language = AppLanguage.BANGLA,
+            rateMultiplier = if (slowMode) 0.84f else 0.96f
+        )
+    }
+
+    fun recitePoemStanza(stanzaText: String, slowMode: Boolean = false) {
+        audioEngine.playEffect(SoundEffect.TAP_POP)
+        audioEngine.speak(
+            text = stanzaText,
+            language = AppLanguage.BANGLA,
+            rateMultiplier = if (slowMode) 0.84f else 0.96f
+        )
+    }
+
+    fun refreshVoices() {
+        audioEngine.refreshVoices()
+    }
+
+    fun openBanglaVoicePackInstaller(context: Context) {
+        audioEngine.openBanglaVoicePackInstaller(context)
+    }
+
     fun stopSpeaking() {
         audioEngine.stopSpeaking()
     }
@@ -247,6 +289,21 @@ class KidzWorldViewModel(
                 if (newlyCompleted) "গল্প শেষ! +১৫ তারা পেয়েছ!" else "সুন্দর গল্পটি আবার পড়লে!"
             } else {
                 if (newlyCompleted) "Story Finished! +15 Stars!" else "Wonderful story time!"
+            }
+            triggerCelebration(msg)
+        }
+    }
+
+    fun completePoem(poem: BanglaPoem) {
+        val childId = activeChild.value?.id ?: return
+        val lang = settings.value.language
+        viewModelScope.launch {
+            val newlyCompleted = repository.markPoemCompleted(childId, poem.id)
+            audioEngine.playEffect(SoundEffect.CELEBRATION_FANFARE)
+            val msg = if (lang == AppLanguage.BANGLA) {
+                if (newlyCompleted) "দারুণ ছড়া আবৃত্তি! +১৫ তারা পেয়েছ!" else "মিষ্টি ছড়াটি আবার শুনলে!"
+            } else {
+                if (newlyCompleted) "Poem Completed! +15 Stars!" else "Lovely Bangla rhyme time!"
             }
             triggerCelebration(msg)
         }

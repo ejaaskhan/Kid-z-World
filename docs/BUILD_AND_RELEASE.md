@@ -11,10 +11,10 @@ This guide explains how to build, test, and publish **KID'Z WORLD** directly fro
 | **App Name** | `Kid'z World` (Launcher) / `KID'Z WORLD` (In-App Brand) |
 | **Developer** | `Dev. E` |
 | **Application ID** | `com.aistudio.kidzworld.devekw` |
-| **Version** | `1.0.0` (`versionCode = 1`) |
+| **Version** | `1.1.0` (`versionCode = 2`) |
 | **Min / Target / Compile SDK** | `minSdk = 24` (Android 7.0) / `targetSdk = 36` / `compileSdk = 36` |
 | **Toolchain** | Temurin JDK `21` + Gradle `9.3.1` + Android Gradle Plugin `9.1.1` |
-| **R8 Code Shrinking** | Disabled (`isMinifyEnabled = false`) for safe `v1.0.0` release; keep rules prepared in `app/proguard-rules.pro` |
+| **R8 Code Shrinking** | Disabled (`isMinifyEnabled = false`) for safe `v1.1.0` release; keep rules prepared in `app/proguard-rules.pro` |
 
 ---
 
@@ -58,14 +58,14 @@ git push -u origin main
 3. Create and push the matching semantic version tag:
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.1.0
+git push origin v1.1.0
 ```
 
 4. Wait ~3–5 minutes for the **Android Build & Release** workflow to finish.
-5. Open **GitHub → Releases → KID'Z WORLD v1.0.0** to download:
-   - `kidz-world-v1.0.0-release-signed.apk` (install directly on Android devices)
-   - `kidz-world-v1.0.0-release-signed.aab` (upload to Google Play Console)
+5. Open **GitHub → Releases → KID'Z WORLD v1.1.0** to download:
+   - `kidz-world-v1.1.0-release-signed.apk` (install directly on Android devices)
+   - `kidz-world-v1.1.0-release-signed.aab` (upload to Google Play Console)
    - `SHA256SUMS.txt` (cryptographic checksums)
 
 ---

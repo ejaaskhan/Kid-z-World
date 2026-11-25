@@ -19,10 +19,10 @@ on:
         required: false
         default: true
       release_tag:
-        description: "Release tag to create/update when publish_release is enabled (e.g. v1.0.0)"
+        description: "Release tag to create/update when publish_release is enabled (e.g. v1.1.0)"
         type: string
         required: false
-        default: "v1.0.0"
+        default: "v1.1.0"
       release_note_summary:
         description: "Optional note included in the build summary"
         type: string
@@ -74,13 +74,13 @@ jobs:
           elif [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${INPUT_PUBLISH_RELEASE}" == "true" ]]; then
             TARGET_TAG="${INPUT_RELEASE_TAG}"
             if [[ -z "$TARGET_TAG" ]]; then
-              TARGET_TAG="v1.0.0"
+              TARGET_TAG="v1.1.0"
             fi
             LABEL="${TARGET_TAG}"
             SHOULD_RELEASE="true"
           else
             SHORT_SHA="${GITHUB_SHA::7}"
-            LABEL="v1.0.0-${SHORT_SHA}"
+            LABEL="v1.1.0-${SHORT_SHA}"
             SHOULD_RELEASE="false"
             TARGET_TAG=""
           fi
@@ -325,7 +325,13 @@ jobs:
 
           **Developed by Dev. E** • *Learn • Play • Grow*
 
-          Bilingual (**English & বাংলা**) offline-first Android educational app for children ages 3–8 featuring a Pixar-inspired 3D cartoon UI.
+          Bilingual (**বাংলা & English**, Bangla default) offline-first Android educational app for children ages 3–8 featuring a Pixar-inspired 3D cartoon UI.
+
+          ## What's New in ${TAG}
+          - **Bangla Default & Natural Child-Friendly Voice Engine**: Launches in **বাংলা (Bangla)** by default with upgraded offline voice selection (`bn-BD` / `bn-IN` & `en-US` / `en-GB`), warmer child-friendly pacing, and a one-tap Bangla TTS language pack installer & voice tester.
+          - **Bangla Children's Poems (ছড়া)**: New dedicated **Poems** tab & Home card featuring 8 classic traditional Bangla rhymes with illustrated 3D theatre, stanza-by-stanza Bangla recitation & live glow highlighting, Slow/Normal pace toggle, and `+15★` rewards.
+          - **3 New Child-Friendly Puzzle Games**: **Picture Jigsaw Puzzle** (`2×2` & `3×3` with Hint Peek), **Animal & Fruit Sorting Puzzle** (18 bilingual items with auto-voice), and **Pattern & Sequence Puzzle** (5-round visual logic).
+          - **Child UX Polish**: Larger tactile touch targets, animated speaking-wave badges, and smoother Home-to-Profile navigation.
 
           ## Release Details
           - **Version:** \`${TAG}\`
@@ -355,6 +361,11 @@ jobs:
           > To build signed production **APK + AAB**, add \`ANDROID_KEYSTORE_BASE64\`, \`ANDROID_STORE_PASSWORD\`, and \`ANDROID_KEY_PASSWORD\` in **Settings → Secrets and variables → Actions** (see \`docs/ANDROID_SIGNING.md\`) and re-run or tag a new release.
 
           **Developed by Dev. E** • *Learn • Play • Grow*
+
+          ## Highlights in ${TAG}
+          - **Bangla Default & Natural Voice Engine** (offline `bn-BD` / `en-US` local voice ranking + one-tap Bangla language pack installer)
+          - **Bangla Children's Poems (ছড়া)** — 8 classic rhymes with stanza-by-stanza Bangla recitation & live glow highlight
+          - **3 New Child-Friendly Puzzle Games** — Picture Jigsaw (`2×2` & `3×3`), Animal & Fruit Sorting, and Pattern & Sequence
 
           ## Build Details
           - **Version:** \`${TAG}\`

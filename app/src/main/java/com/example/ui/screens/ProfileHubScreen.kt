@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.PersonAdd
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.GameScore
 import com.example.domain.model.LearningPillar
@@ -50,6 +52,7 @@ import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
 import com.example.ui.components.Cartoon3DCard
+import com.example.ui.components.Cartoon3DCircleIconButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonProgressBar
 import com.example.ui.components.Floating3DBox
@@ -79,14 +82,17 @@ fun ProfileHubScreen(
     language: AppLanguage,
     moduleProgress: Map<ModuleType, ModuleProgress>,
     stories: List<Story>,
+    poems: List<BanglaPoem>,
     recentScores: List<GameScore>,
     onToggleLanguage: () -> Unit,
     onSelectChild: (Long) -> Unit,
     onAddChildClick: () -> Unit,
     onOpenLearnModule: (ModuleType) -> Unit,
+    onOpenPoems: () -> Unit,
     onOpenStories: () -> Unit,
     onOpenParentZone: () -> Unit,
     onOpenAboutApp: () -> Unit,
+    onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
@@ -108,9 +114,12 @@ fun ProfileHubScreen(
 
     val storiesDone = stories.count { it.isCompleted }
     val storiesTotal = stories.size.coerceAtLeast(1)
+    val poemsDone = poems.count { it.isCompleted }
+    val poemsTotal = poems.size.coerceAtLeast(1)
 
     val badges = listOf(
         AchievementBadge("🌟", strings.badgeRisingStar, (activeChild?.totalStars ?: 0) >= 10, HoneyGold),
+        AchievementBadge("🎵", strings.badgePoemStar, poemsDone >= 1, Color(0xFF6B5CE7)),
         AchievementBadge("🔤", strings.badgeAlphabetHero, alphaDone >= 3, CeruleanSky),
         AchievementBadge("🔢", strings.badgeNumberChamp, numDone >= 3, EmeraldMeadow),
         AchievementBadge("📖", strings.badgeStoryLover, storiesDone >= 1, BerryCoral),
@@ -131,11 +140,25 @@ fun ProfileHubScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = strings.profileHubTitle,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    if (onBack != null) {
+                        Cartoon3DCircleIconButton(
+                            icon = Icons.AutoMirrored.Rounded.ArrowBack,
+                            contentDescription = strings.onboardingBack,
+                            containerColor = CeruleanSky,
+                            onClick = onBack,
+                            modifier = Modifier.testTag("profile_back_button")
+                        )
+                    }
+                    Text(
+                        text = strings.profileHubTitle,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
                 LanguageTogglePill(language = language, onToggle = onToggleLanguage)
             }
         }
@@ -356,6 +379,14 @@ fun ProfileHubScreen(
                                 if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.BASIC_WORDS
                             )
                         }
+                    )
+                    TappableMasteryRow(
+                        label = strings.worldPoems,
+                        done = poemsDone,
+                        total = poemsTotal,
+                        color = Color(0xFF6B5CE7),
+                        language = language,
+                        onClick = onOpenPoems
                     )
                     TappableMasteryRow(
                         label = strings.worldStories,

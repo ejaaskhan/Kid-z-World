@@ -8,7 +8,7 @@ enum class AppLanguage(val code: String, val shortLabel: String, val nativeLabel
 
     companion object {
         fun fromCode(code: String?): AppLanguage =
-            entries.firstOrNull { it.code == code } ?: ENGLISH
+            entries.firstOrNull { it.code == code } ?: BANGLA
     }
 }
 
@@ -211,7 +211,48 @@ data class AppStrings(
     val seeAllRewards: String,
     val isForConnector: String,
     val completeLessonReward: String,
-    val tapAnyCardToOpen: String
+    val tapAnyCardToOpen: String,
+    // v1.1.0: Bangla Poems (Chhora), Natural Voice Pack & Child-Friendly Puzzles
+    val navPoems: String,
+    val worldPoems: String,
+    val worldPoemsSub: String,
+    val poemsShelfTitle: String,
+    val poemsShelfSub: String,
+    val recitePoem: String,
+    val stopReciting: String,
+    val tapStanzaHint: String,
+    val slowVoicePace: String,
+    val normalVoicePace: String,
+    val finishPoem: String,
+    val completedPoem: String,
+    val meaningLabel: String,
+    val badgePoemStar: String,
+    val voicePackTitle: String,
+    val voicePackMissingBody: String,
+    val installBanglaPackButton: String,
+    val refreshVoicesButton: String,
+    val testBanglaVoiceButton: String,
+    val testEnglishVoiceButton: String,
+    val voiceReadyBadge: String,
+    val jigsawPuzzleTitle: String,
+    val jigsawPuzzleSub: String,
+    val sortingPuzzleTitle: String,
+    val sortingPuzzleSub: String,
+    val patternPuzzleTitle: String,
+    val patternPuzzleSub: String,
+    val jigsawEasyMode: String,
+    val jigsawChallengeMode: String,
+    val jigsawHintPeek: String,
+    val jigsawTapToSwapHint: String,
+    val sortingPromptHint: String,
+    val sortingBasketAnimals: String,
+    val sortingBasketFruits: String,
+    val sortingBasketVehicles: String,
+    val patternPromptHint: String,
+    val roundLabel: String,
+    val puzzleSolvedBanner: String,
+    val puzzlesSectionTitle: String,
+    val classicGamesSectionTitle: String
 )
 
 val EnglishStrings = AppStrings(
@@ -408,7 +449,47 @@ val EnglishStrings = AppStrings(
     seeAllRewards = "View All",
     isForConnector = "is for",
     completeLessonReward = "Finish (+5★)",
-    tapAnyCardToOpen = "Tap any 3D card to open full-screen lesson!"
+    tapAnyCardToOpen = "Tap any 3D card to open full-screen lesson!",
+    navPoems = "Poems",
+    worldPoems = "Bangla Poems",
+    worldPoemsSub = "8 classic rhymes with Bangla voice",
+    poemsShelfTitle = "Bangla Poems (ছড়া)",
+    poemsShelfSub = "Tap any rhyme to listen in clear Bangla voice!",
+    recitePoem = "Recite Poem",
+    stopReciting = "Stop",
+    tapStanzaHint = "Tap any stanza to hear it again!",
+    slowVoicePace = "Gentle Slow",
+    normalVoicePace = "Normal",
+    finishPoem = "Finish (+15★)",
+    completedPoem = "Recited!",
+    meaningLabel = "About This Rhyme",
+    badgePoemStar = "Rhyme Star",
+    voicePackTitle = "Clear Bangla Voice Pack",
+    voicePackMissingBody = "Install the free Android Bangla language pack so poems and lessons sound warm, natural, and clear offline.",
+    installBanglaPackButton = "Install Bangla Voice Pack",
+    refreshVoicesButton = "Refresh Voices",
+    testBanglaVoiceButton = "Test বাংলা Voice",
+    testEnglishVoiceButton = "Test English Voice",
+    voiceReadyBadge = "Voice Pack Ready",
+    jigsawPuzzleTitle = "Picture Jigsaw Puzzle",
+    jigsawPuzzleSub = "Tap two tiles to swap & complete the 3D picture!",
+    sortingPuzzleTitle = "Animal & Fruit Sorting",
+    sortingPuzzleSub = "Hear the name and drop into the right basket!",
+    patternPuzzleTitle = "Pattern & Sequence",
+    patternPuzzleSub = "Find what comes next in the colorful chain!",
+    jigsawEasyMode = "Easy (2×2)",
+    jigsawChallengeMode = "Fun (3×3)",
+    jigsawHintPeek = "Peek Picture",
+    jigsawTapToSwapHint = "Tap two puzzle pieces to swap places!",
+    sortingPromptHint = "Which basket does this belong in?",
+    sortingBasketAnimals = "Animals",
+    sortingBasketFruits = "Fruits",
+    sortingBasketVehicles = "Vehicles",
+    patternPromptHint = "What comes next in the pattern?",
+    roundLabel = "Round",
+    puzzleSolvedBanner = "Puzzle Master!",
+    puzzlesSectionTitle = "Brainy Kid Puzzles",
+    classicGamesSectionTitle = "Classic Arcade Games"
 )
 
 val BanglaStrings = AppStrings(
@@ -605,7 +686,47 @@ val BanglaStrings = AppStrings(
     seeAllRewards = "সব দেখো",
     isForConnector = "মানে",
     completeLessonReward = "সম্পন্ন (+৫★)",
-    tapAnyCardToOpen = "বড় করে শিখতে যেকোনো ৩ডি কার্ডে ট্যাপ করো!"
+    tapAnyCardToOpen = "বড় করে শিখতে যেকোনো ৩ডি কার্ডে ট্যাপ করো!",
+    navPoems = "ছড়া",
+    worldPoems = "ছোটদের বাংলা ছড়া",
+    worldPoemsSub = "৮টি প্রিয় ছড়া সুন্দর বাংলা উচ্চারণসহ",
+    poemsShelfTitle = "ছোটদের বাংলা ছড়া",
+    poemsShelfSub = "যেকোনো ছড়ায় ট্যাপ করে মিষ্টি বাংলায় শোনো!",
+    recitePoem = "ছড়া শোনো",
+    stopReciting = "থামাও",
+    tapStanzaHint = "যেকোনো স্তবকে ট্যাপ করলেই আবার শোনাবে!",
+    slowVoicePace = "ধীরে শোনো",
+    normalVoicePace = "স্বাভাবিক",
+    finishPoem = "সম্পন্ন (+১৫★)",
+    completedPoem = "শোনা শেষ!",
+    meaningLabel = "ছড়াটির কথা",
+    badgePoemStar = "ছড়া বন্ধু",
+    voicePackTitle = "সুন্দর বাংলা ভয়েস প্যাক",
+    voicePackMissingBody = "ছড়া ও পাঠ আরও স্পষ্ট ও স্বাভাবিক বাংলা কণ্ঠে শুনতে ফ্রি Android বাংলা ভাষা প্যাকটি ইনস্টল করুন।",
+    installBanglaPackButton = "বাংলা ভয়েস প্যাক ইনস্টল",
+    refreshVoicesButton = "রিফ্রেশ করুন",
+    testBanglaVoiceButton = "বাংলা কণ্ঠ পরীক্ষা",
+    testEnglishVoiceButton = "ইংরেজি কণ্ঠ পরীক্ষা",
+    voiceReadyBadge = "বাংলা কণ্ঠ প্রস্তুত",
+    jigsawPuzzleTitle = "ছবির জিগস পাজল",
+    jigsawPuzzleSub = "দুটি টুকরায় ট্যাপ করে বদল করো ও ৩ডি ছবি মেলাও!",
+    sortingPuzzleTitle = "প্রাণী ও ফল সাজাই",
+    sortingPuzzleSub = "নাম শুনে সঠিক ঝুড়িতে সাজিয়ে রাখো!",
+    patternPuzzleTitle = "ছন্দ ও ধারা পাজল",
+    patternPuzzleSub = "রঙিন ধারার পরের ছবিটি খুঁজে বের করো!",
+    jigsawEasyMode = "সহজ (২×২)",
+    jigsawChallengeMode = "মজার (৩×৩)",
+    jigsawHintPeek = "ছবি দেখো",
+    jigsawTapToSwapHint = "জায়গা বদল করতে দুটি টুকরায় ট্যাপ করো!",
+    sortingPromptHint = "এটি কোন ঝুড়িতে যাবে?",
+    sortingBasketAnimals = "প্রাণী",
+    sortingBasketFruits = "ফলমূল",
+    sortingBasketVehicles = "যানবাহন",
+    patternPromptHint = "এর পরে কোনটি বসবে?",
+    roundLabel = "পর্ব",
+    puzzleSolvedBanner = "পাজল চ্যাম্পিয়ন!",
+    puzzlesSectionTitle = "ছোটদের মজার পাজল",
+    classicGamesSectionTitle = "ক্লাসিক আর্কেড খেলা"
 )
 
 fun stringsFor(language: AppLanguage): AppStrings = when (language) {
@@ -613,7 +734,7 @@ fun stringsFor(language: AppLanguage): AppStrings = when (language) {
     AppLanguage.BANGLA -> BanglaStrings
 }
 
-val LocalAppStrings = staticCompositionLocalOf { EnglishStrings }
+val LocalAppStrings = staticCompositionLocalOf { BanglaStrings }
 
 fun Int.toLocalizedDigits(language: AppLanguage): String {
     val raw = this.toString()

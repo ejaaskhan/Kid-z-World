@@ -4,6 +4,20 @@ All notable changes to **KID'Z WORLD** (by **Dev. E**) are documented in this fi
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-25
+
+### Added
+- **Bangla Children's Poems (ছড়া) Section**: Dedicated **Poems (`ছড়া`)** tab in the floating 3D dock & tablet rail plus a Home World card featuring **8 classic traditional Bangla rhymes** (*আয় আয় চাঁদ মামা*, *হাট্টিমাটিম টিম*, *আতা গাছে তোতা পাখি*, *আয় বৃষ্টি ঝেঁপে*, *তাই তাই তাই*, *নোটন নোটন পায়রাগুলো*, *খোকন খোকন ডাক পাড়ি*, *আম পাতা জোড়া জোড়া*), illustrated 3D theatre, rhythmic stanza-by-stanza Bangla voice recitation with live glow highlighting, Slow/Normal pace toggle, tap-any-stanza replay, and `+15★` star rewards saved in Room.
+- **3 New Child-Friendly Puzzle Games** in Games Arcade:
+  - **Picture Jigsaw Puzzle**: `2×2` (Easy) and `3×3` (Fun) tap-to-swap puzzle boards featuring 5 bundled 3D Pixar-style artworks and a helpful **Hint Peek** preview.
+  - **Animal & Fruit Sorting Puzzle**: 18 bilingual items sorted into Animals, Fruits, and Vehicles baskets with automatic voice pronunciation.
+  - **Pattern & Sequence Puzzle**: 5-round visual logic puzzle (ABAB, AABB, ABC) with glowing mystery slot and instant cheerful audio feedback.
+- **Natural Bangla & English Offline Voice Pack Engine**: Automatically prioritizes Google Speech Services (`com.google.android.tts`) and selects the highest-quality local offline Bangla (`bn-BD` / `bn-IN`) and English (`en-US` / `en-GB`) voices with warm child-friendly pitch and pacing (`0.84x` default), plus a **one-tap Bangla voice pack installer** (`ACTION_INSTALL_TTS_DATA`) and interactive voice test buttons in Parent Zone.
+
+### Changed
+- **Bangla (`বাংলা`) as Default Language**: Fresh installs launch directly in **বাংলা** (with Bangla alphabet default in Learn Studio and Bangla-first Onboarding) while preserving instant one-tap **বাং / EN** switching across every screen.
+- **Child UX Optimizations**: Animated speaking-wave visual indicators (`SpeakingWaveBadge`), larger kid-safe touch targets, top-right Profile quick access on Home, and updated GitHub Actions CI/CD workflow defaults for `v1.1.0`.
+
 ## [1.0.0] - 2026-11-24
 
 ### Added

@@ -63,17 +63,20 @@ import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.AppSettings
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.LearningPillar
 import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
 import com.example.domain.model.Story
+import com.example.domain.model.VoicePackStatus
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
 import com.example.ui.components.Cartoon3DCircleIconButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonProgressBar
 import com.example.ui.components.LanguageTogglePill
+import com.example.ui.components.VoicePackStatusSection
 import com.example.ui.theme.BerryCoral
 import com.example.ui.theme.CeruleanSky
 import com.example.ui.theme.EmeraldMeadow
@@ -90,7 +93,8 @@ fun ParentZoneScreen(
     activeChild: ChildProfile?,
     moduleProgress: Map<ModuleType, ModuleProgress>,
     stories: List<Story>,
-    banglaVoiceAvailable: Boolean,
+    poems: List<BanglaPoem>,
+    voiceStatus: VoicePackStatus,
     onSelectChild: (Long) -> Unit,
     onAddChild: (String, Int, String) -> Unit,
     onDeleteChild: (Long) -> Unit,
@@ -99,6 +103,9 @@ fun ParentZoneScreen(
     onSetTts: (Boolean) -> Unit,
     onSetSpeechRate: (Float) -> Unit,
     onSetDarkMode: (Boolean) -> Unit,
+    onInstallBanglaPack: () -> Unit,
+    onRefreshVoices: () -> Unit,
+    onTestVoice: (String, AppLanguage) -> Unit,
     onResetProgress: () -> Unit,
     onBack: (() -> Unit)? = null,
     onOpenAboutApp: (() -> Unit)? = null,
@@ -120,7 +127,8 @@ fun ParentZoneScreen(
             activeChild = activeChild,
             moduleProgress = moduleProgress,
             stories = stories,
-            banglaVoiceAvailable = banglaVoiceAvailable,
+            poems = poems,
+            voiceStatus = voiceStatus,
             onLock = { unlocked = false },
             onBack = onBack,
             onOpenAboutApp = onOpenAboutApp,
@@ -132,6 +140,9 @@ fun ParentZoneScreen(
             onSetTts = onSetTts,
             onSetSpeechRate = onSetSpeechRate,
             onSetDarkMode = onSetDarkMode,
+            onInstallBanglaPack = onInstallBanglaPack,
+            onRefreshVoices = onRefreshVoices,
+            onTestVoice = onTestVoice,
             onResetProgress = onResetProgress,
             modifier = modifier
         )
@@ -302,7 +313,8 @@ private fun ParentDashboardView(
     activeChild: ChildProfile?,
     moduleProgress: Map<ModuleType, ModuleProgress>,
     stories: List<Story>,
-    banglaVoiceAvailable: Boolean,
+    poems: List<BanglaPoem>,
+    voiceStatus: VoicePackStatus,
     onLock: () -> Unit,
     onBack: (() -> Unit)?,
     onOpenAboutApp: (() -> Unit)?,
@@ -314,6 +326,9 @@ private fun ParentDashboardView(
     onSetTts: (Boolean) -> Unit,
     onSetSpeechRate: (Float) -> Unit,
     onSetDarkMode: (Boolean) -> Unit,
+    onInstallBanglaPack: () -> Unit,
+    onRefreshVoices: () -> Unit,
+    onTestVoice: (String, AppLanguage) -> Unit,
     onResetProgress: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -520,6 +535,13 @@ private fun ParentDashboardView(
                         language = lang
                     )
                     ProgressMetricRow(
+                        label = strings.worldPoems,
+                        done = poems.count { it.isCompleted },
+                        total = poems.size.coerceAtLeast(1),
+                        color = Color(0xFF6B5CE7),
+                        language = lang
+                    )
+                    ProgressMetricRow(
                         label = strings.worldStories,
                         done = stories.count { it.isCompleted },
                         total = stories.size.coerceAtLeast(1),
@@ -599,13 +621,17 @@ private fun ParentDashboardView(
                         )
                     }
 
-                    if (!banglaVoiceAvailable) {
-                        Text(
-                            text = strings.banglaVoiceNotice,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MangoPrimary
-                        )
-                    }
+                    VoicePackStatusSection(
+                        voiceStatus = voiceStatus,
+                        onInstallBanglaPack = onInstallBanglaPack,
+                        onRefreshVoices = onRefreshVoices,
+                        onTestBanglaVoice = {
+                            onTestVoice("আয় আয় চাঁদ মামা, টিপ দিয়ে যা। কিড'জ ওয়ার্ল্ডে স্বাগতম!", AppLanguage.BANGLA)
+                        },
+                        onTestEnglishVoice = {
+                            onTestVoice("Welcome to Kid'z World! Learn, play, and grow.", AppLanguage.ENGLISH)
+                        }
+                    )
 
                     SettingsToggleRow(
                         label = strings.bedtimeModeLabel,

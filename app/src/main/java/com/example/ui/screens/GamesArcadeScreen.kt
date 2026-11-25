@@ -58,25 +58,37 @@ import com.example.domain.model.GameScore
 import com.example.domain.model.GameType
 import com.example.domain.model.LessonItem
 import com.example.domain.model.ModuleType
+import com.example.ui.components.AnimalFruitSortingPuzzleView
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
 import com.example.ui.components.Cartoon3DCircleIconButton
 import com.example.ui.components.KidzEmptyState
 import com.example.ui.components.LanguageTogglePill
+import com.example.ui.components.PatternSequencePuzzleView
+import com.example.ui.components.PictureJigsawPuzzleView
 import com.example.ui.theme.BerryCoral
 import com.example.ui.theme.BerryRim
 import com.example.ui.theme.CeruleanRim
 import com.example.ui.theme.CeruleanSky
 import com.example.ui.theme.EmeraldMeadow
+import com.example.ui.theme.EmeraldRim
 import com.example.ui.theme.GrapePop
 import com.example.ui.theme.GrapeRim
 import com.example.ui.theme.HoneyGold
 import com.example.ui.theme.MangoPrimary
+import com.example.ui.theme.MangoRim
 import com.example.ui.theme.darkenForRim
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private enum class ArcadeMode { HUB, MEMORY_MATCH, PICTURE_QUIZ }
+private enum class ArcadeMode {
+    HUB,
+    JIGSAW_PUZZLE,
+    SORTING_PUZZLE,
+    PATTERN_PUZZLE,
+    MEMORY_MATCH,
+    PICTURE_QUIZ
+}
 
 private data class MemoryCardModel(
     val uid: Int,
@@ -121,6 +133,18 @@ fun GamesArcadeScreen(
             language = language,
             isWideScreen = isWideScreen,
             onToggleLanguage = onToggleLanguage,
+            onLaunchJigsaw = {
+                onPlayEffect(SoundEffect.TAP_POP)
+                mode = ArcadeMode.JIGSAW_PUZZLE
+            },
+            onLaunchSorting = {
+                onPlayEffect(SoundEffect.TAP_POP)
+                mode = ArcadeMode.SORTING_PUZZLE
+            },
+            onLaunchPattern = {
+                onPlayEffect(SoundEffect.TAP_POP)
+                mode = ArcadeMode.PATTERN_PUZZLE
+            },
             onLaunchMemory = {
                 onPlayEffect(SoundEffect.TAP_POP)
                 mode = ArcadeMode.MEMORY_MATCH
@@ -129,6 +153,33 @@ fun GamesArcadeScreen(
                 onPlayEffect(SoundEffect.TAP_POP)
                 mode = ArcadeMode.PICTURE_QUIZ
             },
+            modifier = modifier
+        )
+
+        ArcadeMode.JIGSAW_PUZZLE -> PictureJigsawPuzzleView(
+            language = language,
+            onBack = { mode = ArcadeMode.HUB },
+            onSpeakText = onSpeakText,
+            onPlayEffect = onPlayEffect,
+            onWin = { score, stars -> onRecordGameScore(GameType.JIGSAW_PUZZLE, score, stars) },
+            modifier = modifier
+        )
+
+        ArcadeMode.SORTING_PUZZLE -> AnimalFruitSortingPuzzleView(
+            language = language,
+            onBack = { mode = ArcadeMode.HUB },
+            onSpeakText = onSpeakText,
+            onPlayEffect = onPlayEffect,
+            onFinish = { score, stars -> onRecordGameScore(GameType.SORTING_PUZZLE, score, stars) },
+            modifier = modifier
+        )
+
+        ArcadeMode.PATTERN_PUZZLE -> PatternSequencePuzzleView(
+            language = language,
+            onBack = { mode = ArcadeMode.HUB },
+            onSpeakText = onSpeakText,
+            onPlayEffect = onPlayEffect,
+            onFinish = { score, stars -> onRecordGameScore(GameType.PATTERN_PUZZLE, score, stars) },
             modifier = modifier
         )
 
@@ -162,6 +213,9 @@ private fun ArcadeHubView(
     language: AppLanguage,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
+    onLaunchJigsaw: () -> Unit,
+    onLaunchSorting: () -> Unit,
+    onLaunchPattern: () -> Unit,
     onLaunchMemory: () -> Unit,
     onLaunchQuiz: () -> Unit,
     modifier: Modifier = Modifier
@@ -183,10 +237,106 @@ private fun ArcadeHubView(
                 Text(
                     text = strings.worldGames,
                     style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 LanguageTogglePill(language = language, onToggle = onToggleLanguage)
             }
+        }
+
+        // Section 1: Brainy Kid Puzzles (v1.1.0)
+        item {
+            Text(
+                text = "🧩 ${strings.puzzlesSectionTitle}",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+
+        item {
+            if (isWideScreen) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        GameLauncherCard(
+                            emoji = "🧩",
+                            title = strings.jigsawPuzzleTitle,
+                            subtitle = strings.jigsawPuzzleSub,
+                            color = CeruleanSky,
+                            rimColor = CeruleanRim,
+                            testTag = "launch_jigsaw_puzzle",
+                            onClick = onLaunchJigsaw,
+                            modifier = Modifier.weight(1f)
+                        )
+                        GameLauncherCard(
+                            emoji = "🧺",
+                            title = strings.sortingPuzzleTitle,
+                            subtitle = strings.sortingPuzzleSub,
+                            color = MangoPrimary,
+                            rimColor = MangoRim,
+                            testTag = "launch_sorting_puzzle",
+                            onClick = onLaunchSorting,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    GameLauncherCard(
+                        emoji = "✨",
+                        title = strings.patternPuzzleTitle,
+                        subtitle = strings.patternPuzzleSub,
+                        color = EmeraldMeadow,
+                        rimColor = EmeraldRim,
+                        testTag = "launch_pattern_puzzle",
+                        onClick = onLaunchPattern,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    GameLauncherCard(
+                        emoji = "🧩",
+                        title = strings.jigsawPuzzleTitle,
+                        subtitle = strings.jigsawPuzzleSub,
+                        color = CeruleanSky,
+                        rimColor = CeruleanRim,
+                        testTag = "launch_jigsaw_puzzle",
+                        onClick = onLaunchJigsaw,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    GameLauncherCard(
+                        emoji = "🧺",
+                        title = strings.sortingPuzzleTitle,
+                        subtitle = strings.sortingPuzzleSub,
+                        color = MangoPrimary,
+                        rimColor = MangoRim,
+                        testTag = "launch_sorting_puzzle",
+                        onClick = onLaunchSorting,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    GameLauncherCard(
+                        emoji = "✨",
+                        title = strings.patternPuzzleTitle,
+                        subtitle = strings.patternPuzzleSub,
+                        color = EmeraldMeadow,
+                        rimColor = EmeraldRim,
+                        testTag = "launch_pattern_puzzle",
+                        onClick = onLaunchPattern,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        }
+
+        // Section 2: Classic Arcade Games
+        item {
+            Text(
+                text = "🎮 ${strings.classicGamesSectionTitle}",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
         }
 
         item {
@@ -263,6 +413,9 @@ private fun ArcadeHubView(
                 val (badgeEmoji, gameTitle) = when (score.gameType) {
                     GameType.MEMORY_MATCH -> "🃏" to strings.memoryMatchTitle
                     GameType.PICTURE_QUIZ -> "🎯" to strings.pictureQuizTitle
+                    GameType.JIGSAW_PUZZLE -> "🧩" to strings.jigsawPuzzleTitle
+                    GameType.SORTING_PUZZLE -> "🧺" to strings.sortingPuzzleTitle
+                    GameType.PATTERN_PUZZLE -> "✨" to strings.patternPuzzleTitle
                     GameType.ALPHABET_QUIZ -> "🔤" to "${strings.pillarAlphabetTitle} • ${strings.modeQuiz}"
                     GameType.MATH_QUIZ -> "🔢" to "${strings.pillarNumbersTitle} • ${strings.modeQuiz}"
                     GameType.WORLD_QUIZ -> "🌍" to "${strings.pillarWorldTitle} • ${strings.modeQuiz}"

@@ -91,4 +91,4 @@ fun kidzTypographyFor(language: AppLanguage): Typography {
 }
 
 // Preserved default reference for previews
-val Typography = kidzTypographyFor(AppLanguage.ENGLISH)
+val Typography = kidzTypographyFor(AppLanguage.BANGLA)

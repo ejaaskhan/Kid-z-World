@@ -1,6 +1,7 @@
 package com.example.data.repository
 
 import com.example.core.localization.AppLanguage
+import com.example.data.local.BanglaPoemsCatalog
 import com.example.data.local.KidzWorldDatabase
 import com.example.data.local.SeedContentProvider
 import com.example.data.local.entity.ChildProfileEntity
@@ -8,6 +9,7 @@ import com.example.data.local.entity.GameScoreEntity
 import com.example.data.local.entity.LearningProgressEntity
 import com.example.data.preferences.SettingsDataStore
 import com.example.domain.model.AppSettings
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
@@ -131,6 +133,17 @@ class KidzWorldRepository(
             }
         }
 
+    fun observePoemsForChild(childId: Long): Flow<List<BanglaPoem>> =
+        progressDao.observeProgressForChild(childId).map { progressList ->
+            val completedIds = progressList
+                .filter { it.itemType == ITEM_TYPE_POEM && it.isCompleted }
+                .map { it.itemId }
+                .toSet()
+            BanglaPoemsCatalog.poems.map { poem ->
+                poem.copy(isCompleted = poem.id in completedIds)
+            }
+        }
+
     val activeLessonsFlow: Flow<List<LessonItem>> = settingsFlow
         .map { it.activeChildId }
         .flatMapLatest { childId -> observeLessonsForChild(childId) }
@@ -138,6 +151,10 @@ class KidzWorldRepository(
     val activeStoriesFlow: Flow<List<Story>> = settingsFlow
         .map { it.activeChildId }
         .flatMapLatest { childId -> observeStoriesForChild(childId) }
+
+    val activePoemsFlow: Flow<List<BanglaPoem>> = settingsFlow
+        .map { it.activeChildId }
+        .flatMapLatest { childId -> observePoemsForChild(childId) }
 
     val activeScoresFlow: Flow<List<GameScore>> = settingsFlow
         .map { it.activeChildId }
@@ -244,6 +261,26 @@ class KidzWorldRepository(
             newlyCompleted
         }
 
+    suspend fun markPoemCompleted(childId: Long, poemId: String): Boolean =
+        withContext(Dispatchers.IO) {
+            val existing = progressDao.getProgress(childId, poemId, ITEM_TYPE_POEM)
+            val newlyCompleted = existing?.isCompleted != true
+            settingsStore.recordLearningActivity(childId)
+            progressDao.upsertProgress(
+                LearningProgressEntity(
+                    childId = childId,
+                    itemId = poemId,
+                    itemType = ITEM_TYPE_POEM,
+                    isCompleted = true,
+                    starsEarned = 15
+                )
+            )
+            if (newlyCompleted) {
+                profileDao.addStars(childId, 15)
+            }
+            newlyCompleted
+        }
+
     suspend fun recordGameScore(childId: Long, gameType: GameType, score: Int, starsEarned: Int) =
         withContext(Dispatchers.IO) {
             settingsStore.recordLearningActivity(childId)
@@ -286,5 +323,6 @@ class KidzWorldRepository(
     companion object {
         private const val ITEM_TYPE_LESSON = "lesson"
         private const val ITEM_TYPE_STORY = "story"
+        private const val ITEM_TYPE_POEM = "poem"
     }
 }

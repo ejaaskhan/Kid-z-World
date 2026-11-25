@@ -91,6 +91,9 @@ enum class ModuleType(val key: String) {
 enum class GameType(val key: String) {
     MEMORY_MATCH("memory_match"),
     PICTURE_QUIZ("picture_quiz"),
+    JIGSAW_PUZZLE("jigsaw_puzzle"),
+    SORTING_PUZZLE("sorting_puzzle"),
+    PATTERN_PUZZLE("pattern_puzzle"),
     ALPHABET_QUIZ("alphabet_quiz"),
     MATH_QUIZ("math_quiz"),
     WORLD_QUIZ("world_quiz"),
@@ -112,11 +115,11 @@ data class ChildProfile(
 )
 
 data class AppSettings(
-    val language: AppLanguage = AppLanguage.ENGLISH,
+    val language: AppLanguage = AppLanguage.BANGLA,
     val activeChildId: Long = 1L,
     val soundFxEnabled: Boolean = true,
     val ttsEnabled: Boolean = true,
-    val speechRate: Float = 0.88f,
+    val speechRate: Float = 0.84f,
     val darkModeEnabled: Boolean = false,
     val onboardingCompleted: Boolean = false
 )
@@ -152,14 +155,39 @@ data class LessonItem(
         if (language == AppLanguage.BANGLA) exampleBn else exampleEn
 
     fun speechPrompt(language: AppLanguage): String = when (moduleType) {
-        ModuleType.ALPHABET_EN -> if (language == AppLanguage.BANGLA) "$symbol, $exampleBn" else "$symbol for $exampleEn"
-        ModuleType.ALPHABET_BN -> if (language == AppLanguage.BANGLA) "$symbolBn তে $exampleBn" else "$titleEn, $exampleEn"
-        ModuleType.NUMBERS -> if (language == AppLanguage.BANGLA) "$titleBn" else "$titleEn"
+        ModuleType.ALPHABET_EN -> if (language == AppLanguage.BANGLA) "$symbol। $exampleBn।" else "$symbol, is for $exampleEn."
+        ModuleType.ALPHABET_BN -> if (language == AppLanguage.BANGLA) "$symbolBn, $symbolBn তে $exampleBn।" else "$titleEn, $exampleEn."
+        ModuleType.NUMBERS -> if (language == AppLanguage.BANGLA) "$titleBn।" else "$titleEn."
         ModuleType.SIMPLE_SENTENCES -> if (language == AppLanguage.BANGLA) titleBn else titleEn
-        ModuleType.BANGLA_VOCAB -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn" else "$titleEn. $exampleEn"
-        else -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn" else "$titleEn. $exampleEn"
+        ModuleType.BANGLA_VOCAB -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn।" else "$titleEn. $exampleEn."
+        else -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn।" else "$titleEn. $exampleEn."
     }
 }
+
+data class BanglaPoem(
+    val id: String,
+    val titleBn: String,
+    val titleEn: String,
+    val traditionBn: String,
+    val emoji: String,
+    val accentColorHex: Long,
+    val artworkKey: String,
+    val stanzasBn: List<String>,
+    val meaningEn: String,
+    val isCompleted: Boolean = false
+) {
+    fun displayTitle(language: AppLanguage): String =
+        if (language == AppLanguage.BANGLA) titleBn else "$titleBn ($titleEn)"
+}
+
+data class VoicePackStatus(
+    val banglaInstalled: Boolean = true,
+    val englishInstalled: Boolean = true,
+    val isHighQualityBangla: Boolean = false,
+    val selectedBanglaVoiceLabel: String = "bn-BD",
+    val selectedEnglishVoiceLabel: String = "en-US",
+    val isInitialized: Boolean = false
+)
 
 data class StoryPage(
     val id: Long,

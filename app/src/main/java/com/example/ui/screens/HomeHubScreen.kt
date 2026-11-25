@@ -26,7 +26,9 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.AutoStories
 import androidx.compose.material.icons.rounded.Bolt
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Pin
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.SportsEsports
@@ -60,6 +62,7 @@ import com.example.core.assets.LocalAssetRegistry
 import com.example.core.localization.AppLanguage
 import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
+import com.example.domain.model.BanglaPoem
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.LearningPillar
@@ -70,6 +73,7 @@ import com.example.domain.model.Story
 import com.example.ui.components.AnimatedDailyStreakBadge
 import com.example.ui.components.Cartoon3DButton
 import com.example.ui.components.Cartoon3DCard
+import com.example.ui.components.Cartoon3DCircleIconButton
 import com.example.ui.components.CartoonAvatarBadge
 import com.example.ui.components.CartoonProgressBar
 import com.example.ui.components.DailyStreakDialog
@@ -118,6 +122,7 @@ fun HomeHubScreen(
     moduleProgress: Map<ModuleType, ModuleProgress>,
     nextRecommendedLesson: LessonItem?,
     stories: List<Story>,
+    poems: List<BanglaPoem>,
     gamesPlayedCount: Int,
     isWideScreen: Boolean,
     onToggleLanguage: () -> Unit,
@@ -126,6 +131,7 @@ fun HomeHubScreen(
     onContinueLesson: (LessonItem) -> Unit,
     onStartDailyChallenge: () -> Unit,
     onNavigateToLearn: (ModuleType) -> Unit,
+    onNavigateToPoems: () -> Unit,
     onNavigateToGames: () -> Unit,
     onNavigateToStories: () -> Unit,
     onOpenRewards: () -> Unit,
@@ -153,8 +159,11 @@ fun HomeHubScreen(
     val storiesDone = stories.count { it.isCompleted }
     val storiesTotal = stories.size.coerceAtLeast(1)
 
-    val totalLessonsDone = alphaDone + numDone + expDone + langDone + storiesDone
-    val totalLessonsAll = (alphaTotal + numTotal + expTotal + langTotal + storiesTotal).coerceAtLeast(1)
+    val poemsDone = poems.count { it.isCompleted }
+    val poemsTotal = poems.size.coerceAtLeast(1)
+
+    val totalLessonsDone = alphaDone + numDone + expDone + langDone + storiesDone + poemsDone
+    val totalLessonsAll = (alphaTotal + numTotal + expTotal + langTotal + storiesTotal + poemsTotal).coerceAtLeast(1)
 
     val worlds = listOf(
         WorldTileData(
@@ -214,6 +223,18 @@ fun HomeHubScreen(
             }
         ),
         WorldTileData(
+            id = "world_poems",
+            title = strings.worldPoems,
+            subtitle = strings.worldPoemsSub,
+            emoji = "🌙",
+            icon = Icons.Rounded.MusicNote,
+            color = Color(0xFF6B5CE7),
+            rimColor = Color(0xFF4737B5),
+            progressText = "${poemsDone.toLocalizedDigits(language)}/${poemsTotal.toLocalizedDigits(language)}",
+            progressFraction = poemsDone.toFloat() / poemsTotal,
+            onClick = onNavigateToPoems
+        ),
+        WorldTileData(
             id = "world_games",
             title = strings.worldGames,
             subtitle = strings.worldGamesSub,
@@ -242,6 +263,7 @@ fun HomeHubScreen(
     val homeBadges = listOf(
         HomeRewardMedallion("🌟", strings.badgeRisingStar, (activeChild?.totalStars ?: 0) >= 10, HoneyGold),
         HomeRewardMedallion("🔤", strings.badgeAlphabetHero, alphaDone >= 3, CeruleanSky),
+        HomeRewardMedallion("🌙", strings.badgePoemStar, poemsDone >= 1, Color(0xFF6B5CE7)),
         HomeRewardMedallion("🔢", strings.badgeNumberChamp, numDone >= 3, EmeraldMeadow),
         HomeRewardMedallion("📖", strings.badgeStoryLover, storiesDone >= 1, BerryCoral),
         HomeRewardMedallion("🏆", strings.badgeGameMaster, gamesPlayedCount > 0, GrapePop)
@@ -317,10 +339,23 @@ fun HomeHubScreen(
                     }
                 }
 
-                LanguageTogglePill(
-                    language = language,
-                    onToggle = onToggleLanguage
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    LanguageTogglePill(
+                        language = language,
+                        onToggle = onToggleLanguage
+                    )
+                    Cartoon3DCircleIconButton(
+                        icon = Icons.Rounded.Person,
+                        contentDescription = strings.navProfile,
+                        containerColor = EmeraldMeadow,
+                        size = 48.dp,
+                        onClick = onOpenRewards,
+                        modifier = Modifier.testTag("home_open_profile_button")
+                    )
+                }
             }
         }
 
