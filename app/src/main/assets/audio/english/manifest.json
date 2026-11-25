@@ -1,0 +1,2755 @@
+{
+  "version": 1,
+  "locale": "en-US",
+  "voiceProfile": "Natural Human English Offline Voice Library (24kHz Mono MP3)",
+  "totalClips": 272,
+  "entries": [
+    {
+      "id": "en_alpha_a",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_a.mp3",
+      "scriptBn": "A. A is for Apple.",
+      "aliases": [
+        "A",
+        "Letter A",
+        "A, is for Apple.",
+        "Apple"
+      ]
+    },
+    {
+      "id": "en_alpha_b",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_b.mp3",
+      "scriptBn": "B. B is for Ball.",
+      "aliases": [
+        "B",
+        "Letter B",
+        "B, is for Ball.",
+        "Ball"
+      ]
+    },
+    {
+      "id": "en_alpha_c",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_c.mp3",
+      "scriptBn": "C. C is for Cat.",
+      "aliases": [
+        "C",
+        "Letter C",
+        "C, is for Cat.",
+        "Cat"
+      ]
+    },
+    {
+      "id": "en_alpha_d",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_d.mp3",
+      "scriptBn": "D. D is for Duck.",
+      "aliases": [
+        "D",
+        "Letter D",
+        "D, is for Duck.",
+        "Duck"
+      ]
+    },
+    {
+      "id": "en_alpha_e",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_e.mp3",
+      "scriptBn": "E. E is for Elephant.",
+      "aliases": [
+        "E",
+        "Letter E",
+        "E, is for Elephant.",
+        "Elephant"
+      ]
+    },
+    {
+      "id": "en_alpha_f",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_f.mp3",
+      "scriptBn": "F. F is for Fish.",
+      "aliases": [
+        "F",
+        "Letter F",
+        "F, is for Fish.",
+        "Fish"
+      ]
+    },
+    {
+      "id": "en_alpha_g",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_g.mp3",
+      "scriptBn": "G. G is for Grapes.",
+      "aliases": [
+        "G",
+        "Letter G",
+        "G, is for Grapes.",
+        "Grapes"
+      ]
+    },
+    {
+      "id": "en_alpha_h",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_h.mp3",
+      "scriptBn": "H. H is for House.",
+      "aliases": [
+        "H",
+        "Letter H",
+        "H, is for House.",
+        "House"
+      ]
+    },
+    {
+      "id": "en_alpha_i",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_i.mp3",
+      "scriptBn": "I. I is for Ice Cream.",
+      "aliases": [
+        "I",
+        "Letter I",
+        "I, is for Ice Cream.",
+        "Ice Cream"
+      ]
+    },
+    {
+      "id": "en_alpha_j",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_j.mp3",
+      "scriptBn": "J. J is for Juice.",
+      "aliases": [
+        "J",
+        "Letter J",
+        "J, is for Juice.",
+        "Juice"
+      ]
+    },
+    {
+      "id": "en_alpha_k",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_k.mp3",
+      "scriptBn": "K. K is for Kite.",
+      "aliases": [
+        "K",
+        "Letter K",
+        "K, is for Kite.",
+        "Kite"
+      ]
+    },
+    {
+      "id": "en_alpha_l",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_l.mp3",
+      "scriptBn": "L. L is for Lion.",
+      "aliases": [
+        "L",
+        "Letter L",
+        "L, is for Lion.",
+        "Lion"
+      ]
+    },
+    {
+      "id": "en_alpha_m",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_m.mp3",
+      "scriptBn": "M. M is for Mango.",
+      "aliases": [
+        "M",
+        "Letter M",
+        "M, is for Mango.",
+        "Mango"
+      ]
+    },
+    {
+      "id": "en_alpha_n",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_n.mp3",
+      "scriptBn": "N. N is for Nest.",
+      "aliases": [
+        "N",
+        "Letter N",
+        "N, is for Nest.",
+        "Nest"
+      ]
+    },
+    {
+      "id": "en_alpha_o",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_o.mp3",
+      "scriptBn": "O. O is for Owl.",
+      "aliases": [
+        "O",
+        "Letter O",
+        "O, is for Owl.",
+        "Owl"
+      ]
+    },
+    {
+      "id": "en_alpha_p",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_p.mp3",
+      "scriptBn": "P. P is for Panda.",
+      "aliases": [
+        "P",
+        "Letter P",
+        "P, is for Panda.",
+        "Panda"
+      ]
+    },
+    {
+      "id": "en_alpha_q",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_q.mp3",
+      "scriptBn": "Q. Q is for Queen.",
+      "aliases": [
+        "Q",
+        "Letter Q",
+        "Q, is for Queen.",
+        "Queen"
+      ]
+    },
+    {
+      "id": "en_alpha_r",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_r.mp3",
+      "scriptBn": "R. R is for Rainbow.",
+      "aliases": [
+        "R",
+        "Letter R",
+        "R, is for Rainbow.",
+        "Rainbow"
+      ]
+    },
+    {
+      "id": "en_alpha_s",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_s.mp3",
+      "scriptBn": "S. S is for Sun.",
+      "aliases": [
+        "S",
+        "Letter S",
+        "S, is for Sun.",
+        "Sun"
+      ]
+    },
+    {
+      "id": "en_alpha_t",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_t.mp3",
+      "scriptBn": "T. T is for Tiger.",
+      "aliases": [
+        "T",
+        "Letter T",
+        "T, is for Tiger.",
+        "Tiger"
+      ]
+    },
+    {
+      "id": "en_alpha_u",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_u.mp3",
+      "scriptBn": "U. U is for Umbrella.",
+      "aliases": [
+        "U",
+        "Letter U",
+        "U, is for Umbrella.",
+        "Umbrella"
+      ]
+    },
+    {
+      "id": "en_alpha_v",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_v.mp3",
+      "scriptBn": "V. V is for Violin.",
+      "aliases": [
+        "V",
+        "Letter V",
+        "V, is for Violin.",
+        "Violin"
+      ]
+    },
+    {
+      "id": "en_alpha_w",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_w.mp3",
+      "scriptBn": "W. W is for Whale.",
+      "aliases": [
+        "W",
+        "Letter W",
+        "W, is for Whale.",
+        "Whale"
+      ]
+    },
+    {
+      "id": "en_alpha_x",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_x.mp3",
+      "scriptBn": "X. X is for Xylophone.",
+      "aliases": [
+        "X",
+        "Letter X",
+        "X, is for Xylophone.",
+        "Xylophone"
+      ]
+    },
+    {
+      "id": "en_alpha_y",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_y.mp3",
+      "scriptBn": "Y. Y is for Yo-Yo.",
+      "aliases": [
+        "Y",
+        "Letter Y",
+        "Y, is for Yo-Yo.",
+        "Yo-Yo"
+      ]
+    },
+    {
+      "id": "en_alpha_z",
+      "category": "alphabet",
+      "assetPath": "audio/english/alphabet/en_alpha_z.mp3",
+      "scriptBn": "Z. Z is for Zebra.",
+      "aliases": [
+        "Z",
+        "Letter Z",
+        "Z, is for Zebra.",
+        "Zebra"
+      ]
+    },
+    {
+      "id": "num_0",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_0.mp3",
+      "scriptBn": "Zero.",
+      "aliases": [
+        "Zero",
+        "0",
+        "Number 0"
+      ]
+    },
+    {
+      "id": "num_1",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_1.mp3",
+      "scriptBn": "One.",
+      "aliases": [
+        "One",
+        "1",
+        "Number 1"
+      ]
+    },
+    {
+      "id": "num_2",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_2.mp3",
+      "scriptBn": "Two.",
+      "aliases": [
+        "Two",
+        "2",
+        "Number 2"
+      ]
+    },
+    {
+      "id": "num_3",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_3.mp3",
+      "scriptBn": "Three.",
+      "aliases": [
+        "Three",
+        "3",
+        "Number 3"
+      ]
+    },
+    {
+      "id": "num_4",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_4.mp3",
+      "scriptBn": "Four.",
+      "aliases": [
+        "Four",
+        "4",
+        "Number 4"
+      ]
+    },
+    {
+      "id": "num_5",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_5.mp3",
+      "scriptBn": "Five.",
+      "aliases": [
+        "Five",
+        "5",
+        "Number 5"
+      ]
+    },
+    {
+      "id": "num_6",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_6.mp3",
+      "scriptBn": "Six.",
+      "aliases": [
+        "Six",
+        "6",
+        "Number 6"
+      ]
+    },
+    {
+      "id": "num_7",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_7.mp3",
+      "scriptBn": "Seven.",
+      "aliases": [
+        "Seven",
+        "7",
+        "Number 7"
+      ]
+    },
+    {
+      "id": "num_8",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_8.mp3",
+      "scriptBn": "Eight.",
+      "aliases": [
+        "Eight",
+        "8",
+        "Number 8"
+      ]
+    },
+    {
+      "id": "num_9",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_9.mp3",
+      "scriptBn": "Nine.",
+      "aliases": [
+        "Nine",
+        "9",
+        "Number 9"
+      ]
+    },
+    {
+      "id": "num_10",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_10.mp3",
+      "scriptBn": "Ten.",
+      "aliases": [
+        "Ten",
+        "10",
+        "Number 10"
+      ]
+    },
+    {
+      "id": "num_11",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_11.mp3",
+      "scriptBn": "Eleven.",
+      "aliases": [
+        "Eleven",
+        "11",
+        "Number 11"
+      ]
+    },
+    {
+      "id": "num_12",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_12.mp3",
+      "scriptBn": "Twelve.",
+      "aliases": [
+        "Twelve",
+        "12",
+        "Number 12"
+      ]
+    },
+    {
+      "id": "num_13",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_13.mp3",
+      "scriptBn": "Thirteen.",
+      "aliases": [
+        "Thirteen",
+        "13",
+        "Number 13"
+      ]
+    },
+    {
+      "id": "num_14",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_14.mp3",
+      "scriptBn": "Fourteen.",
+      "aliases": [
+        "Fourteen",
+        "14",
+        "Number 14"
+      ]
+    },
+    {
+      "id": "num_15",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_15.mp3",
+      "scriptBn": "Fifteen.",
+      "aliases": [
+        "Fifteen",
+        "15",
+        "Number 15"
+      ]
+    },
+    {
+      "id": "num_16",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_16.mp3",
+      "scriptBn": "Sixteen.",
+      "aliases": [
+        "Sixteen",
+        "16",
+        "Number 16"
+      ]
+    },
+    {
+      "id": "num_17",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_17.mp3",
+      "scriptBn": "Seventeen.",
+      "aliases": [
+        "Seventeen",
+        "17",
+        "Number 17"
+      ]
+    },
+    {
+      "id": "num_18",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_18.mp3",
+      "scriptBn": "Eighteen.",
+      "aliases": [
+        "Eighteen",
+        "18",
+        "Number 18"
+      ]
+    },
+    {
+      "id": "num_19",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_19.mp3",
+      "scriptBn": "Nineteen.",
+      "aliases": [
+        "Nineteen",
+        "19",
+        "Number 19"
+      ]
+    },
+    {
+      "id": "num_20",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_20.mp3",
+      "scriptBn": "Twenty.",
+      "aliases": [
+        "Twenty",
+        "20",
+        "Number 20"
+      ]
+    },
+    {
+      "id": "num_21",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_21.mp3",
+      "scriptBn": "Twenty-One.",
+      "aliases": [
+        "Twenty-One",
+        "21",
+        "Number 21"
+      ]
+    },
+    {
+      "id": "num_22",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_22.mp3",
+      "scriptBn": "Twenty-Two.",
+      "aliases": [
+        "Twenty-Two",
+        "22",
+        "Number 22"
+      ]
+    },
+    {
+      "id": "num_23",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_23.mp3",
+      "scriptBn": "Twenty-Three.",
+      "aliases": [
+        "Twenty-Three",
+        "23",
+        "Number 23"
+      ]
+    },
+    {
+      "id": "num_24",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_24.mp3",
+      "scriptBn": "Twenty-Four.",
+      "aliases": [
+        "Twenty-Four",
+        "24",
+        "Number 24"
+      ]
+    },
+    {
+      "id": "num_25",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_25.mp3",
+      "scriptBn": "Twenty-Five.",
+      "aliases": [
+        "Twenty-Five",
+        "25",
+        "Number 25"
+      ]
+    },
+    {
+      "id": "num_26",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_26.mp3",
+      "scriptBn": "Twenty-Six.",
+      "aliases": [
+        "Twenty-Six",
+        "26",
+        "Number 26"
+      ]
+    },
+    {
+      "id": "num_27",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_27.mp3",
+      "scriptBn": "Twenty-Seven.",
+      "aliases": [
+        "Twenty-Seven",
+        "27",
+        "Number 27"
+      ]
+    },
+    {
+      "id": "num_28",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_28.mp3",
+      "scriptBn": "Twenty-Eight.",
+      "aliases": [
+        "Twenty-Eight",
+        "28",
+        "Number 28"
+      ]
+    },
+    {
+      "id": "num_29",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_29.mp3",
+      "scriptBn": "Twenty-Nine.",
+      "aliases": [
+        "Twenty-Nine",
+        "29",
+        "Number 29"
+      ]
+    },
+    {
+      "id": "num_30",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_30.mp3",
+      "scriptBn": "Thirty.",
+      "aliases": [
+        "Thirty",
+        "30",
+        "Number 30"
+      ]
+    },
+    {
+      "id": "num_31",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_31.mp3",
+      "scriptBn": "Thirty-One.",
+      "aliases": [
+        "Thirty-One",
+        "31",
+        "Number 31"
+      ]
+    },
+    {
+      "id": "num_32",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_32.mp3",
+      "scriptBn": "Thirty-Two.",
+      "aliases": [
+        "Thirty-Two",
+        "32",
+        "Number 32"
+      ]
+    },
+    {
+      "id": "num_33",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_33.mp3",
+      "scriptBn": "Thirty-Three.",
+      "aliases": [
+        "Thirty-Three",
+        "33",
+        "Number 33"
+      ]
+    },
+    {
+      "id": "num_34",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_34.mp3",
+      "scriptBn": "Thirty-Four.",
+      "aliases": [
+        "Thirty-Four",
+        "34",
+        "Number 34"
+      ]
+    },
+    {
+      "id": "num_35",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_35.mp3",
+      "scriptBn": "Thirty-Five.",
+      "aliases": [
+        "Thirty-Five",
+        "35",
+        "Number 35"
+      ]
+    },
+    {
+      "id": "num_36",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_36.mp3",
+      "scriptBn": "Thirty-Six.",
+      "aliases": [
+        "Thirty-Six",
+        "36",
+        "Number 36"
+      ]
+    },
+    {
+      "id": "num_37",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_37.mp3",
+      "scriptBn": "Thirty-Seven.",
+      "aliases": [
+        "Thirty-Seven",
+        "37",
+        "Number 37"
+      ]
+    },
+    {
+      "id": "num_38",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_38.mp3",
+      "scriptBn": "Thirty-Eight.",
+      "aliases": [
+        "Thirty-Eight",
+        "38",
+        "Number 38"
+      ]
+    },
+    {
+      "id": "num_39",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_39.mp3",
+      "scriptBn": "Thirty-Nine.",
+      "aliases": [
+        "Thirty-Nine",
+        "39",
+        "Number 39"
+      ]
+    },
+    {
+      "id": "num_40",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_40.mp3",
+      "scriptBn": "Forty.",
+      "aliases": [
+        "Forty",
+        "40",
+        "Number 40"
+      ]
+    },
+    {
+      "id": "num_41",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_41.mp3",
+      "scriptBn": "Forty-One.",
+      "aliases": [
+        "Forty-One",
+        "41",
+        "Number 41"
+      ]
+    },
+    {
+      "id": "num_42",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_42.mp3",
+      "scriptBn": "Forty-Two.",
+      "aliases": [
+        "Forty-Two",
+        "42",
+        "Number 42"
+      ]
+    },
+    {
+      "id": "num_43",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_43.mp3",
+      "scriptBn": "Forty-Three.",
+      "aliases": [
+        "Forty-Three",
+        "43",
+        "Number 43"
+      ]
+    },
+    {
+      "id": "num_44",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_44.mp3",
+      "scriptBn": "Forty-Four.",
+      "aliases": [
+        "Forty-Four",
+        "44",
+        "Number 44"
+      ]
+    },
+    {
+      "id": "num_45",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_45.mp3",
+      "scriptBn": "Forty-Five.",
+      "aliases": [
+        "Forty-Five",
+        "45",
+        "Number 45"
+      ]
+    },
+    {
+      "id": "num_46",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_46.mp3",
+      "scriptBn": "Forty-Six.",
+      "aliases": [
+        "Forty-Six",
+        "46",
+        "Number 46"
+      ]
+    },
+    {
+      "id": "num_47",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_47.mp3",
+      "scriptBn": "Forty-Seven.",
+      "aliases": [
+        "Forty-Seven",
+        "47",
+        "Number 47"
+      ]
+    },
+    {
+      "id": "num_48",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_48.mp3",
+      "scriptBn": "Forty-Eight.",
+      "aliases": [
+        "Forty-Eight",
+        "48",
+        "Number 48"
+      ]
+    },
+    {
+      "id": "num_49",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_49.mp3",
+      "scriptBn": "Forty-Nine.",
+      "aliases": [
+        "Forty-Nine",
+        "49",
+        "Number 49"
+      ]
+    },
+    {
+      "id": "num_50",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_50.mp3",
+      "scriptBn": "Fifty.",
+      "aliases": [
+        "Fifty",
+        "50",
+        "Number 50"
+      ]
+    },
+    {
+      "id": "num_51",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_51.mp3",
+      "scriptBn": "Fifty-One.",
+      "aliases": [
+        "Fifty-One",
+        "51",
+        "Number 51"
+      ]
+    },
+    {
+      "id": "num_52",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_52.mp3",
+      "scriptBn": "Fifty-Two.",
+      "aliases": [
+        "Fifty-Two",
+        "52",
+        "Number 52"
+      ]
+    },
+    {
+      "id": "num_53",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_53.mp3",
+      "scriptBn": "Fifty-Three.",
+      "aliases": [
+        "Fifty-Three",
+        "53",
+        "Number 53"
+      ]
+    },
+    {
+      "id": "num_54",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_54.mp3",
+      "scriptBn": "Fifty-Four.",
+      "aliases": [
+        "Fifty-Four",
+        "54",
+        "Number 54"
+      ]
+    },
+    {
+      "id": "num_55",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_55.mp3",
+      "scriptBn": "Fifty-Five.",
+      "aliases": [
+        "Fifty-Five",
+        "55",
+        "Number 55"
+      ]
+    },
+    {
+      "id": "num_56",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_56.mp3",
+      "scriptBn": "Fifty-Six.",
+      "aliases": [
+        "Fifty-Six",
+        "56",
+        "Number 56"
+      ]
+    },
+    {
+      "id": "num_57",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_57.mp3",
+      "scriptBn": "Fifty-Seven.",
+      "aliases": [
+        "Fifty-Seven",
+        "57",
+        "Number 57"
+      ]
+    },
+    {
+      "id": "num_58",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_58.mp3",
+      "scriptBn": "Fifty-Eight.",
+      "aliases": [
+        "Fifty-Eight",
+        "58",
+        "Number 58"
+      ]
+    },
+    {
+      "id": "num_59",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_59.mp3",
+      "scriptBn": "Fifty-Nine.",
+      "aliases": [
+        "Fifty-Nine",
+        "59",
+        "Number 59"
+      ]
+    },
+    {
+      "id": "num_60",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_60.mp3",
+      "scriptBn": "Sixty.",
+      "aliases": [
+        "Sixty",
+        "60",
+        "Number 60"
+      ]
+    },
+    {
+      "id": "num_61",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_61.mp3",
+      "scriptBn": "Sixty-One.",
+      "aliases": [
+        "Sixty-One",
+        "61",
+        "Number 61"
+      ]
+    },
+    {
+      "id": "num_62",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_62.mp3",
+      "scriptBn": "Sixty-Two.",
+      "aliases": [
+        "Sixty-Two",
+        "62",
+        "Number 62"
+      ]
+    },
+    {
+      "id": "num_63",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_63.mp3",
+      "scriptBn": "Sixty-Three.",
+      "aliases": [
+        "Sixty-Three",
+        "63",
+        "Number 63"
+      ]
+    },
+    {
+      "id": "num_64",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_64.mp3",
+      "scriptBn": "Sixty-Four.",
+      "aliases": [
+        "Sixty-Four",
+        "64",
+        "Number 64"
+      ]
+    },
+    {
+      "id": "num_65",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_65.mp3",
+      "scriptBn": "Sixty-Five.",
+      "aliases": [
+        "Sixty-Five",
+        "65",
+        "Number 65"
+      ]
+    },
+    {
+      "id": "num_66",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_66.mp3",
+      "scriptBn": "Sixty-Six.",
+      "aliases": [
+        "Sixty-Six",
+        "66",
+        "Number 66"
+      ]
+    },
+    {
+      "id": "num_67",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_67.mp3",
+      "scriptBn": "Sixty-Seven.",
+      "aliases": [
+        "Sixty-Seven",
+        "67",
+        "Number 67"
+      ]
+    },
+    {
+      "id": "num_68",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_68.mp3",
+      "scriptBn": "Sixty-Eight.",
+      "aliases": [
+        "Sixty-Eight",
+        "68",
+        "Number 68"
+      ]
+    },
+    {
+      "id": "num_69",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_69.mp3",
+      "scriptBn": "Sixty-Nine.",
+      "aliases": [
+        "Sixty-Nine",
+        "69",
+        "Number 69"
+      ]
+    },
+    {
+      "id": "num_70",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_70.mp3",
+      "scriptBn": "Seventy.",
+      "aliases": [
+        "Seventy",
+        "70",
+        "Number 70"
+      ]
+    },
+    {
+      "id": "num_71",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_71.mp3",
+      "scriptBn": "Seventy-One.",
+      "aliases": [
+        "Seventy-One",
+        "71",
+        "Number 71"
+      ]
+    },
+    {
+      "id": "num_72",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_72.mp3",
+      "scriptBn": "Seventy-Two.",
+      "aliases": [
+        "Seventy-Two",
+        "72",
+        "Number 72"
+      ]
+    },
+    {
+      "id": "num_73",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_73.mp3",
+      "scriptBn": "Seventy-Three.",
+      "aliases": [
+        "Seventy-Three",
+        "73",
+        "Number 73"
+      ]
+    },
+    {
+      "id": "num_74",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_74.mp3",
+      "scriptBn": "Seventy-Four.",
+      "aliases": [
+        "Seventy-Four",
+        "74",
+        "Number 74"
+      ]
+    },
+    {
+      "id": "num_75",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_75.mp3",
+      "scriptBn": "Seventy-Five.",
+      "aliases": [
+        "Seventy-Five",
+        "75",
+        "Number 75"
+      ]
+    },
+    {
+      "id": "num_76",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_76.mp3",
+      "scriptBn": "Seventy-Six.",
+      "aliases": [
+        "Seventy-Six",
+        "76",
+        "Number 76"
+      ]
+    },
+    {
+      "id": "num_77",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_77.mp3",
+      "scriptBn": "Seventy-Seven.",
+      "aliases": [
+        "Seventy-Seven",
+        "77",
+        "Number 77"
+      ]
+    },
+    {
+      "id": "num_78",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_78.mp3",
+      "scriptBn": "Seventy-Eight.",
+      "aliases": [
+        "Seventy-Eight",
+        "78",
+        "Number 78"
+      ]
+    },
+    {
+      "id": "num_79",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_79.mp3",
+      "scriptBn": "Seventy-Nine.",
+      "aliases": [
+        "Seventy-Nine",
+        "79",
+        "Number 79"
+      ]
+    },
+    {
+      "id": "num_80",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_80.mp3",
+      "scriptBn": "Eighty.",
+      "aliases": [
+        "Eighty",
+        "80",
+        "Number 80"
+      ]
+    },
+    {
+      "id": "num_81",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_81.mp3",
+      "scriptBn": "Eighty-One.",
+      "aliases": [
+        "Eighty-One",
+        "81",
+        "Number 81"
+      ]
+    },
+    {
+      "id": "num_82",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_82.mp3",
+      "scriptBn": "Eighty-Two.",
+      "aliases": [
+        "Eighty-Two",
+        "82",
+        "Number 82"
+      ]
+    },
+    {
+      "id": "num_83",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_83.mp3",
+      "scriptBn": "Eighty-Three.",
+      "aliases": [
+        "Eighty-Three",
+        "83",
+        "Number 83"
+      ]
+    },
+    {
+      "id": "num_84",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_84.mp3",
+      "scriptBn": "Eighty-Four.",
+      "aliases": [
+        "Eighty-Four",
+        "84",
+        "Number 84"
+      ]
+    },
+    {
+      "id": "num_85",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_85.mp3",
+      "scriptBn": "Eighty-Five.",
+      "aliases": [
+        "Eighty-Five",
+        "85",
+        "Number 85"
+      ]
+    },
+    {
+      "id": "num_86",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_86.mp3",
+      "scriptBn": "Eighty-Six.",
+      "aliases": [
+        "Eighty-Six",
+        "86",
+        "Number 86"
+      ]
+    },
+    {
+      "id": "num_87",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_87.mp3",
+      "scriptBn": "Eighty-Seven.",
+      "aliases": [
+        "Eighty-Seven",
+        "87",
+        "Number 87"
+      ]
+    },
+    {
+      "id": "num_88",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_88.mp3",
+      "scriptBn": "Eighty-Eight.",
+      "aliases": [
+        "Eighty-Eight",
+        "88",
+        "Number 88"
+      ]
+    },
+    {
+      "id": "num_89",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_89.mp3",
+      "scriptBn": "Eighty-Nine.",
+      "aliases": [
+        "Eighty-Nine",
+        "89",
+        "Number 89"
+      ]
+    },
+    {
+      "id": "num_90",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_90.mp3",
+      "scriptBn": "Ninety.",
+      "aliases": [
+        "Ninety",
+        "90",
+        "Number 90"
+      ]
+    },
+    {
+      "id": "num_91",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_91.mp3",
+      "scriptBn": "Ninety-One.",
+      "aliases": [
+        "Ninety-One",
+        "91",
+        "Number 91"
+      ]
+    },
+    {
+      "id": "num_92",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_92.mp3",
+      "scriptBn": "Ninety-Two.",
+      "aliases": [
+        "Ninety-Two",
+        "92",
+        "Number 92"
+      ]
+    },
+    {
+      "id": "num_93",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_93.mp3",
+      "scriptBn": "Ninety-Three.",
+      "aliases": [
+        "Ninety-Three",
+        "93",
+        "Number 93"
+      ]
+    },
+    {
+      "id": "num_94",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_94.mp3",
+      "scriptBn": "Ninety-Four.",
+      "aliases": [
+        "Ninety-Four",
+        "94",
+        "Number 94"
+      ]
+    },
+    {
+      "id": "num_95",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_95.mp3",
+      "scriptBn": "Ninety-Five.",
+      "aliases": [
+        "Ninety-Five",
+        "95",
+        "Number 95"
+      ]
+    },
+    {
+      "id": "num_96",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_96.mp3",
+      "scriptBn": "Ninety-Six.",
+      "aliases": [
+        "Ninety-Six",
+        "96",
+        "Number 96"
+      ]
+    },
+    {
+      "id": "num_97",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_97.mp3",
+      "scriptBn": "Ninety-Seven.",
+      "aliases": [
+        "Ninety-Seven",
+        "97",
+        "Number 97"
+      ]
+    },
+    {
+      "id": "num_98",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_98.mp3",
+      "scriptBn": "Ninety-Eight.",
+      "aliases": [
+        "Ninety-Eight",
+        "98",
+        "Number 98"
+      ]
+    },
+    {
+      "id": "num_99",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_99.mp3",
+      "scriptBn": "Ninety-Nine.",
+      "aliases": [
+        "Ninety-Nine",
+        "99",
+        "Number 99"
+      ]
+    },
+    {
+      "id": "num_100",
+      "category": "numbers",
+      "assetPath": "audio/english/numbers/number_100.mp3",
+      "scriptBn": "One Hundred.",
+      "aliases": [
+        "One Hundred",
+        "100",
+        "Number 100"
+      ]
+    },
+    {
+      "id": "color_red",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_red.mp3",
+      "scriptBn": "Red. Like a sweet red strawberry.",
+      "aliases": [
+        "Red",
+        "Color Red"
+      ]
+    },
+    {
+      "id": "color_blue",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_blue.mp3",
+      "scriptBn": "Blue. Like the bright ocean sky.",
+      "aliases": [
+        "Blue",
+        "Color Blue"
+      ]
+    },
+    {
+      "id": "color_yellow",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_yellow.mp3",
+      "scriptBn": "Yellow. Like the warm shining sun.",
+      "aliases": [
+        "Yellow",
+        "Color Yellow"
+      ]
+    },
+    {
+      "id": "color_green",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_green.mp3",
+      "scriptBn": "Green. Like lush meadow leaves.",
+      "aliases": [
+        "Green",
+        "Color Green"
+      ]
+    },
+    {
+      "id": "color_orange",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_orange.mp3",
+      "scriptBn": "Orange. Like a juicy orange fruit.",
+      "aliases": [
+        "Orange",
+        "Color Orange"
+      ]
+    },
+    {
+      "id": "color_purple",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_purple.mp3",
+      "scriptBn": "Purple. Like tasty purple grapes.",
+      "aliases": [
+        "Purple",
+        "Color Purple"
+      ]
+    },
+    {
+      "id": "color_pink",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_pink.mp3",
+      "scriptBn": "Pink. Like a pretty lotus blossom.",
+      "aliases": [
+        "Pink",
+        "Color Pink"
+      ]
+    },
+    {
+      "id": "color_teal",
+      "category": "colors",
+      "assetPath": "audio/english/colors/color_teal.mp3",
+      "scriptBn": "Teal. Like sparkling river waves.",
+      "aliases": [
+        "Teal",
+        "Color Teal"
+      ]
+    },
+    {
+      "id": "shape_circle",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_circle.mp3",
+      "scriptBn": "Circle. Round like a bouncy ball.",
+      "aliases": [
+        "Circle",
+        "Shape: Circle"
+      ]
+    },
+    {
+      "id": "shape_square",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_square.mp3",
+      "scriptBn": "Square. Four equal happy sides.",
+      "aliases": [
+        "Square",
+        "Shape: Square"
+      ]
+    },
+    {
+      "id": "shape_triangle",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_triangle.mp3",
+      "scriptBn": "Triangle. Three pointy corners like a roof.",
+      "aliases": [
+        "Triangle",
+        "Shape: Triangle"
+      ]
+    },
+    {
+      "id": "shape_star",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_star.mp3",
+      "scriptBn": "Star. Twinkling brightly in the night sky.",
+      "aliases": [
+        "Star",
+        "Shape: Star"
+      ]
+    },
+    {
+      "id": "shape_heart",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_heart.mp3",
+      "scriptBn": "Heart. Full of kindness and love.",
+      "aliases": [
+        "Heart",
+        "Shape: Heart"
+      ]
+    },
+    {
+      "id": "shape_diamond",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_diamond.mp3",
+      "scriptBn": "Diamond. Shaped like a flying kite.",
+      "aliases": [
+        "Diamond",
+        "Shape: Diamond"
+      ]
+    },
+    {
+      "id": "shape_rectangle",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_rectangle.mp3",
+      "scriptBn": "Rectangle. Shaped like a storybook or door.",
+      "aliases": [
+        "Rectangle",
+        "Shape: Rectangle"
+      ]
+    },
+    {
+      "id": "shape_oval",
+      "category": "shapes",
+      "assetPath": "audio/english/shapes/shape_oval.mp3",
+      "scriptBn": "Oval. Smooth stretched circle like an egg.",
+      "aliases": [
+        "Oval",
+        "Shape: Oval"
+      ]
+    },
+    {
+      "id": "animal_tiger",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_tiger.mp3",
+      "scriptBn": "Bengal Tiger. Roar! Strong striped jumper.",
+      "aliases": [
+        "Bengal Tiger"
+      ]
+    },
+    {
+      "id": "animal_elephant",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_elephant.mp3",
+      "scriptBn": "Elephant. Toot! Gentle giant with a long trunk.",
+      "aliases": [
+        "Elephant"
+      ]
+    },
+    {
+      "id": "animal_rabbit",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_rabbit.mp3",
+      "scriptBn": "Rabbit. Hop hop! Soft fluffy ears.",
+      "aliases": [
+        "Rabbit"
+      ]
+    },
+    {
+      "id": "animal_owl",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_owl.mp3",
+      "scriptBn": "Owl. Hoo hoo! Wise night explorer.",
+      "aliases": [
+        "Owl"
+      ]
+    },
+    {
+      "id": "animal_duck",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_duck.mp3",
+      "scriptBn": "Duck. Quack quack! Loves splashing in ponds.",
+      "aliases": [
+        "Duck"
+      ]
+    },
+    {
+      "id": "animal_cat",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_cat.mp3",
+      "scriptBn": "Cat. Meow! Playful purring friend.",
+      "aliases": [
+        "Cat"
+      ]
+    },
+    {
+      "id": "animal_panda",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_panda.mp3",
+      "scriptBn": "Panda. Munch munch! Loves green bamboo.",
+      "aliases": [
+        "Panda"
+      ]
+    },
+    {
+      "id": "animal_butterfly",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_butterfly.mp3",
+      "scriptBn": "Butterfly. Flutters gracefully on colorful wings.",
+      "aliases": [
+        "Butterfly"
+      ]
+    },
+    {
+      "id": "animal_peacock",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_peacock.mp3",
+      "scriptBn": "Peacock. Dances proudly with rainbow feathers.",
+      "aliases": [
+        "Peacock"
+      ]
+    },
+    {
+      "id": "animal_parrot",
+      "category": "animals",
+      "assetPath": "audio/english/animals/animal_parrot.mp3",
+      "scriptBn": "Parrot. Bright green bird that loves to chatter.",
+      "aliases": [
+        "Parrot"
+      ]
+    },
+    {
+      "id": "sort_lion",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_lion.mp3",
+      "scriptBn": "Lion.",
+      "aliases": [
+        "Lion"
+      ]
+    },
+    {
+      "id": "sort_tiger",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_tiger.mp3",
+      "scriptBn": "Tiger.",
+      "aliases": [
+        "Tiger"
+      ]
+    },
+    {
+      "id": "sort_elephant",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_elephant.mp3",
+      "scriptBn": "Elephant.",
+      "aliases": [
+        "Elephant"
+      ]
+    },
+    {
+      "id": "sort_rabbit",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_rabbit.mp3",
+      "scriptBn": "Rabbit.",
+      "aliases": [
+        "Rabbit"
+      ]
+    },
+    {
+      "id": "sort_parrot",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_parrot.mp3",
+      "scriptBn": "Parrot.",
+      "aliases": [
+        "Parrot"
+      ]
+    },
+    {
+      "id": "sort_cat",
+      "category": "animals",
+      "assetPath": "audio/english/animals/sort_cat.mp3",
+      "scriptBn": "Cat.",
+      "aliases": [
+        "Cat"
+      ]
+    },
+    {
+      "id": "token_frog",
+      "category": "animals",
+      "assetPath": "audio/english/animals/token_frog.mp3",
+      "scriptBn": "Frog.",
+      "aliases": [
+        "Frog"
+      ]
+    },
+    {
+      "id": "fruitveg_mango",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_mango.mp3",
+      "scriptBn": "Mango. Sweet golden king of fruits.",
+      "aliases": [
+        "Mango"
+      ]
+    },
+    {
+      "id": "fruitveg_apple",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_apple.mp3",
+      "scriptBn": "Apple. Crunchy red fruit that keeps us strong.",
+      "aliases": [
+        "Apple"
+      ]
+    },
+    {
+      "id": "fruitveg_banana",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_banana.mp3",
+      "scriptBn": "Banana. Soft yellow energy booster.",
+      "aliases": [
+        "Banana"
+      ]
+    },
+    {
+      "id": "fruitveg_watermelon",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_watermelon.mp3",
+      "scriptBn": "Watermelon. Juicy red summer cooler.",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    {
+      "id": "fruitveg_grapes",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_grapes.mp3",
+      "scriptBn": "Grapes. Tiny sweet bunches on vines.",
+      "aliases": [
+        "Grapes"
+      ]
+    },
+    {
+      "id": "fruitveg_carrot",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_carrot.mp3",
+      "scriptBn": "Carrot. Crunchy orange veggie great for eyes.",
+      "aliases": [
+        "Carrot"
+      ]
+    },
+    {
+      "id": "fruitveg_tomato",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_tomato.mp3",
+      "scriptBn": "Tomato. Bright red juicy vegetable.",
+      "aliases": [
+        "Tomato"
+      ]
+    },
+    {
+      "id": "fruitveg_broccoli",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_broccoli.mp3",
+      "scriptBn": "Broccoli. Little green tree vegetable.",
+      "aliases": [
+        "Broccoli"
+      ]
+    },
+    {
+      "id": "fruitveg_potato",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_potato.mp3",
+      "scriptBn": "Potato. Yummy golden underground veggie.",
+      "aliases": [
+        "Potato"
+      ]
+    },
+    {
+      "id": "fruitveg_corn",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/fruitveg_corn.mp3",
+      "scriptBn": "Sweet Corn. Sunny yellow crunchy kernels.",
+      "aliases": [
+        "Sweet Corn"
+      ]
+    },
+    {
+      "id": "sort_mango",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_mango.mp3",
+      "scriptBn": "Mango.",
+      "aliases": [
+        "Mango"
+      ]
+    },
+    {
+      "id": "sort_apple",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_apple.mp3",
+      "scriptBn": "Apple.",
+      "aliases": [
+        "Apple"
+      ]
+    },
+    {
+      "id": "sort_banana",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_banana.mp3",
+      "scriptBn": "Banana.",
+      "aliases": [
+        "Banana"
+      ]
+    },
+    {
+      "id": "sort_grapes",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_grapes.mp3",
+      "scriptBn": "Grapes.",
+      "aliases": [
+        "Grapes"
+      ]
+    },
+    {
+      "id": "sort_watermelon",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_watermelon.mp3",
+      "scriptBn": "Watermelon.",
+      "aliases": [
+        "Watermelon"
+      ]
+    },
+    {
+      "id": "sort_orange",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/sort_orange.mp3",
+      "scriptBn": "Orange.",
+      "aliases": [
+        "Orange"
+      ]
+    },
+    {
+      "id": "token_strawberry",
+      "category": "fruits",
+      "assetPath": "audio/english/fruits/token_strawberry.mp3",
+      "scriptBn": "Strawberry.",
+      "aliases": [
+        "Strawberry"
+      ]
+    },
+    {
+      "id": "body_eyes",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_eyes.mp3",
+      "scriptBn": "Eyes. We see rainbows and books with our eyes.",
+      "aliases": [
+        "Eyes"
+      ]
+    },
+    {
+      "id": "body_ears",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_ears.mp3",
+      "scriptBn": "Ears. We listen to music and stories with our ears.",
+      "aliases": [
+        "Ears"
+      ]
+    },
+    {
+      "id": "body_nose",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_nose.mp3",
+      "scriptBn": "Nose. We smell sweet flowers with our nose.",
+      "aliases": [
+        "Nose"
+      ]
+    },
+    {
+      "id": "body_mouth",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_mouth.mp3",
+      "scriptBn": "Smile and Mouth. We speak kindly and eat healthy food.",
+      "aliases": [
+        "Smile & Mouth"
+      ]
+    },
+    {
+      "id": "body_hands",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_hands.mp3",
+      "scriptBn": "Hands. We clap, draw, and help friends.",
+      "aliases": [
+        "Hands"
+      ]
+    },
+    {
+      "id": "body_feet",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_feet.mp3",
+      "scriptBn": "Feet. We walk, jump, and play outside.",
+      "aliases": [
+        "Feet"
+      ]
+    },
+    {
+      "id": "body_heart",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_heart.mp3",
+      "scriptBn": "Heart. Beats softly all day to keep us alive.",
+      "aliases": [
+        "Heart"
+      ]
+    },
+    {
+      "id": "body_brain",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/body_brain.mp3",
+      "scriptBn": "Brain. Helps us think, learn, and dream big.",
+      "aliases": [
+        "Brain"
+      ]
+    },
+    {
+      "id": "vehicle_car",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_car.mp3",
+      "scriptBn": "Car. Zoom zoom on four shiny wheels.",
+      "aliases": [
+        "Car"
+      ]
+    },
+    {
+      "id": "vehicle_bus",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_bus.mp3",
+      "scriptBn": "School Bus. Takes happy friends to school.",
+      "aliases": [
+        "School Bus"
+      ]
+    },
+    {
+      "id": "vehicle_train",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_train.mp3",
+      "scriptBn": "Train. Chugga chugga along steel tracks.",
+      "aliases": [
+        "Train"
+      ]
+    },
+    {
+      "id": "vehicle_boat",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_boat.mp3",
+      "scriptBn": "Boat. Sails gently across sparkling rivers.",
+      "aliases": [
+        "Boat"
+      ]
+    },
+    {
+      "id": "vehicle_airplane",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_airplane.mp3",
+      "scriptBn": "Airplane. Soars high above the fluffy clouds.",
+      "aliases": [
+        "Airplane"
+      ]
+    },
+    {
+      "id": "vehicle_bicycle",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_bicycle.mp3",
+      "scriptBn": "Bicycle. Pedal with two wheels for fun exercise.",
+      "aliases": [
+        "Bicycle"
+      ]
+    },
+    {
+      "id": "vehicle_rocket",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_rocket.mp3",
+      "scriptBn": "Space Rocket. Blasts off to visit the moon and stars.",
+      "aliases": [
+        "Space Rocket"
+      ]
+    },
+    {
+      "id": "vehicle_rickshaw",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/vehicle_rickshaw.mp3",
+      "scriptBn": "Rickshaw. Colorful three-wheeler on city streets.",
+      "aliases": [
+        "Rickshaw"
+      ]
+    },
+    {
+      "id": "nature_sun",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_sun.mp3",
+      "scriptBn": "Sun. Gives warm daylight to the whole Earth.",
+      "aliases": [
+        "Sun"
+      ]
+    },
+    {
+      "id": "nature_moon",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_moon.mp3",
+      "scriptBn": "Moon. Glows gently in the starry night sky.",
+      "aliases": [
+        "Moon"
+      ]
+    },
+    {
+      "id": "nature_tree",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_tree.mp3",
+      "scriptBn": "Tree. Gives us shade, fruit, and fresh air.",
+      "aliases": [
+        "Tree"
+      ]
+    },
+    {
+      "id": "nature_river",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_river.mp3",
+      "scriptBn": "River. Flowing fresh water home to little fish.",
+      "aliases": [
+        "River"
+      ]
+    },
+    {
+      "id": "nature_rain",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_rain.mp3",
+      "scriptBn": "Rain. Waters green fields with cool drops.",
+      "aliases": [
+        "Rain"
+      ]
+    },
+    {
+      "id": "nature_rainbow",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_rainbow.mp3",
+      "scriptBn": "Rainbow. Seven bright colors painted in the sky.",
+      "aliases": [
+        "Rainbow"
+      ]
+    },
+    {
+      "id": "nature_flower",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_flower.mp3",
+      "scriptBn": "Flower. Colorful petals loved by busy bees.",
+      "aliases": [
+        "Flower"
+      ]
+    },
+    {
+      "id": "nature_mountain",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/nature_mountain.mp3",
+      "scriptBn": "Mountain. Tall green peaks touching the clouds.",
+      "aliases": [
+        "Mountain"
+      ]
+    },
+    {
+      "id": "lang_word_0",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_0.mp3",
+      "scriptBn": "Book. I read a fun storybook.",
+      "aliases": [
+        "Book"
+      ]
+    },
+    {
+      "id": "lang_word_1",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_1.mp3",
+      "scriptBn": "Water. Drink clean water every day.",
+      "aliases": [
+        "Water"
+      ]
+    },
+    {
+      "id": "lang_word_2",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_2.mp3",
+      "scriptBn": "Home. Our home is warm and cozy.",
+      "aliases": [
+        "Home"
+      ]
+    },
+    {
+      "id": "lang_word_3",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_3.mp3",
+      "scriptBn": "Friend. Playing with a friend is joyful.",
+      "aliases": [
+        "Friend"
+      ]
+    },
+    {
+      "id": "lang_word_4",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_4.mp3",
+      "scriptBn": "Smile. A kind smile brightens the day.",
+      "aliases": [
+        "Smile"
+      ]
+    },
+    {
+      "id": "lang_word_5",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_5.mp3",
+      "scriptBn": "Star. Little stars twinkle high above.",
+      "aliases": [
+        "Star"
+      ]
+    },
+    {
+      "id": "lang_word_6",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_6.mp3",
+      "scriptBn": "Ball. Bounce the colorful ball high.",
+      "aliases": [
+        "Ball"
+      ]
+    },
+    {
+      "id": "lang_word_7",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_word_7.mp3",
+      "scriptBn": "Music. Sweet music makes us dance.",
+      "aliases": [
+        "Music"
+      ]
+    },
+    {
+      "id": "lang_vocab_0",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_0.mp3",
+      "scriptBn": "Good Morning. Say Good Morning with a bright smile!",
+      "aliases": [
+        "Good Morning"
+      ]
+    },
+    {
+      "id": "lang_vocab_1",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_1.mp3",
+      "scriptBn": "Thank You. Say Thank You when someone helps you.",
+      "aliases": [
+        "Thank You"
+      ]
+    },
+    {
+      "id": "lang_vocab_2",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_2.mp3",
+      "scriptBn": "Please. Use Please when asking nicely.",
+      "aliases": [
+        "Please"
+      ]
+    },
+    {
+      "id": "lang_vocab_3",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_3.mp3",
+      "scriptBn": "Sorry. Say Sorry if you make a mistake.",
+      "aliases": [
+        "Sorry"
+      ]
+    },
+    {
+      "id": "lang_vocab_4",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_4.mp3",
+      "scriptBn": "Family. My family loves and cares for me.",
+      "aliases": [
+        "Family"
+      ]
+    },
+    {
+      "id": "lang_vocab_5",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_5.mp3",
+      "scriptBn": "School. We learn exciting new things at school.",
+      "aliases": [
+        "School"
+      ]
+    },
+    {
+      "id": "lang_vocab_6",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_6.mp3",
+      "scriptBn": "Share. Sharing toys brings double the fun!",
+      "aliases": [
+        "Share"
+      ]
+    },
+    {
+      "id": "lang_vocab_7",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_vocab_7.mp3",
+      "scriptBn": "Good Night. Wish everyone Good Night before sleep.",
+      "aliases": [
+        "Good Night"
+      ]
+    },
+    {
+      "id": "lang_sent_0",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_0.mp3",
+      "scriptBn": "I love to learn.",
+      "aliases": [
+        "I love to learn."
+      ]
+    },
+    {
+      "id": "lang_sent_1",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_1.mp3",
+      "scriptBn": "The sun is bright.",
+      "aliases": [
+        "The sun is bright."
+      ]
+    },
+    {
+      "id": "lang_sent_2",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_2.mp3",
+      "scriptBn": "This is a sweet mango.",
+      "aliases": [
+        "This is a sweet mango."
+      ]
+    },
+    {
+      "id": "lang_sent_3",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_3.mp3",
+      "scriptBn": "Birds fly in the sky.",
+      "aliases": [
+        "Birds fly in the sky."
+      ]
+    },
+    {
+      "id": "lang_sent_4",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_4.mp3",
+      "scriptBn": "I help my friends.",
+      "aliases": [
+        "I help my friends."
+      ]
+    },
+    {
+      "id": "lang_sent_5",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_5.mp3",
+      "scriptBn": "The moon shines at night.",
+      "aliases": [
+        "The moon shines at night."
+      ]
+    },
+    {
+      "id": "lang_sent_6",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_6.mp3",
+      "scriptBn": "I brush my teeth daily.",
+      "aliases": [
+        "I brush my teeth daily."
+      ]
+    },
+    {
+      "id": "lang_sent_7",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_sent_7.mp3",
+      "scriptBn": "Green trees give us air.",
+      "aliases": [
+        "Green trees give us air."
+      ]
+    },
+    {
+      "id": "lang_bn_0",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_0.mp3",
+      "scriptBn": "Love. Love for family and friends.",
+      "aliases": [
+        "Love"
+      ]
+    },
+    {
+      "id": "lang_bn_1",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_1.mp3",
+      "scriptBn": "Sky. White clouds float in the blue sky.",
+      "aliases": [
+        "Sky"
+      ]
+    },
+    {
+      "id": "lang_bn_2",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_2.mp3",
+      "scriptBn": "Bird. Birds sing sweetly in the morning.",
+      "aliases": [
+        "Bird"
+      ]
+    },
+    {
+      "id": "lang_bn_3",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_3.mp3",
+      "scriptBn": "Flower. Colorful flowers bloom in the garden.",
+      "aliases": [
+        "Flower"
+      ]
+    },
+    {
+      "id": "lang_bn_4",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_4.mp3",
+      "scriptBn": "River. Bangladesh is a land of lovely rivers.",
+      "aliases": [
+        "River"
+      ]
+    },
+    {
+      "id": "lang_bn_5",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_5.mp3",
+      "scriptBn": "Rain. Pitter-patter falls the cool rain.",
+      "aliases": [
+        "Rain"
+      ]
+    },
+    {
+      "id": "lang_bn_6",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_6.mp3",
+      "scriptBn": "Dream. Dreaming big to grow kind and wise.",
+      "aliases": [
+        "Dream"
+      ]
+    },
+    {
+      "id": "lang_bn_7",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/lang_bn_7.mp3",
+      "scriptBn": "Joy. Learning together brings so much joy!",
+      "aliases": [
+        "Joy"
+      ]
+    },
+    {
+      "id": "sort_car",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_car.mp3",
+      "scriptBn": "Car.",
+      "aliases": [
+        "Car"
+      ]
+    },
+    {
+      "id": "sort_bus",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_bus.mp3",
+      "scriptBn": "Bus.",
+      "aliases": [
+        "Bus"
+      ]
+    },
+    {
+      "id": "sort_train",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_train.mp3",
+      "scriptBn": "Train.",
+      "aliases": [
+        "Train"
+      ]
+    },
+    {
+      "id": "sort_boat",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_boat.mp3",
+      "scriptBn": "Boat.",
+      "aliases": [
+        "Boat"
+      ]
+    },
+    {
+      "id": "sort_airplane",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_airplane.mp3",
+      "scriptBn": "Airplane.",
+      "aliases": [
+        "Airplane"
+      ]
+    },
+    {
+      "id": "sort_bicycle",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/sort_bicycle.mp3",
+      "scriptBn": "Bicycle.",
+      "aliases": [
+        "Bicycle"
+      ]
+    },
+    {
+      "id": "token_sun",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_sun.mp3",
+      "scriptBn": "Sun.",
+      "aliases": [
+        "Sun"
+      ]
+    },
+    {
+      "id": "token_moon",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_moon.mp3",
+      "scriptBn": "Moon.",
+      "aliases": [
+        "Moon"
+      ]
+    },
+    {
+      "id": "token_star",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_star.mp3",
+      "scriptBn": "Star.",
+      "aliases": [
+        "Star"
+      ]
+    },
+    {
+      "id": "token_flower",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_flower.mp3",
+      "scriptBn": "Flower.",
+      "aliases": [
+        "Flower"
+      ]
+    },
+    {
+      "id": "token_balloon",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_balloon.mp3",
+      "scriptBn": "Balloon.",
+      "aliases": [
+        "Balloon"
+      ]
+    },
+    {
+      "id": "token_butterfly",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_butterfly.mp3",
+      "scriptBn": "Butterfly.",
+      "aliases": [
+        "Butterfly"
+      ]
+    },
+    {
+      "id": "token_rainbow",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_rainbow.mp3",
+      "scriptBn": "Rainbow.",
+      "aliases": [
+        "Rainbow"
+      ]
+    },
+    {
+      "id": "token_rocket",
+      "category": "common_words",
+      "assetPath": "audio/english/common_words/token_rocket.mp3",
+      "scriptBn": "Rocket.",
+      "aliases": [
+        "Rocket"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_1",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_brave_tiger_page_1.mp3",
+      "scriptBn": "Deep inside the sunny Sundarbans lived Tiku, a cheerful little tiger cub who loved wearing his bright red scarf.",
+      "aliases": [
+        "Deep inside the sunny Sundarbans lived Tiku, a cheerful little tiger cub who loved wearing his bright red scarf."
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_2",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_brave_tiger_page_2.mp3",
+      "scriptBn": "One golden morning, Tiku heard a tiny Cheep, Cheep by the wooden bridge. A little yellow bird had lost its way across the stream.",
+      "aliases": [
+        "One golden morning, Tiku heard a tiny Cheep, Cheep by the wooden bridge. A little yellow bird had lost its way across the stream."
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_3",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_brave_tiger_page_3.mp3",
+      "scriptBn": "Tiku stepped gently onto the wobbly bridge, smiled warmly, and guided the little bird safely across the sparkling emerald water.",
+      "aliases": [
+        "Tiku stepped gently onto the wobbly bridge, smiled warmly, and guided the little bird safely across the sparkling emerald water."
+      ]
+    },
+    {
+      "id": "story_brave_tiger_page_4",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_brave_tiger_page_4.mp3",
+      "scriptBn": "The bird sang a joyful melody, and the whole forest cheered for Tiku, the kindest, bravest little tiger!",
+      "aliases": [
+        "The bird sang a joyful melody, and the whole forest cheered for Tiku, the kindest, bravest little tiger!"
+      ]
+    },
+    {
+      "id": "story_brave_tiger_moral",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_brave_tiger_moral.mp3",
+      "scriptBn": "True bravery means helping even the tiniest friend.",
+      "aliases": [
+        "True bravery means helping even the tiniest friend."
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_1",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_rabbit_moon_page_1.mp3",
+      "scriptBn": "Every evening, fluffy little Mitu the rabbit hopped up the flower hill to count the twinkling stars in the twilight sky.",
+      "aliases": [
+        "Every evening, fluffy little Mitu the rabbit hopped up the flower hill to count the twinkling stars in the twilight sky."
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_2",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_rabbit_moon_page_2.mp3",
+      "scriptBn": "Tonight, Mitu saw a big golden moon glowing in the sky, and another glowing moon swimming right inside the calm pond!",
+      "aliases": [
+        "Tonight, Mitu saw a big golden moon glowing in the sky, and another glowing moon swimming right inside the calm pond!"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_3",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_rabbit_moon_page_3.mp3",
+      "scriptBn": "Mitu tapped the water softly. Ripples danced across the pond! Aha! giggled Mitu. The pond is the moon's shiny mirror!",
+      "aliases": [
+        "Mitu tapped the water softly. Ripples danced across the pond! Aha! giggled Mitu. The pond is the moon's shiny mirror!"
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_page_4",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_rabbit_moon_page_4.mp3",
+      "scriptBn": "With a happy heart and a big yawn, Mitu wished the smiling moon goodnight and drifted into sweet dreams.",
+      "aliases": [
+        "With a happy heart and a big yawn, Mitu wished the smiling moon goodnight and drifted into sweet dreams."
+      ]
+    },
+    {
+      "id": "story_rabbit_moon_moral",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_rabbit_moon_moral.mp3",
+      "scriptBn": "Curiosity and calm thinking light up the darkest night.",
+      "aliases": [
+        "Curiosity and calm thinking light up the darkest night."
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_1",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_kind_elephant_page_1.mp3",
+      "scriptBn": "By a bright meadow river lived Golu, a gentle baby elephant with sparkling blue eyes and a crown of fresh green leaves.",
+      "aliases": [
+        "By a bright meadow river lived Golu, a gentle baby elephant with sparkling blue eyes and a crown of fresh green leaves."
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_2",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_kind_elephant_page_2.mp3",
+      "scriptBn": "One warm afternoon, the pink lotus flowers looked thirsty and four tiny ducklings wished for a cool rainbow splash.",
+      "aliases": [
+        "One warm afternoon, the pink lotus flowers looked thirsty and four tiny ducklings wished for a cool rainbow splash."
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_3",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_kind_elephant_page_3.mp3",
+      "scriptBn": "Golu filled his favorite blue watering can and poured sparkling rainbow droplets over the flowers and giggling ducklings.",
+      "aliases": [
+        "Golu filled his favorite blue watering can and poured sparkling rainbow droplets over the flowers and giggling ducklings."
+      ]
+    },
+    {
+      "id": "story_kind_elephant_page_4",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_kind_elephant_page_4.mp3",
+      "scriptBn": "A giant rainbow arched across the sky as everyone danced together. Kindness always makes the world brighter!",
+      "aliases": [
+        "A giant rainbow arched across the sky as everyone danced together. Kindness always makes the world brighter!"
+      ]
+    },
+    {
+      "id": "story_kind_elephant_moral",
+      "category": "stories",
+      "assetPath": "audio/english/stories/story_kind_elephant_moral.mp3",
+      "scriptBn": "When we share what we have, everyone blooms together.",
+      "aliases": [
+        "When we share what we have, everyone blooms together."
+      ]
+    },
+    {
+      "id": "inst_welcome",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_welcome.mp3",
+      "scriptBn": "Welcome to Kid'z World! Learn, play, and grow.",
+      "aliases": [
+        "Welcome to KID'Z WORLD! Learn, play, and grow."
+      ]
+    },
+    {
+      "id": "inst_test_voice",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_test_voice.mp3",
+      "scriptBn": "Hello! Welcome to Kid'z World. Let's learn, play, and grow together!",
+      "aliases": [
+        "Welcome to Kid'z World! Learn, play, and grow."
+      ]
+    },
+    {
+      "id": "inst_quiz_find",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_quiz_find.mp3",
+      "scriptBn": "Find",
+      "aliases": [
+        "Find",
+        "Tap"
+      ]
+    },
+    {
+      "id": "inst_math_plus",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_math_plus.mp3",
+      "scriptBn": "plus",
+      "aliases": [
+        "plus",
+        "+"
+      ]
+    },
+    {
+      "id": "inst_math_minus",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_math_minus.mp3",
+      "scriptBn": "minus",
+      "aliases": [
+        "minus",
+        "-"
+      ]
+    },
+    {
+      "id": "inst_math_equals_what",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_math_equals_what.mp3",
+      "scriptBn": "equals what?",
+      "aliases": [
+        "equals what",
+        "equals?"
+      ]
+    },
+    {
+      "id": "inst_pattern_next",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_pattern_next.mp3",
+      "scriptBn": "What comes next in the pattern?",
+      "aliases": [
+        "What comes next?"
+      ]
+    },
+    {
+      "id": "inst_sorting_prompt",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_sorting_prompt.mp3",
+      "scriptBn": "Which basket does this belong in?",
+      "aliases": []
+    },
+    {
+      "id": "inst_great_job",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_great_job.mp3",
+      "scriptBn": "Great job! Well done!",
+      "aliases": [
+        "Great job!",
+        "Awesome!"
+      ]
+    },
+    {
+      "id": "inst_try_again",
+      "category": "instructions",
+      "assetPath": "audio/english/instructions/inst_try_again.mp3",
+      "scriptBn": "Nice try! Let's try again.",
+      "aliases": [
+        "Try again!"
+      ]
+    }
+  ]
+}

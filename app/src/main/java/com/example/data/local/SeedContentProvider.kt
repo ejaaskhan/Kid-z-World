@@ -79,8 +79,10 @@ object SeedContentProvider {
     }
 
     private fun buildBanglaAlphabets(): List<LessonItemEntity> {
-        // Complete 11 Sworoborno (অ–ঔ) + 15 Banjonborno starter (ক–ণ)
+        // Complete 50-letter Bangla Barnamala: 11 Sworoborno (অ–ঔ, sortOrder 0..10) + 39 Banjonborno (ক–ঁ, sortOrder 11..49).
+        // Existing IDs bn_alpha_0..24 stay mapped to their exact original letters so saved child progress is never lost.
         data class BnLetter(
+            val id: String,
             val glyph: String,
             val roman: String,
             val wordBn: String,
@@ -88,35 +90,62 @@ object SeedContentProvider {
             val emoji: String
         )
         val letters = listOf(
-            BnLetter("অ", "Aw", "অজগর", "Python", "🐍"),
-            BnLetter("আ", "Aa", "আম", "Mango", "🥭"),
-            BnLetter("ই", "Hroshwo-i", "ইঁদুর", "Mouse", "🐭"),
-            BnLetter("ঈ", "Dirgho-i", "ঈগল", "Eagle", "🦅"),
-            BnLetter("উ", "Hroshwo-u", "উট", "Camel", "🐪"),
-            BnLetter("ঊ", "Dirgho-u", "ঊষা", "Dawn", "🌅"),
-            BnLetter("ঋ", "Ri", "ঋতু", "Seasons", "🌸"),
-            BnLetter("এ", "E", "একতারা", "Ektara", "🎵"),
-            BnLetter("ঐ", "Oi", "ঐরাবত", "Elephant", "🐘"),
-            BnLetter("ও", "O", "ওল", "Yam", "🌱"),
-            BnLetter("ঔ", "Ou", "ঔষধ", "Medicine", "💊"),
-            BnLetter("ক", "Ko", "কলা", "Banana", "🍌"),
-            BnLetter("খ", "Kho", "খরগোশ", "Rabbit", "🐰"),
-            BnLetter("গ", "Go", "গরু", "Cow", "🐄"),
-            BnLetter("ঘ", "Gho", "ঘুড়ি", "Kite", "🪁"),
-            BnLetter("ঙ", "Umo", "ব্যাঙ", "Frog", "🐸"),
-            BnLetter("চ", "Cho", "চাঁদ", "Moon", "🌙"),
-            BnLetter("ছ", "Chho", "ছাতা", "Umbrella", "☂️"),
-            BnLetter("জ", "Jo", "জাহাজ", "Ship", "🚢"),
-            BnLetter("ঝ", "Jho", "ঝিনুক", "Seashell", "🐚"),
-            BnLetter("ট", "To", "টিয়া", "Parrot", "🦜"),
-            BnLetter("ঠ", "Tho", "ঠেলাগাড়ি", "Cart", "🛒"),
-            BnLetter("ড", "Do", "ডাব", "Coconut", "🥥"),
-            BnLetter("ত", "To", "তারা", "Star", "⭐"),
-            BnLetter("ন", "No", "নৌকা", "Boat", "⛵")
+            // 11 স্বরবর্ণ (Vowels: sortOrder 0..10)
+            BnLetter("bn_alpha_0", "অ", "Aw", "অজগর", "Python", "🐍"),
+            BnLetter("bn_alpha_1", "আ", "Aa", "আম", "Mango", "🥭"),
+            BnLetter("bn_alpha_2", "ই", "Hroshwo-i", "ইঁদুর", "Mouse", "🐭"),
+            BnLetter("bn_alpha_3", "ঈ", "Dirgho-i", "ঈগল", "Eagle", "🦅"),
+            BnLetter("bn_alpha_4", "উ", "Hroshwo-u", "উট", "Camel", "🐪"),
+            BnLetter("bn_alpha_5", "ঊ", "Dirgho-u", "ঊষা", "Dawn", "🌅"),
+            BnLetter("bn_alpha_6", "ঋ", "Ri", "ঋতু", "Seasons", "🌸"),
+            BnLetter("bn_alpha_7", "এ", "E", "একতারা", "Ektara", "🎵"),
+            BnLetter("bn_alpha_8", "ঐ", "Oi", "ঐরাবত", "Elephant", "🐘"),
+            BnLetter("bn_alpha_9", "ও", "O", "ওল", "Yam", "🌱"),
+            BnLetter("bn_alpha_10", "ঔ", "Ou", "ঔষধ", "Medicine", "💊"),
+            // 39 ব্যঞ্জনবর্ণ (Consonants: sortOrder 11..49)
+            BnLetter("bn_alpha_11", "ক", "Ko", "কলা", "Banana", "🍌"),
+            BnLetter("bn_alpha_12", "খ", "Kho", "খরগোশ", "Rabbit", "🐰"),
+            BnLetter("bn_alpha_13", "গ", "Go", "গরু", "Cow", "🐄"),
+            BnLetter("bn_alpha_14", "ঘ", "Gho", "ঘুড়ি", "Kite", "🪁"),
+            BnLetter("bn_alpha_15", "ঙ", "Umo", "ব্যাঙ", "Frog", "🐸"),
+            BnLetter("bn_alpha_16", "চ", "Cho", "চাঁদ", "Moon", "🌙"),
+            BnLetter("bn_alpha_17", "ছ", "Chho", "ছাতা", "Umbrella", "☂️"),
+            BnLetter("bn_alpha_18", "জ", "Jo", "জাহাজ", "Ship", "🚢"),
+            BnLetter("bn_alpha_19", "ঝ", "Jho", "ঝিনুক", "Seashell", "🐚"),
+            BnLetter("bn_alpha_25", "ঞ", "Iyo", "মিঞা", "Gentle Cat", "🐱"),
+            BnLetter("bn_alpha_20", "ট", "To", "টিয়া", "Parrot", "🦜"),
+            BnLetter("bn_alpha_21", "ঠ", "Tho", "ঠেলাগাড়ি", "Cart", "🛒"),
+            BnLetter("bn_alpha_22", "ড", "Do", "ডাব", "Coconut", "🥥"),
+            BnLetter("bn_alpha_26", "ঢ", "Dho", "ঢোল", "Drum", "🥁"),
+            BnLetter("bn_alpha_27", "ণ", "Murdhonno-no", "হরিণ", "Deer", "🦌"),
+            BnLetter("bn_alpha_23", "ত", "To", "তারা", "Star", "⭐"),
+            BnLetter("bn_alpha_28", "থ", "Tho", "থালা", "Plate", "🍽️"),
+            BnLetter("bn_alpha_29", "দ", "Do", "দোয়েল", "Magpie Robin", "🐦"),
+            BnLetter("bn_alpha_30", "ধ", "Dho", "ধান", "Paddy", "🌾"),
+            BnLetter("bn_alpha_24", "ন", "No", "নৌকা", "Boat", "⛵"),
+            BnLetter("bn_alpha_31", "প", "Po", "পাখি", "Bird", "🕊️"),
+            BnLetter("bn_alpha_32", "ফ", "Pho", "ফুল", "Flower", "🌺"),
+            BnLetter("bn_alpha_33", "ব", "Bo", "বই", "Book", "📚"),
+            BnLetter("bn_alpha_34", "ভ", "Bho", "ভালুক", "Bear", "🐻"),
+            BnLetter("bn_alpha_35", "ম", "Mo", "মাছ", "Fish", "🐠"),
+            BnLetter("bn_alpha_36", "য", "Ontostho-jo", "যন্ত্র", "Instrument", "🎺"),
+            BnLetter("bn_alpha_37", "র", "Ro", "রংধনু", "Rainbow", "🌈"),
+            BnLetter("bn_alpha_38", "ল", "Lo", "লাটিম", "Spinning Top", "🪀"),
+            BnLetter("bn_alpha_39", "শ", "Talobbo-sho", "শাপলা", "Water Lily", "🪷"),
+            BnLetter("bn_alpha_40", "ষ", "Murdhonno-sho", "ষাঁড়", "Bull", "🐂"),
+            BnLetter("bn_alpha_41", "স", "Donto-sho", "সিংহ", "Lion", "🦁"),
+            BnLetter("bn_alpha_42", "হ", "Ho", "হাতি", "Elephant", "🐘"),
+            BnLetter("bn_alpha_43", "ড়", "Doy-shunno-ro", "গাড়ি", "Car", "🚗"),
+            BnLetter("bn_alpha_44", "ঢ়", "Dhoy-shunno-ro", "আষাঢ়", "Monsoon", "🌧️"),
+            BnLetter("bn_alpha_45", "য়", "Ontostho-o", "ময়ূর", "Peacock", "🦚"),
+            BnLetter("bn_alpha_46", "ৎ", "Khondo-to", "মৎস্য", "Fish", "🐟"),
+            BnLetter("bn_alpha_47", "ং", "Onushshar", "চিংড়ি", "Shrimp", "🦐"),
+            BnLetter("bn_alpha_48", "ঃ", "Bishorgo", "দুঃখ", "Care", "💛"),
+            BnLetter("bn_alpha_49", "ঁ", "Chondrobindu", "চাঁদ", "Moon", "🌙")
         )
-        return letters.mapIndexed { index, item ->
+        return letters.mapIndexed { sortIndex, item ->
             LessonItemEntity(
-                id = "bn_alpha_$index",
+                id = item.id,
                 moduleType = ModuleType.ALPHABET_BN.key,
                 symbol = item.roman,
                 symbolBn = item.glyph,
@@ -127,8 +156,8 @@ object SeedContentProvider {
                 exampleEn = item.wordEn,
                 exampleBn = item.wordBn,
                 visualBadge = item.emoji,
-                accentColorHex = palette[(index + 1) % palette.size],
-                sortOrder = index
+                accentColorHex = palette[(sortIndex + 1) % palette.size],
+                sortOrder = sortIndex
             )
         }
     }

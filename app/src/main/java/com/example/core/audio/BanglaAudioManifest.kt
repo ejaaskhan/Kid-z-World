@@ -143,6 +143,65 @@ class BanglaAudioManifest private constructor(
     }
 
     /**
+     * Resolves an English phrase (quiz prompts, math equations, puzzle names, greetings, or sentences)
+     * into bundled offline human-voice English MP3 asset path(s).
+     */
+    fun resolveAssetsForEnglishText(rawText: String): List<String> {
+        val trimmed = rawText.trim()
+        if (trimmed.isEmpty()) return emptyList()
+
+        val norm = normalizeKey(trimmed)
+        byNormalizedAlias[norm]?.let { return listOf(it.assetPath) }
+
+        parseBanglaOrAsciiInt(trimmed)?.let { n ->
+            byId["num_$n"]?.assetPath?.let { return listOf(it) }
+        }
+
+        // Quiz prompt: "Find Apple" / "Find: Apple"
+        val findPrefixes = listOf("find:", "find ", "tap ")
+        val lower = trimmed.lowercase()
+        for (prefix in findPrefixes) {
+            if (lower.startsWith(prefix)) {
+                val rest = trimmed.substring(prefix.length).trim()
+                val findAsset = assetForInstruction(INST_QUIZ_FIND)
+                val targetAssets = resolveAssetsForEnglishText(rest)
+                if (targetAssets.isNotEmpty()) {
+                    return buildList {
+                        if (findAsset != null) add(findAsset)
+                        addAll(targetAssets)
+                    }
+                }
+            }
+        }
+
+        // English Visual Math equation: "3 plus 2 equals what?" or "10 minus 4 equals what?"
+        val mathMatch = ENGLISH_MATH_EQUATION_REGEX.find(trimmed)
+        if (mathMatch != null) {
+            val leftNum = parseBanglaOrAsciiInt(mathMatch.groupValues[1])
+            val opWord = mathMatch.groupValues[2].lowercase()
+            val rightNum = parseBanglaOrAsciiInt(mathMatch.groupValues[3])
+            if (leftNum != null && rightNum != null) {
+                val leftAsset = byId["num_$leftNum"]?.assetPath
+                val opAsset = assetForInstruction(
+                    if (opWord == "plus" || opWord == "+") INST_MATH_PLUS else INST_MATH_MINUS
+                )
+                val rightAsset = byId["num_$rightNum"]?.assetPath
+                val eqAsset = assetForInstruction(INST_MATH_EQUALS_WHAT)
+                if (leftAsset != null && opAsset != null && rightAsset != null && eqAsset != null) {
+                    return listOf(leftAsset, opAsset, rightAsset, eqAsset)
+                }
+            }
+        }
+
+        val firstClause = trimmed.substringBefore('.').substringBefore('!').substringBefore('—').substringBefore('(').trim()
+        if (firstClause.isNotEmpty() && firstClause != trimmed) {
+            byNormalizedAlias[normalizeKey(firstClause)]?.let { return listOf(it.assetPath) }
+        }
+
+        return emptyList()
+    }
+
+    /**
      * Audits that every manifest asset file physically exists in the APK's bundled assets.
      */
     fun auditBundledAssets(assetManager: AssetManager): BundledAudioAudit {
@@ -179,6 +238,7 @@ class BanglaAudioManifest private constructor(
     companion object {
         private const val TAG = "BanglaAudioManifest"
         const val MANIFEST_ASSET_PATH = "audio/bangla/manifest.json"
+        const val ENGLISH_MANIFEST_ASSET_PATH = "audio/english/manifest.json"
         private const val MIN_VALID_AUDIO_BYTES = 1000L
 
         const val INST_WELCOME = "inst_welcome"
@@ -197,12 +257,19 @@ class BanglaAudioManifest private constructor(
         private val MATH_EQUATION_REGEX = Regex(
             """([0-9০-৯]+)\s+(যোগ|বিয়োগ)\s+([0-9০-৯]+)"""
         )
+        private val ENGLISH_MATH_EQUATION_REGEX = Regex(
+            """([0-9]+)\s+(plus|minus|\+|-)\s+([0-9]+)""",
+            RegexOption.IGNORE_CASE
+        )
 
-        fun loadFromAssets(assetManager: AssetManager): BanglaAudioManifest {
+        fun loadFromAssets(
+            assetManager: AssetManager,
+            manifestAssetPath: String = MANIFEST_ASSET_PATH
+        ): BanglaAudioManifest {
             return try {
-                assetManager.open(MANIFEST_ASSET_PATH).use { parseJsonStream(it) }
+                assetManager.open(manifestAssetPath).use { parseJsonStream(it) }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to load $MANIFEST_ASSET_PATH: ${e.message}")
+                Log.e(TAG, "Failed to load $manifestAssetPath: ${e.message}")
                 BanglaAudioManifest(emptyList())
             }
         }

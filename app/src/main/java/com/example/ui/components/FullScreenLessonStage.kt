@@ -35,6 +35,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
@@ -907,99 +908,282 @@ fun Spacious3DLessonGrid(
         modifier = modifier
     ) {
         items(items, key = { it.id }) { item ->
-            val accent = Color(item.accentColorHex)
-            val isAlphabetOrNum = item.moduleType == ModuleType.ALPHABET_EN ||
-                item.moduleType == ModuleType.ALPHABET_BN ||
-                item.moduleType == ModuleType.NUMBERS
+            Lesson3DGridTile(
+                item = item,
+                language = language,
+                onPick = onPick
+            )
+        }
+    }
+}
 
-            Cartoon3DCard(
-                containerColor = accent.lightenForGloss(0.84f),
-                rimColor = accent.copy(alpha = 0.55f),
-                cornerRadius = 24.dp,
-                bevelDepth = 6.dp,
-                contentPadding = PaddingValues(12.dp),
-                onClick = { onPick(item) },
-                modifier = Modifier.testTag("lesson_tile_${item.id}")
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Completion indicator top-right + mini cartoon illustration badge
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .clip(CircleShape)
-                                .background(Color.White.copy(alpha = 0.88f)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = item.visualBadge, fontSize = 16.sp)
-                        }
-                        if (item.isLearned) {
-                            Box(
-                                modifier = Modifier
-                                    .size(24.dp)
-                                    .clip(CircleShape)
-                                    .background(EmeraldMeadow),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Star,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(15.dp)
-                                )
-                            }
-                        } else {
-                            Spacer(modifier = Modifier.size(24.dp))
-                        }
+/**
+ * Sectioned Bangla Alphabet 3D Grid:
+ * Organizes the 50 Bangla letters into two clear, colorful 3D cartoon sections:
+ * 1. স্বরবর্ণ (11 Vowels: অ–ঔ)
+ * 2. ব্যঞ্জনবর্ণ (39 Consonants: ক–ঁ)
+ */
+@Composable
+fun SectionedBanglaAlphabetGrid(
+    vowels: List<LessonItem>,
+    consonants: List<LessonItem>,
+    language: AppLanguage,
+    columns: Int,
+    onPick: (LessonItem) -> Unit,
+    modifier: Modifier = Modifier,
+    englishLetters: List<LessonItem> = emptyList()
+) {
+    val strings = LocalAppStrings.current
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(columns),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(top = 4.dp, bottom = 110.dp),
+        modifier = modifier
+    ) {
+        if (englishLetters.isNotEmpty()) {
+            item(key = "section_header_english_az", span = { GridItemSpan(maxLineSpan) }) {
+                val done = englishLetters.count { it.isLearned }
+                BanglaAlphabetSectionBanner(
+                    emoji = "🔤",
+                    title = strings.englishAlphabetCardTitle,
+                    rangeHint = "A – Z",
+                    countLabel = "${done.toLocalizedDigits(language)}/${englishLetters.size.toLocalizedDigits(language)}",
+                    containerColor = CeruleanSky,
+                    modifier = Modifier.testTag("alphabet_section_english")
+                )
+            }
+            items(englishLetters, key = { it.id }) { item ->
+                Lesson3DGridTile(
+                    item = item,
+                    language = language,
+                    onPick = onPick
+                )
+            }
+        }
+
+        if (vowels.isNotEmpty()) {
+            item(key = "section_header_vowels", span = { GridItemSpan(maxLineSpan) }) {
+                val done = vowels.count { it.isLearned }
+                BanglaAlphabetSectionBanner(
+                    emoji = "✨",
+                    title = strings.banglaVowelsTitle,
+                    rangeHint = "অ – ঔ",
+                    countLabel = "${done.toLocalizedDigits(language)}/${vowels.size.toLocalizedDigits(language)}",
+                    containerColor = MangoPrimary,
+                    modifier = Modifier.testTag("bangla_section_vowels")
+                )
+            }
+            items(vowels, key = { it.id }) { item ->
+                Lesson3DGridTile(
+                    item = item,
+                    language = language,
+                    onPick = onPick
+                )
+            }
+        }
+
+        if (consonants.isNotEmpty()) {
+            item(key = "section_header_consonants", span = { GridItemSpan(maxLineSpan) }) {
+                val done = consonants.count { it.isLearned }
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    if (vowels.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(6.dp))
                     }
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-                    // Big bold 3D letter/symbol
-                    if (isAlphabetOrNum) {
-                        Text(
-                            text = item.displaySymbol(language),
-                            fontSize = if (item.displaySymbol(language).length >= 3) 30.sp else 40.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = accent.darkenForRim(0.82f),
-                            maxLines = 1,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(2.dp))
-                        Text(
-                            text = if (item.moduleType == ModuleType.NUMBERS) item.displayTitle(language) else item.displayExample(language),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = Color(0xFF332F4D),
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            textAlign = TextAlign.Center
-                        )
-                    } else {
-                        Text(
-                            text = item.visualBadge,
-                            fontSize = 38.sp,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = item.displayTitle(language),
-                            style = MaterialTheme.typography.titleSmall,
-                            color = Color(0xFF25233A),
-                            fontWeight = FontWeight.ExtraBold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            textAlign = TextAlign.Center
-                        )
-                    }
+                    BanglaAlphabetSectionBanner(
+                        emoji = "🎨",
+                        title = strings.banglaConsonantsTitle,
+                        rangeHint = "ক – ঁ",
+                        countLabel = "${done.toLocalizedDigits(language)}/${consonants.size.toLocalizedDigits(language)}",
+                        containerColor = BerryCoral,
+                        modifier = Modifier.testTag("bangla_section_consonants")
+                    )
                 }
+            }
+            items(consonants, key = { it.id }) { item ->
+                Lesson3DGridTile(
+                    item = item,
+                    language = language,
+                    onPick = onPick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BanglaAlphabetSectionBanner(
+    emoji: String,
+    title: String,
+    rangeHint: String,
+    countLabel: String,
+    containerColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Cartoon3DCard(
+        containerColor = containerColor,
+        rimColor = containerColor.darkenForRim(0.74f),
+        cornerRadius = 22.dp,
+        bevelDepth = 5.dp,
+        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 10.dp),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.weight(1f)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(38.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.25f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = emoji, fontSize = 20.sp)
+                }
+                Column {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = rangeHint,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.White.copy(alpha = 0.92f),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(Color.White.copy(alpha = 0.26f))
+                    .padding(horizontal = 11.dp, vertical = 5.dp)
+            ) {
+                Text(
+                    text = countLabel,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun Lesson3DGridTile(
+    item: LessonItem,
+    language: AppLanguage,
+    onPick: (LessonItem) -> Unit
+) {
+    val accent = Color(item.accentColorHex)
+    val isAlphabetOrNum = item.moduleType == ModuleType.ALPHABET_EN ||
+        item.moduleType == ModuleType.ALPHABET_BN ||
+        item.moduleType == ModuleType.NUMBERS
+
+    Cartoon3DCard(
+        containerColor = accent.lightenForGloss(0.84f),
+        rimColor = accent.copy(alpha = 0.55f),
+        cornerRadius = 24.dp,
+        bevelDepth = 6.dp,
+        contentPadding = PaddingValues(12.dp),
+        onClick = { onPick(item) },
+        modifier = Modifier.testTag("lesson_tile_${item.id}")
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Completion indicator top-right + mini cartoon illustration badge
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.88f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = item.visualBadge, fontSize = 16.sp)
+                }
+                if (item.isLearned) {
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .background(EmeraldMeadow),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Star,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(15.dp)
+                        )
+                    }
+                } else {
+                    Spacer(modifier = Modifier.size(24.dp))
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Big bold 3D letter/symbol
+            if (isAlphabetOrNum) {
+                Text(
+                    text = item.displaySymbol(language),
+                    fontSize = if (item.displaySymbol(language).length >= 3) 30.sp else 40.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = accent.darkenForRim(0.82f),
+                    maxLines = 1,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                val caption = when (item.moduleType) {
+                    ModuleType.NUMBERS -> item.displayTitle(language)
+                    ModuleType.ALPHABET_BN -> item.exampleBn
+                    ModuleType.ALPHABET_EN -> item.exampleEn
+                    else -> item.displayExample(language)
+                }
+                Text(
+                    text = caption,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = Color(0xFF332F4D),
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+            } else {
+                Text(
+                    text = item.visualBadge,
+                    fontSize = 38.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = item.displayTitle(language),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color(0xFF25233A),
+                    fontWeight = FontWeight.ExtraBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

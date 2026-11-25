@@ -306,9 +306,7 @@ fun ProfileHubScreen(
                         color = CeruleanSky,
                         language = language,
                         onClick = {
-                            onOpenLearnModule(
-                                if (language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
-                            )
+                            onOpenLearnModule(ModuleType.ALPHABET_BN)
                         }
                     )
                     TappableMasteryRow(
@@ -335,7 +333,7 @@ fun ProfileHubScreen(
                         language = language,
                         onClick = {
                             onOpenLearnModule(
-                                if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.BASIC_WORDS
+                                if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.ALPHABET_EN
                             )
                         }
                     )

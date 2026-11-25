@@ -2,13 +2,13 @@
   "version": 1,
   "locale": "bn-BD",
   "voiceProfile": "Bangladeshi Bangla Offline Voice Library (24kHz Mono MP3)",
-  "totalClips": 330,
+  "totalClips": 355,
   "entries": [
     {
       "id": "bn_alpha_0",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_0.mp3",
-      "scriptBn": "অ। অ তে অজগর।",
+      "scriptBn": "স্বরে অ। অ-তে অজগর।",
       "aliases": [
         "অ",
         "বর্ণ অ",
@@ -20,7 +20,7 @@
       "id": "bn_alpha_1",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_1.mp3",
-      "scriptBn": "আ। আ তে আম।",
+      "scriptBn": "স্বরে আ। আআ, আ-তে আম।",
       "aliases": [
         "আ",
         "বর্ণ আ",
@@ -32,7 +32,7 @@
       "id": "bn_alpha_2",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_2.mp3",
-      "scriptBn": "ই। ই তে ইঁদুর।",
+      "scriptBn": "হ্রস্ব ই। ই তে ইঁদুর।",
       "aliases": [
         "ই",
         "বর্ণ ই",
@@ -44,7 +44,7 @@
       "id": "bn_alpha_3",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_3.mp3",
-      "scriptBn": "ঈ। ঈ তে ঈগল।",
+      "scriptBn": "দীর্ঘ ঈ। ঈ তে ঈগল।",
       "aliases": [
         "ঈ",
         "বর্ণ ঈ",
@@ -56,7 +56,7 @@
       "id": "bn_alpha_4",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_4.mp3",
-      "scriptBn": "উ। উ তে উট।",
+      "scriptBn": "হ্রস্ব উ। উ তে উট।",
       "aliases": [
         "উ",
         "বর্ণ উ",
@@ -68,7 +68,7 @@
       "id": "bn_alpha_5",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_5.mp3",
-      "scriptBn": "ঊ। ঊ তে ঊষা।",
+      "scriptBn": "দীর্ঘ ঊ। ঊ তে ঊষা।",
       "aliases": [
         "ঊ",
         "বর্ণ ঊ",
@@ -188,7 +188,7 @@
       "id": "bn_alpha_15",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_15.mp3",
-      "scriptBn": "ঙ। ঙ তে ব্যাঙ।",
+      "scriptBn": "উঁয়ো। উঁয়ো তে ব্যাঙ।",
       "aliases": [
         "ঙ",
         "বর্ণ ঙ",
@@ -245,6 +245,18 @@
       ]
     },
     {
+      "id": "bn_alpha_25",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_25.mp3",
+      "scriptBn": "ইঁয়ো। ইঁয়ো তে মিঞা।",
+      "aliases": [
+        "ঞ",
+        "বর্ণ ঞ",
+        "ঞ তে মিঞা",
+        "মিঞা"
+      ]
+    },
+    {
       "id": "bn_alpha_20",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_20.mp3",
@@ -281,6 +293,30 @@
       ]
     },
     {
+      "id": "bn_alpha_26",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_26.mp3",
+      "scriptBn": "ঢ। ঢ তে ঢোল।",
+      "aliases": [
+        "ঢ",
+        "বর্ণ ঢ",
+        "ঢ তে ঢোল",
+        "ঢোল"
+      ]
+    },
+    {
+      "id": "bn_alpha_27",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_27.mp3",
+      "scriptBn": "মূর্ধন্য ণ। ণ তে হরিণ।",
+      "aliases": [
+        "ণ",
+        "বর্ণ ণ",
+        "ণ তে হরিণ",
+        "হরিণ"
+      ]
+    },
+    {
       "id": "bn_alpha_23",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_23.mp3",
@@ -293,6 +329,42 @@
       ]
     },
     {
+      "id": "bn_alpha_28",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_28.mp3",
+      "scriptBn": "থ। থ তে থালা।",
+      "aliases": [
+        "থ",
+        "বর্ণ থ",
+        "থ তে থালা",
+        "থালা"
+      ]
+    },
+    {
+      "id": "bn_alpha_29",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_29.mp3",
+      "scriptBn": "দ। দ তে দোয়েল।",
+      "aliases": [
+        "দ",
+        "বর্ণ দ",
+        "দ তে দোয়েল",
+        "দোয়েল"
+      ]
+    },
+    {
+      "id": "bn_alpha_30",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_30.mp3",
+      "scriptBn": "ধ। ধ তে ধান।",
+      "aliases": [
+        "ধ",
+        "বর্ণ ধ",
+        "ধ তে ধান",
+        "ধান"
+      ]
+    },
+    {
       "id": "bn_alpha_24",
       "category": "alphabet",
       "assetPath": "audio/bangla/alphabet/bn_alpha_24.mp3",
@@ -302,6 +374,234 @@
         "বর্ণ ন",
         "ন তে নৌকা",
         "নৌকা"
+      ]
+    },
+    {
+      "id": "bn_alpha_31",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_31.mp3",
+      "scriptBn": "প। প তে পাখি।",
+      "aliases": [
+        "প",
+        "বর্ণ প",
+        "প তে পাখি",
+        "পাখি"
+      ]
+    },
+    {
+      "id": "bn_alpha_32",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_32.mp3",
+      "scriptBn": "ফ। ফ তে ফুল।",
+      "aliases": [
+        "ফ",
+        "বর্ণ ফ",
+        "ফ তে ফুল",
+        "ফুল"
+      ]
+    },
+    {
+      "id": "bn_alpha_33",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_33.mp3",
+      "scriptBn": "ব। ব তে বই।",
+      "aliases": [
+        "ব",
+        "বর্ণ ব",
+        "ব তে বই",
+        "বই"
+      ]
+    },
+    {
+      "id": "bn_alpha_34",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_34.mp3",
+      "scriptBn": "ভ। ভ তে ভালুক।",
+      "aliases": [
+        "ভ",
+        "বর্ণ ভ",
+        "ভ তে ভালুক",
+        "ভালুক"
+      ]
+    },
+    {
+      "id": "bn_alpha_35",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_35.mp3",
+      "scriptBn": "ম। ম তে মাছ।",
+      "aliases": [
+        "ম",
+        "বর্ণ ম",
+        "ম তে মাছ",
+        "মাছ"
+      ]
+    },
+    {
+      "id": "bn_alpha_36",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_36.mp3",
+      "scriptBn": "অন্তঃস্থ য। য তে যন্ত্র।",
+      "aliases": [
+        "য",
+        "বর্ণ য",
+        "য তে যন্ত্র",
+        "যন্ত্র"
+      ]
+    },
+    {
+      "id": "bn_alpha_37",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_37.mp3",
+      "scriptBn": "র। র তে রংধনু।",
+      "aliases": [
+        "র",
+        "বর্ণ র",
+        "র তে রংধনু",
+        "রংধনু"
+      ]
+    },
+    {
+      "id": "bn_alpha_38",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_38.mp3",
+      "scriptBn": "ল। ল তে লাটিম।",
+      "aliases": [
+        "ল",
+        "বর্ণ ল",
+        "ল তে লাটিম",
+        "লাটিম"
+      ]
+    },
+    {
+      "id": "bn_alpha_39",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_39.mp3",
+      "scriptBn": "তালব্য শ। শ তে শাপলা।",
+      "aliases": [
+        "শ",
+        "বর্ণ শ",
+        "শ তে শাপলা",
+        "শাপলা"
+      ]
+    },
+    {
+      "id": "bn_alpha_40",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_40.mp3",
+      "scriptBn": "মূর্ধন্য ষ। ষ তে ষাঁড়।",
+      "aliases": [
+        "ষ",
+        "বর্ণ ষ",
+        "ষ তে ষাঁড়",
+        "ষাঁড়"
+      ]
+    },
+    {
+      "id": "bn_alpha_41",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_41.mp3",
+      "scriptBn": "দন্ত্য স। স তে সিংহ।",
+      "aliases": [
+        "স",
+        "বর্ণ স",
+        "স তে সিংহ",
+        "সিংহ"
+      ]
+    },
+    {
+      "id": "bn_alpha_42",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_42.mp3",
+      "scriptBn": "হ। হ তে হাতি।",
+      "aliases": [
+        "হ",
+        "বর্ণ হ",
+        "হ তে হাতি",
+        "হাতি"
+      ]
+    },
+    {
+      "id": "bn_alpha_43",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_43.mp3",
+      "scriptBn": "ড-য়ে শূন্য ড়। ড় তে গাড়ি।",
+      "aliases": [
+        "ড়",
+        "বর্ণ ড়",
+        "ড় তে গাড়ি",
+        "গাড়ি"
+      ]
+    },
+    {
+      "id": "bn_alpha_44",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_44.mp3",
+      "scriptBn": "ঢ-য়ে শূন্য ঢ়। ঢ় তে আষাঢ়।",
+      "aliases": [
+        "ঢ়",
+        "বর্ণ ঢ়",
+        "ঢ় তে আষাঢ়",
+        "আষাঢ়"
+      ]
+    },
+    {
+      "id": "bn_alpha_45",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_45.mp3",
+      "scriptBn": "অন্তঃস্থ য়। য় তে ময়ূর।",
+      "aliases": [
+        "য়",
+        "বর্ণ য়",
+        "য় তে ময়ূর",
+        "ময়ূর"
+      ]
+    },
+    {
+      "id": "bn_alpha_46",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_46.mp3",
+      "scriptBn": "খণ্ড ত। মৎস্য।",
+      "aliases": [
+        "ৎ",
+        "বর্ণ ৎ",
+        "ৎ তে মৎস্য",
+        "মৎস্য"
+      ]
+    },
+    {
+      "id": "bn_alpha_47",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_47.mp3",
+      "scriptBn": "অনুস্বার। চিংড়ি।",
+      "aliases": [
+        "ং",
+        "বর্ণ ং",
+        "ং তে চিংড়ি",
+        "চিংড়ি"
+      ]
+    },
+    {
+      "id": "bn_alpha_48",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_48.mp3",
+      "scriptBn": "বিসর্গ। দুঃখ।",
+      "aliases": [
+        "ঃ",
+        "বর্ণ ঃ",
+        "ঃ তে দুঃখ",
+        "দুঃখ"
+      ]
+    },
+    {
+      "id": "bn_alpha_49",
+      "category": "alphabet",
+      "assetPath": "audio/bangla/alphabet/bn_alpha_49.mp3",
+      "scriptBn": "চন্দ্রবিন্দু। চাঁদ।",
+      "aliases": [
+        "ঁ",
+        "বর্ণ ঁ",
+        "ঁ তে চাঁদ",
+        "চাঁদ"
       ]
     },
     {

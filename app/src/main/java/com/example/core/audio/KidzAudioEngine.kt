@@ -48,10 +48,17 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
     private val appContext = context.applicationContext
     private val audioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    val banglaManifest: BanglaAudioManifest = BanglaAudioManifest.loadFromAssets(appContext.assets)
+    val banglaManifest: BanglaAudioManifest = BanglaAudioManifest.loadFromAssets(
+        appContext.assets,
+        BanglaAudioManifest.MANIFEST_ASSET_PATH
+    )
+    val englishManifest: BanglaAudioManifest = BanglaAudioManifest.loadFromAssets(
+        appContext.assets,
+        BanglaAudioManifest.ENGLISH_MANIFEST_ASSET_PATH
+    )
     private val banglaPlayer = BundledBanglaAudioPlayer(appContext)
 
-    // English-only TTS channel (never used for Bangla)
+    // Last-resort English TTS fallback ONLY for arbitrary unmapped strings
     private var englishTts: TextToSpeech? = null
     private var isEnglishTtsReady = false
     private var preferredEnglishVoice: Voice? = null
@@ -72,8 +79,9 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
     private val _bundledAudioStatus = MutableStateFlow(
         BundledBanglaAudioStatus(
             isReady = banglaManifest.totalEntries > 0,
-            verifiedClipsCount = banglaManifest.totalEntries,
-            totalClipsCount = banglaManifest.totalEntries
+            verifiedClipsCount = banglaManifest.totalEntries + englishManifest.totalEntries,
+            totalClipsCount = banglaManifest.totalEntries + englishManifest.totalEntries,
+            localeLabel = "বাংলা (bn-BD) & English (en-US) Offline Human Voices"
         )
     )
     val bundledAudioStatus: StateFlow<BundledBanglaAudioStatus> = _bundledAudioStatus.asStateFlow()
@@ -85,16 +93,21 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
     private var triedGoogleEngineForEnglish = false
 
     init {
-        // Verify bundled Bangla MP3 assets asynchronously on IO thread
+        // Verify bundled Bangla + English human MP3 assets asynchronously on IO thread
         audioScope.launch {
-            val audit = banglaManifest.auditBundledAssets(appContext.assets)
+            val bnAudit = banglaManifest.auditBundledAssets(appContext.assets)
+            val enAudit = englishManifest.auditBundledAssets(appContext.assets)
             _bundledAudioStatus.value = BundledBanglaAudioStatus(
-                isReady = audit.verifiedCount > 0,
-                verifiedClipsCount = audit.verifiedCount,
-                totalClipsCount = audit.totalCount
+                isReady = bnAudit.verifiedCount > 0 && enAudit.verifiedCount > 0,
+                verifiedClipsCount = bnAudit.verifiedCount + enAudit.verifiedCount,
+                totalClipsCount = bnAudit.totalCount + enAudit.totalCount,
+                localeLabel = "বাংলা (bn-BD) & English (en-US) Offline Human Voices"
             )
-            if (audit.missingAssetPaths.isNotEmpty()) {
-                Log.w(TAG, "Missing ${audit.missingAssetPaths.size} bundled Bangla MP3 clips")
+            if (bnAudit.missingAssetPaths.isNotEmpty() || enAudit.missingAssetPaths.isNotEmpty()) {
+                Log.w(
+                    TAG,
+                    "Missing ${bnAudit.missingAssetPaths.size} Bangla & ${enAudit.missingAssetPaths.size} English bundled MP3 clips"
+                )
             }
         }
         initializeEnglishTtsOnly()
@@ -299,11 +312,59 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
         banglaPlayer.playAsset(assetPath, speed = banglaPlaybackSpeed())
     }
 
+    // =========================================================================
+    // BUNDLED OFFLINE HUMAN ENGLISH PLAYBACK API (No Robotic TTS)
+    // =========================================================================
+
+    fun playEnglishLesson(lessonId: String, fallbackPrompt: String? = null) {
+        if (!ttsEnabled) return
+        val assetPath = englishManifest.assetForLesson(lessonId)
+        if (assetPath != null) {
+            stopEnglishTtsOnly()
+            banglaPlayer.playAsset(assetPath, speed = banglaPlaybackSpeed())
+        } else if (!fallbackPrompt.isNullOrBlank()) {
+            speak(fallbackPrompt, AppLanguage.ENGLISH)
+        }
+    }
+
+    fun playEnglishNumber(number: Int) {
+        if (!ttsEnabled) return
+        val assetPath = englishManifest.entryById("num_$number")?.assetPath
+        if (assetPath != null) {
+            stopEnglishTtsOnly()
+            banglaPlayer.playAsset(assetPath, speed = banglaPlaybackSpeed())
+        } else {
+            speak(number.toString(), AppLanguage.ENGLISH)
+        }
+    }
+
+    fun playEnglishStoryPage(storyId: String, pageNumber: Int, fallbackText: String) {
+        if (!ttsEnabled) return
+        val assetPath = englishManifest.assetForStoryPage(storyId, pageNumber)
+        if (assetPath != null) {
+            stopEnglishTtsOnly()
+            banglaPlayer.playAsset(assetPath, speed = banglaPlaybackSpeed(0.98f))
+        } else {
+            speak(fallbackText, AppLanguage.ENGLISH)
+        }
+    }
+
+    fun playEnglishInstruction(instructionId: String, fallbackText: String? = null) {
+        if (!ttsEnabled) return
+        val assetPath = englishManifest.assetForInstruction(instructionId)
+        if (assetPath != null) {
+            stopEnglishTtsOnly()
+            banglaPlayer.playAsset(assetPath, speed = banglaPlaybackSpeed())
+        } else if (!fallbackText.isNullOrBlank()) {
+            speak(fallbackText, AppLanguage.ENGLISH)
+        }
+    }
+
     /**
-     * Unified speech entry point:
-     * - For [AppLanguage.BANGLA]: Resolves ONLY to bundled offline MP3 asset(s) from [banglaManifest]
-     *   and plays via [BundledBanglaAudioPlayer]. NEVER invokes Android System TTS.
-     * - For [AppLanguage.ENGLISH]: Speaks via natural offline local English TTS (1.0x natural pitch).
+     * Unified human-voice speech entry point:
+     * - For [AppLanguage.BANGLA]: Resolves ONLY to bundled offline human Bangla MP3s.
+     * - For [AppLanguage.ENGLISH]: Resolves FIRST to bundled offline human English MP3s;
+     *   falls back to local natural TTS only if a dynamic unmapped string has no clip.
      */
     fun speak(
         text: String,
@@ -332,7 +393,25 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
             return
         }
 
-        // English-only natural offline TTS playback (strictly natural 1.0f pitch, zero metallic pitch shift)
+        // First try bundled offline human English MP3s (zero robotic TTS!)
+        val englishAssets = englishManifest.resolveAssetsForEnglishText(text)
+        if (englishAssets.isNotEmpty()) {
+            stopEnglishTtsOnly()
+            val speed = banglaPlaybackSpeed(rateMultiplier)
+            if (englishAssets.size == 1) {
+                banglaPlayer.playAsset(englishAssets.first(), speed = speed)
+            } else {
+                banglaPlayer.playSequence(
+                    assetPaths = englishAssets,
+                    speed = speed,
+                    pauseBetweenMs = 140L,
+                    emitIndices = false
+                )
+            }
+            return
+        }
+
+        // Fallback only for unmapped dynamic English strings (natural 1.0f pitch)
         banglaPlayer.stop()
         if (!isEnglishTtsReady) return
         val engine = englishTts ?: return
@@ -345,7 +424,7 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
             val cleaned = formatNaturalEnglishSpeech(text)
             engine.speak(cleaned, TextToSpeech.QUEUE_FLUSH, null, "kidz_en_${System.currentTimeMillis()}")
         } catch (e: Exception) {
-            Log.w(TAG, "English TTS speak failed: ${e.message}")
+            Log.w(TAG, "English TTS fallback failed: ${e.message}")
             _isEnglishSpeaking.value = false
         }
     }
@@ -369,10 +448,12 @@ class KidzAudioEngine(context: Context) : TextToSpeech.OnInitListener {
 
     fun playEffect(effect: SoundEffect) {
         if (!soundFxEnabled) return
+        // Button tap / click sounds are always silent
+        if (effect == SoundEffect.TAP_POP) return
         audioScope.launch {
             try {
                 when (effect) {
-                    SoundEffect.TAP_POP -> playNotes(listOf(587.33 to 65))
+                    SoundEffect.TAP_POP -> Unit
                     SoundEffect.PAGE_TURN -> playNotes(listOf(440.0 to 50, 523.25 to 60))
                     SoundEffect.TRY_AGAIN_BOOP -> playNotes(listOf(311.13 to 90, 261.63 to 120))
                     SoundEffect.CORRECT_CHIME -> playNotes(listOf(523.25 to 80, 659.25 to 85, 783.99 to 130))

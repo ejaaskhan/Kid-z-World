@@ -88,40 +88,68 @@ def build_manifest_entries() -> list[dict[str, Any]]:
             }
         )
 
-    # 1. BANGLA ALPHABET (bn_alpha_0..24: Sworoborno অ–ঔ + Banjonborno ক–ন)
+    # 1. COMPLETE BANGLA ALPHABET (50 letters: 11 Sworoborno অ–ঔ + 39 Banjonborno ক–ঁ)
+    # Preserves existing IDs bn_alpha_0..24 so child progress stays intact; adds bn_alpha_25..49.
     bn_letters = [
-        ("অ", "অজগর"),
-        ("আ", "আম"),
-        ("ই", "ইঁদুর"),
-        ("ঈ", "ঈগল"),
-        ("উ", "উট"),
-        ("ঊ", "ঊষা"),
-        ("ঋ", "ঋতু"),
-        ("এ", "একতারা"),
-        ("ঐ", "ঐরাবত"),
-        ("ও", "ওল"),
-        ("ঔ", "ঔষধ"),
-        ("ক", "কলা"),
-        ("খ", "খরগোশ"),
-        ("গ", "গরু"),
-        ("ঘ", "ঘুড়ি"),
-        ("ঙ", "ব্যাঙ"),
-        ("চ", "চাঁদ"),
-        ("ছ", "ছাতা"),
-        ("জ", "জাহাজ"),
-        ("ঝ", "ঝিনুক"),
-        ("ট", "টিয়া"),
-        ("ঠ", "ঠেলাগাড়ি"),
-        ("ড", "ডাব"),
-        ("ত", "তারা"),
-        ("ন", "নৌকা"),
+        # 11 Sworoborno (Vowels)
+        ("bn_alpha_0", "অ", "অজগর", "স্বরে অ। অ-তে অজগর।"),
+        ("bn_alpha_1", "আ", "আম", "স্বরে আ। আআ, আ-তে আম।"),
+        ("bn_alpha_2", "ই", "ইঁদুর", "হ্রস্ব ই। ই তে ইঁদুর।"),
+        ("bn_alpha_3", "ঈ", "ঈগল", "দীর্ঘ ঈ। ঈ তে ঈগল।"),
+        ("bn_alpha_4", "উ", "উট", "হ্রস্ব উ। উ তে উট।"),
+        ("bn_alpha_5", "ঊ", "ঊষা", "দীর্ঘ ঊ। ঊ তে ঊষা।"),
+        ("bn_alpha_6", "ঋ", "ঋতু", "ঋ। ঋ তে ঋতু।"),
+        ("bn_alpha_7", "এ", "একতারা", "এ। এ তে একতারা।"),
+        ("bn_alpha_8", "ঐ", "ঐরাবত", "ঐ। ঐ তে ঐরাবত।"),
+        ("bn_alpha_9", "ও", "ওল", "ও। ও তে ওল।"),
+        ("bn_alpha_10", "ঔ", "ঔষধ", "ঔ। ঔ তে ঔষধ।"),
+        # 39 Banjonborno (Consonants)
+        ("bn_alpha_11", "ক", "কলা", "ক। ক তে কলা।"),
+        ("bn_alpha_12", "খ", "খরগোশ", "খ। খ তে খরগোশ।"),
+        ("bn_alpha_13", "গ", "গরু", "গ। গ তে গরু।"),
+        ("bn_alpha_14", "ঘ", "ঘুড়ি", "ঘ। ঘ তে ঘুড়ি।"),
+        ("bn_alpha_15", "ঙ", "ব্যাঙ", "উঁয়ো। উঁয়ো তে ব্যাঙ।"),
+        ("bn_alpha_16", "চ", "চাঁদ", "চ। চ তে চাঁদ।"),
+        ("bn_alpha_17", "ছ", "ছাতা", "ছ। ছ তে ছাতা।"),
+        ("bn_alpha_18", "জ", "জাহাজ", "জ। জ তে জাহাজ।"),
+        ("bn_alpha_19", "ঝ", "ঝিনুক", "ঝ। ঝ তে ঝিনুক।"),
+        ("bn_alpha_25", "ঞ", "মিঞা", "ইঁয়ো। ইঁয়ো তে মিঞা।"),
+        ("bn_alpha_20", "ট", "টিয়া", "ট। ট তে টিয়া।"),
+        ("bn_alpha_21", "ঠ", "ঠেলাগাড়ি", "ঠ। ঠ তে ঠেলাগাড়ি।"),
+        ("bn_alpha_22", "ড", "ডাব", "ড। ড তে ডাব।"),
+        ("bn_alpha_26", "ঢ", "ঢোল", "ঢ। ঢ তে ঢোল।"),
+        ("bn_alpha_27", "ণ", "হরিণ", "মূর্ধন্য ণ। ণ তে হরিণ।"),
+        ("bn_alpha_23", "ত", "তারা", "ত। ত তে তারা।"),
+        ("bn_alpha_28", "থ", "থালা", "থ। থ তে থালা।"),
+        ("bn_alpha_29", "দ", "দোয়েল", "দ। দ তে দোয়েল।"),
+        ("bn_alpha_30", "ধ", "ধান", "ধ। ধ তে ধান।"),
+        ("bn_alpha_24", "ন", "নৌকা", "ন। ন তে নৌকা।"),
+        ("bn_alpha_31", "প", "পাখি", "প। প তে পাখি।"),
+        ("bn_alpha_32", "ফ", "ফুল", "ফ। ফ তে ফুল।"),
+        ("bn_alpha_33", "ব", "বই", "ব। ব তে বই।"),
+        ("bn_alpha_34", "ভ", "ভালুক", "ভ। ভ তে ভালুক।"),
+        ("bn_alpha_35", "ম", "মাছ", "ম। ম তে মাছ।"),
+        ("bn_alpha_36", "য", "যন্ত্র", "অন্তঃস্থ য। য তে যন্ত্র।"),
+        ("bn_alpha_37", "র", "রংধনু", "র। র তে রংধনু।"),
+        ("bn_alpha_38", "ল", "লাটিম", "ল। ল তে লাটিম।"),
+        ("bn_alpha_39", "শ", "শাপলা", "তালব্য শ। শ তে শাপলা।"),
+        ("bn_alpha_40", "ষ", "ষাঁড়", "মূর্ধন্য ষ। ষ তে ষাঁড়।"),
+        ("bn_alpha_41", "স", "সিংহ", "দন্ত্য স। স তে সিংহ।"),
+        ("bn_alpha_42", "হ", "হাতি", "হ। হ তে হাতি।"),
+        ("bn_alpha_43", "ড়", "গাড়ি", "ড-য়ে শূন্য ড়। ড় তে গাড়ি।"),
+        ("bn_alpha_44", "ঢ়", "আষাঢ়", "ঢ-য়ে শূন্য ঢ়। ঢ় তে আষাঢ়।"),
+        ("bn_alpha_45", "য়", "ময়ূর", "অন্তঃস্থ য়। য় তে ময়ূর।"),
+        ("bn_alpha_46", "ৎ", "মৎস্য", "খণ্ড ত। মৎস্য।"),
+        ("bn_alpha_47", "ং", "চিংড়ি", "অনুস্বার। চিংড়ি।"),
+        ("bn_alpha_48", "ঃ", "দুঃখ", "বিসর্গ। দুঃখ।"),
+        ("bn_alpha_49", "ঁ", "চাঁদ", "চন্দ্রবিন্দু। চাঁদ।"),
     ]
-    for idx, (glyph, word_bn) in enumerate(bn_letters):
+    for clip_id, glyph, word_bn, script_bn in bn_letters:
         add(
-            clip_id=f"bn_alpha_{idx}",
+            clip_id=clip_id,
             category="alphabet",
-            filename=f"bn_alpha_{idx}.mp3",
-            script_bn=f"{glyph}। {glyph} তে {word_bn}।",
+            filename=f"{clip_id}.mp3",
+            script_bn=script_bn,
             aliases=[glyph, f"বর্ণ {glyph}", f"{glyph} তে {word_bn}", word_bn],
         )
 
@@ -660,6 +688,88 @@ def is_valid_mp3(path: Path) -> bool:
     return head.startswith(b"ID3") or (len(head) >= 2 and head[0] == 0xFF and (head[1] & 0xE0) == 0xE0)
 
 
+TARGET_MEAN_DB = -15.5
+_MEAN_VOL_RE = re.compile(r"mean_volume:\s*([-\d.]+)\s*dB")
+
+
+def _detect_mean_volume_db(wav_path: Path) -> float | None:
+    proc = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-i", str(wav_path), "-af", "volumedetect", "-f", "null", "-"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    match = _MEAN_VOL_RE.search(proc.stderr)
+    return float(match.group(1)) if match else None
+
+
+def encode_uniform_voice_mp3(input_args: list[str], target: Path) -> None:
+    """
+    Deterministic 2-pass active-speech RMS normalization + soft peak limiter.
+    Avoids ffmpeg single-pass loudnorm's short-clip (<3s) volume-drop bug so every
+    Bangla & English clip has identical clear loudness (~-15.5 dB RMS, -1.5 dB ceiling).
+    """
+    wav_fd, wav_name = tempfile.mkstemp(suffix=".wav")
+    os.close(wav_fd)
+    wav_path = Path(wav_name)
+    try:
+        # Pass 1: Decode to clean 24kHz mono WAV, remove low rumble & dead silence margins
+        trim_filter = (
+            "highpass=f=80,"
+            "silenceremove=start_periods=1:start_threshold=-42dB:detection=peak,"
+            "areverse,"
+            "silenceremove=start_periods=1:start_threshold=-42dB:detection=peak,"
+            "areverse"
+        )
+        subprocess.run(
+            [
+                "ffmpeg", "-y", "-v", "error",
+                *input_args,
+                "-ar", "24000", "-ac", "1",
+                "-af", trim_filter,
+                str(wav_path),
+            ],
+            check=True,
+        )
+        measured_mean = _detect_mean_volume_db(wav_path)
+
+        # Fallback if a very short syllable got over-trimmed
+        if measured_mean is None or wav_path.stat().st_size < 4000:
+            subprocess.run(
+                [
+                    "ffmpeg", "-y", "-v", "error",
+                    *input_args,
+                    "-ar", "24000", "-ac", "1",
+                    "-af", "highpass=f=80",
+                    str(wav_path),
+                ],
+                check=True,
+            )
+            measured_mean = _detect_mean_volume_db(wav_path)
+
+        gain_db = 0.0 if measured_mean is None else max(-18.0, min(28.0, TARGET_MEAN_DB - measured_mean))
+
+        # Pass 2: Apply exact RMS gain + transparent soft peak limiter + tiny clean margin
+        final_filter = (
+            f"volume={gain_db:.2f}dB,"
+            "alimiter=limit=-1.5dB:attack=5:release=50:level=disabled,"
+            "adelay=30|30,"
+            "apad=pad_dur=0.05"
+        )
+        subprocess.run(
+            [
+                "ffmpeg", "-y", "-v", "error",
+                "-i", str(wav_path),
+                "-ar", "24000", "-ac", "1", "-b:a", "64k",
+                "-af", final_filter,
+                str(target),
+            ],
+            check=True,
+        )
+    finally:
+        wav_path.unlink(missing_ok=True)
+
+
 def synthesize_entry(entry: dict[str, Any], force: bool = False) -> tuple[str, str]:
     target = REPO_ROOT / "app" / "src" / "main" / "assets" / entry["assetPath"]
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -677,16 +787,9 @@ def synthesize_entry(entry: dict[str, Any], force: bool = False) -> tuple[str, s
             tmp_path.write_bytes(raw_mp3)
             tmp_files.append(tmp_path)
 
-        # Normalize to consistent 24kHz mono 48kbps MP3 via ffmpeg for crisp, lightweight child audio
+        # Normalize with deterministic 2-pass RMS + soft limiter for uniform voice loudness
         if len(tmp_files) == 1:
-            cmd = [
-                "ffmpeg", "-y", "-v", "error",
-                "-i", str(tmp_files[0]),
-                "-ar", "24000", "-ac", "1", "-b:a", "48k",
-                "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
-                str(target),
-            ]
-            subprocess.run(cmd, check=True)
+            encode_uniform_voice_mp3(["-i", str(tmp_files[0])], target)
         else:
             list_fd, list_name = tempfile.mkstemp(suffix=".txt")
             os.close(list_fd)
@@ -696,14 +799,7 @@ def synthesize_entry(entry: dict[str, Any], force: bool = False) -> tuple[str, s
                     "\n".join(f"file '{p.as_posix()}'" for p in tmp_files),
                     encoding="utf-8",
                 )
-                cmd = [
-                    "ffmpeg", "-y", "-v", "error",
-                    "-f", "concat", "-safe", "0", "-i", str(list_path),
-                    "-ar", "24000", "-ac", "1", "-b:a", "48k",
-                    "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
-                    str(target),
-                ]
-                subprocess.run(cmd, check=True)
+                encode_uniform_voice_mp3(["-f", "concat", "-safe", "0", "-i", str(list_path)], target)
             finally:
                 list_path.unlink(missing_ok=True)
 

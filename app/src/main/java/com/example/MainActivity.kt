@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        window.decorView.isSoundEffectsEnabled = false
 
         appContainer = AppContainer(applicationContext)
         viewModel = ViewModelProvider(

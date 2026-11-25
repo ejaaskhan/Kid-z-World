@@ -49,7 +49,14 @@ data class PoemPuzzleStrings(
     val roundLabel: String,
     val puzzleSolvedBanner: String,
     val puzzlesSectionTitle: String,
-    val classicGamesSectionTitle: String
+    val classicGamesSectionTitle: String,
+    val banglaAlphabetAllFilter: String,
+    val banglaVowelsTitle: String,
+    val banglaConsonantsTitle: String,
+    val banglaVowelsShort: String,
+    val banglaConsonantsShort: String,
+    val englishAlphabetCardTitle: String,
+    val englishAlphabetCardSub: String
 )
 
 data class SettingsStrings(
@@ -312,6 +319,13 @@ data class AppStrings(
     val puzzleSolvedBanner: String get() = poemPuzzles.puzzleSolvedBanner
     val puzzlesSectionTitle: String get() = poemPuzzles.puzzlesSectionTitle
     val classicGamesSectionTitle: String get() = poemPuzzles.classicGamesSectionTitle
+    val banglaAlphabetAllFilter: String get() = poemPuzzles.banglaAlphabetAllFilter
+    val banglaVowelsTitle: String get() = poemPuzzles.banglaVowelsTitle
+    val banglaConsonantsTitle: String get() = poemPuzzles.banglaConsonantsTitle
+    val banglaVowelsShort: String get() = poemPuzzles.banglaVowelsShort
+    val banglaConsonantsShort: String get() = poemPuzzles.banglaConsonantsShort
+    val englishAlphabetCardTitle: String get() = poemPuzzles.englishAlphabetCardTitle
+    val englishAlphabetCardSub: String get() = poemPuzzles.englishAlphabetCardSub
 
     val settingsTitle: String get() = settingsPack.settingsTitle
     val settingsSubtitle: String get() = settingsPack.settingsSubtitle
@@ -347,8 +361,8 @@ val EnglishStrings = AppStrings(
     starsLabel = "Stars",
     masteredLabel = "Mastered",
     worldsTitle = "Explore Learning Worlds",
-    worldAlphabets = "Alphabets & Phonics",
-    worldAlphabetsSub = "A–Z & অ–ন with voice",
+    worldAlphabets = "Bangla Alphabet",
+    worldAlphabetsSub = "স্বরবর্ণ (অ–ঔ) & ব্যঞ্জনবর্ণ (ক–ঁ)",
     worldNumbers = "Numbers & Counting",
     worldNumbersSub = "Count 1–20 playfully",
     worldExplorer = "Colors, Shapes & Animals",
@@ -479,14 +493,14 @@ val EnglishStrings = AppStrings(
     diffStarter = "3–4 Starter",
     diffExplorer = "5–6 Explorer",
     diffScholar = "7–8 Scholar",
-    pillarAlphabetTitle = "Alphabet Studio",
-    pillarAlphabetSub = "A–Z • অ–ঔ • Tracing & Quiz",
+    pillarAlphabetTitle = "Bangla Alphabet Studio",
+    pillarAlphabetSub = "স্বরবর্ণ (অ–ঔ) • ব্যঞ্জনবর্ণ (ক–ঁ) • Trace & Quiz",
     pillarNumbersTitle = "Numbers 1–100 & Math",
     pillarNumbersSub = "1–100 • Counting • + / − Lab",
     pillarWorldTitle = "World Exploration",
     pillarWorldSub = "Animals, Fruits, Body, Vehicles & Nature",
     pillarLanguageTitle = "Language Studio",
-    pillarLanguageSub = "Words, Everyday Vocab & Sentences",
+    pillarLanguageSub = "English A–Z, Words, Vocab & Sentences",
     modeLearn = "Lessons",
     modeTrace = "Trace",
     modeMathLab = "Math Lab",
@@ -543,8 +557,8 @@ val EnglishStrings = AppStrings(
         badgePoemStar = "Rhyme Star",
         testBanglaVoiceButton = "Test বাংলা Audio",
         testEnglishVoiceButton = "Test English Voice",
-        voiceReadyBadge = "Built-In Offline Bangla Audio Ready",
-        bundledAudioClipsSuffix = "bn-BD offline MP3 clips bundled",
+        voiceReadyBadge = "Offline Human Bangla & English Voices Ready",
+        bundledAudioClipsSuffix = "offline human voice MP3 clips bundled",
         jigsawPuzzleTitle = "Picture Jigsaw Puzzle",
         jigsawPuzzleSub = "Tap two tiles to swap & complete the 3D picture!",
         sortingPuzzleTitle = "Animal & Fruit Sorting",
@@ -563,7 +577,14 @@ val EnglishStrings = AppStrings(
         roundLabel = "Round",
         puzzleSolvedBanner = "Puzzle Master!",
         puzzlesSectionTitle = "Brainy Kid Puzzles",
-        classicGamesSectionTitle = "Classic Arcade Games"
+        classicGamesSectionTitle = "Classic Arcade Games",
+        banglaAlphabetAllFilter = "All",
+        banglaVowelsTitle = "স্বরবর্ণ (Vowels)",
+        banglaConsonantsTitle = "ব্যঞ্জনবর্ণ (Consonants)",
+        banglaVowelsShort = "স্বরবর্ণ",
+        banglaConsonantsShort = "ব্যঞ্জনবর্ণ",
+        englishAlphabetCardTitle = "English Alphabet A–Z",
+        englishAlphabetCardSub = "26 letters with human voice, tracing & quiz"
     ),
     settingsPack = SettingsStrings(
         settingsTitle = "Settings",
@@ -575,8 +596,8 @@ val EnglishStrings = AppStrings(
         themeModeLight = "Light Mode",
         themeModeDark = "Dark Mode",
         themeModeSystem = "System Default",
-        uiSoundSubtitle = "Button taps, clicks & celebration chimes (learning voice stays independent)",
-        eduVoiceSubtitle = "Bangla offline MP3s, English phonics & story narration",
+        uiSoundSubtitle = "Quiz & celebration chimes (button taps stay silent)",
+        eduVoiceSubtitle = "Offline human Bangla & English voices and story narration",
         appInfoLabel = "App Information",
         developerLabel = "Developer",
         developerWebsiteLabel = "Developer Website",
@@ -601,8 +622,8 @@ val BanglaStrings = AppStrings(
     starsLabel = "তারা",
     masteredLabel = "শেখা হয়েছে",
     worldsTitle = "শেখার জগৎ বেছে নাও",
-    worldAlphabets = "বর্ণমালা ও উচ্চারণ",
-    worldAlphabetsSub = "অ–ন এবং A–Z কণ্ঠসহ",
+    worldAlphabets = "বাংলা বর্ণমালা",
+    worldAlphabetsSub = "স্বরবর্ণ (অ–ঔ) ও ব্যঞ্জনবর্ণ (ক–ঁ)",
     worldNumbers = "সংখ্যা ও গণনা",
     worldNumbersSub = "মজায় মজায় ১–২০ গণনা",
     worldExplorer = "রং, আকৃতি ও প্রাণী",
@@ -733,14 +754,14 @@ val BanglaStrings = AppStrings(
     diffStarter = "৩–৪ শুরু",
     diffExplorer = "৫–৬ অভিযাত্রী",
     diffScholar = "৭–৮ মেধাবী",
-    pillarAlphabetTitle = "বর্ণমালা স্টুডিও",
-    pillarAlphabetSub = "অ–ঔ • A–Z • হাতে লেখা ও কুইজ",
+    pillarAlphabetTitle = "বাংলা বর্ণমালা",
+    pillarAlphabetSub = "স্বরবর্ণ (অ–ঔ) • ব্যঞ্জনবর্ণ (ক–ঁ) • লেখা ও কুইজ",
     pillarNumbersTitle = "সংখ্যা ১–১০০ ও গণিত",
     pillarNumbersSub = "১–১০০ • গণনা • যোগ ও বিয়োগ",
     pillarWorldTitle = "বিশ্ব অন্বেষণ",
     pillarWorldSub = "প্রাণী, ফল, শরীর, যানবাহন ও প্রকৃতি",
     pillarLanguageTitle = "ভাষা ও শব্দভাণ্ডার",
-    pillarLanguageSub = "শব্দ, দৈনন্দিন ভাষা ও সহজ বাক্য",
+    pillarLanguageSub = "ইংরেজি A–Z, শব্দ, দৈনন্দিন ভাষা ও সহজ বাক্য",
     modeLearn = "পাঠ",
     modeTrace = "হাতে লেখা",
     modeMathLab = "গণিত ল্যাব",
@@ -797,8 +818,8 @@ val BanglaStrings = AppStrings(
         badgePoemStar = "ছড়া বন্ধু",
         testBanglaVoiceButton = "বাংলা অডিও পরীক্ষা",
         testEnglishVoiceButton = "ইংরেজি কণ্ঠ পরীক্ষা",
-        voiceReadyBadge = "অফলাইন বাংলা অডিও প্রস্তুত",
-        bundledAudioClipsSuffix = "টি বাংলা অফলাইন অডিও যুক্ত আছে",
+        voiceReadyBadge = "বাংলা ও ইংরেজি অফলাইন মানব-কণ্ঠ প্রস্তুত",
+        bundledAudioClipsSuffix = "টি বাংলা ও ইংরেজি মানব-কণ্ঠের অডিও যুক্ত আছে",
         jigsawPuzzleTitle = "ছবির জিগস পাজল",
         jigsawPuzzleSub = "দুটি টুকরায় ট্যাপ করে বদল করো ও ৩ডি ছবি মেলাও!",
         sortingPuzzleTitle = "প্রাণী ও ফল সাজাই",
@@ -817,7 +838,14 @@ val BanglaStrings = AppStrings(
         roundLabel = "পর্ব",
         puzzleSolvedBanner = "পাজল চ্যাম্পিয়ন!",
         puzzlesSectionTitle = "ছোটদের মজার পাজল",
-        classicGamesSectionTitle = "ক্লাসিক আর্কেড খেলা"
+        classicGamesSectionTitle = "ক্লাসিক আর্কেড খেলা",
+        banglaAlphabetAllFilter = "সবগুলো",
+        banglaVowelsTitle = "স্বরবর্ণ",
+        banglaConsonantsTitle = "ব্যঞ্জনবর্ণ",
+        banglaVowelsShort = "স্বরবর্ণ",
+        banglaConsonantsShort = "ব্যঞ্জনবর্ণ",
+        englishAlphabetCardTitle = "ইংরেজি বর্ণমালা A–Z",
+        englishAlphabetCardSub = "২৬টি ইংরেজি বর্ণ, স্বাভাবিক উচ্চারণ, লেখা ও কুইজ"
     ),
     settingsPack = SettingsStrings(
         settingsTitle = "সেটিংস",
@@ -829,8 +857,8 @@ val BanglaStrings = AppStrings(
         themeModeLight = "লাইট মোড",
         themeModeDark = "ডার্ক মোড",
         themeModeSystem = "সিস্টেম ডিফল্ট",
-        uiSoundSubtitle = "বাটন ক্লিক ও মজার সাউন্ড ইফেক্ট (পড়ার কণ্ঠ আলাদাভাবে চালু থাকবে)",
-        eduVoiceSubtitle = "বাংলা অফলাইন অডিও, ইংরেজি উচ্চারণ ও গল্প পাঠ",
+        uiSoundSubtitle = "কুইজ ও উদযাপনের সাউন্ড ইফেক্ট (বাটন ট্যাপ শব্দ বন্ধ থাকবে)",
+        eduVoiceSubtitle = "বাংলা ও ইংরেজি অফলাইন মানব-কণ্ঠ এবং গল্প পাঠ",
         appInfoLabel = "অ্যাপ পরিচিতি",
         developerLabel = "নির্মাতা",
         developerWebsiteLabel = "ডেভেলপার ওয়েবসাইট",

@@ -222,7 +222,7 @@ class KidzWorldViewModel(
         if (useBanglaBundled) {
             audioEngine.playBanglaLesson(item.id)
         } else {
-            audioEngine.speak(item.speechPrompt(AppLanguage.ENGLISH), AppLanguage.ENGLISH)
+            audioEngine.playEnglishLesson(item.id, item.speechPrompt(AppLanguage.ENGLISH))
         }
     }
 
@@ -230,7 +230,7 @@ class KidzWorldViewModel(
         if (settings.value.language == AppLanguage.BANGLA) {
             audioEngine.playBanglaNumber(number)
         } else {
-            audioEngine.speak(number.toString(), AppLanguage.ENGLISH)
+            audioEngine.playEnglishNumber(number)
         }
     }
 
@@ -238,7 +238,7 @@ class KidzWorldViewModel(
         if (settings.value.language == AppLanguage.BANGLA) {
             audioEngine.playBanglaStoryPage(storyId, pageNumber)
         } else {
-            audioEngine.speak(fallbackEnglishText, AppLanguage.ENGLISH)
+            audioEngine.playEnglishStoryPage(storyId, pageNumber, fallbackEnglishText)
         }
     }
 
@@ -253,7 +253,10 @@ class KidzWorldViewModel(
 
     fun testEnglishAudio() {
         audioEngine.playEffect(SoundEffect.TAP_POP)
-        audioEngine.speak("Welcome to Kid'z World! Learn, play, and grow.", AppLanguage.ENGLISH)
+        audioEngine.playEnglishInstruction(
+            BanglaAudioManifest.INST_TEST_VOICE,
+            "Hello! Welcome to Kid'z World. Let's learn, play, and grow together!"
+        )
     }
 
     fun recitePoem(poem: BanglaPoem, slowMode: Boolean = false) {
@@ -369,9 +372,6 @@ class KidzWorldViewModel(
 
     fun setSoundFxEnabled(enabled: Boolean) {
         audioEngine.soundFxEnabled = enabled
-        if (enabled) {
-            audioEngine.playEffect(SoundEffect.TAP_POP)
-        }
         viewModelScope.launch { repository.setSoundFxEnabled(enabled) }
     }
 

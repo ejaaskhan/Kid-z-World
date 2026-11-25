@@ -9,6 +9,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,9 +31,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.Calculate
 import androidx.compose.material.icons.rounded.Draw
+import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Quiz
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -61,7 +64,7 @@ import com.example.core.localization.LocalAppStrings
 import com.example.core.localization.toLocalizedDigits
 import com.example.domain.model.AgeDifficulty
 import com.example.domain.model.GameType
-import com.example.domain.model.LearningPillar
+import com.example.domain.model.LearnFolder
 import com.example.domain.model.LessonItem
 import com.example.domain.model.ModuleProgress
 import com.example.domain.model.ModuleType
@@ -93,7 +96,7 @@ private enum class StudioMode { LESSONS, TRACE, MATH_LAB, QUIZ }
 
 @Composable
 fun LearningModuleScreen(
-    activePillar: LearningPillar?,
+    activeFolder: LearnFolder?,
     selectedModule: ModuleType,
     activeLessonId: String?,
     activeChildName: String,
@@ -103,7 +106,7 @@ fun LearningModuleScreen(
     moduleProgress: Map<ModuleType, ModuleProgress>,
     language: AppLanguage,
     isWideScreen: Boolean,
-    onOpenPillar: (LearningPillar?) -> Unit,
+    onOpenFolder: (LearnFolder?) -> Unit,
     onSelectModule: (ModuleType) -> Unit,
     onOpenActiveLesson: (String?) -> Unit,
     onToggleLanguage: () -> Unit,
@@ -119,44 +122,33 @@ fun LearningModuleScreen(
         mutableStateOf(AgeDifficulty.fromAge(activeChildAge))
     }
 
-    BackHandler(enabled = activeLessonId != null || activePillar != null) {
+    BackHandler(enabled = activeLessonId != null || activeFolder != null) {
         if (activeLessonId != null) {
             onOpenActiveLesson(null)
         } else {
-            onOpenPillar(null)
+            onOpenFolder(null)
         }
     }
 
-    if (activePillar == null) {
-        LearnFourModuleHub(
+    if (activeFolder == null) {
+        LearnFiveFolderHub(
             activeChildName = activeChildName,
             activeChildAvatarKey = activeChildAvatarKey,
-            difficulty = difficulty,
-            moduleProgress = moduleProgress,
+            lessons = lessons,
             language = language,
             isWideScreen = isWideScreen,
-            onSelectDifficulty = {
-                onPlayEffect(SoundEffect.TAP_POP)
-                difficulty = it
-            },
             onToggleLanguage = onToggleLanguage,
-            onOpenPillar = { pillar ->
+            onOpenFolder = { folder ->
                 onPlayEffect(SoundEffect.TAP_POP)
-                val defaultModule = when (pillar) {
-                    LearningPillar.ALPHABET -> if (language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
-                    LearningPillar.NUMBERS -> ModuleType.NUMBERS
-                    LearningPillar.WORLD -> ModuleType.ANIMALS
-                    LearningPillar.LANGUAGE -> if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.BASIC_WORDS
-                }
                 onOpenActiveLesson(null)
-                onSelectModule(defaultModule)
-                onOpenPillar(pillar)
+                onSelectModule(folder.defaultModule())
+                onOpenFolder(folder)
             },
             modifier = modifier
         )
     } else {
-        PillarStudioExperience(
-            pillar = activePillar,
+        FolderStudioExperience(
+            folder = activeFolder,
             selectedModule = selectedModule,
             activeLessonId = activeLessonId,
             activeChildName = activeChildName,
@@ -168,7 +160,7 @@ fun LearningModuleScreen(
             onBackToHub = {
                 onPlayEffect(SoundEffect.TAP_POP)
                 onOpenActiveLesson(null)
-                onOpenPillar(null)
+                onOpenFolder(null)
             },
             onSelectDifficulty = {
                 onPlayEffect(SoundEffect.TAP_POP)
@@ -192,42 +184,77 @@ fun LearningModuleScreen(
     }
 }
 
+private data class FolderCardInfo(
+    val folder: LearnFolder,
+    val badgeText: String,
+    val title: String,
+    val subtitle: String,
+    val color: Color,
+    val rim: Color
+)
+
 @Composable
-private fun LearnFourModuleHub(
+private fun LearnFiveFolderHub(
     activeChildName: String,
     activeChildAvatarKey: String,
-    difficulty: AgeDifficulty,
-    moduleProgress: Map<ModuleType, ModuleProgress>,
+    lessons: List<LessonItem>,
     language: AppLanguage,
     isWideScreen: Boolean,
-    onSelectDifficulty: (AgeDifficulty) -> Unit,
     onToggleLanguage: () -> Unit,
-    onOpenPillar: (LearningPillar) -> Unit,
+    onOpenFolder: (LearnFolder) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
+    val isBn = language == AppLanguage.BANGLA
 
-    fun progressFor(pillar: LearningPillar): Pair<Int, Int> {
-        val types = pillar.moduleTypes()
-        val done = types.sumOf { moduleProgress[it]?.completedCount ?: 0 }
-        val total = types.sumOf { moduleProgress[it]?.totalCount ?: 0 }.coerceAtLeast(1)
+    fun progressFor(folder: LearnFolder): Pair<Int, Int> {
+        val items = folder.filterLessons(lessons)
+        val done = items.count { it.isLearned }
+        val total = items.size.coerceAtLeast(1)
         return done to total
     }
 
-    data class PillarCardInfo(
-        val pillar: LearningPillar,
-        val emoji: String,
-        val title: String,
-        val subtitle: String,
-        val color: Color,
-        val rim: Color
-    )
-
-    val pillars = listOf(
-        PillarCardInfo(LearningPillar.ALPHABET, "🔤", strings.alphabetAdventureTitle, strings.pillarAlphabetSub, CeruleanSky, CeruleanRim),
-        PillarCardInfo(LearningPillar.NUMBERS, "🔢", strings.pillarNumbersTitle, strings.pillarNumbersSub, EmeraldMeadow, EmeraldRim),
-        PillarCardInfo(LearningPillar.WORLD, "🌍", strings.pillarWorldTitle, strings.pillarWorldSub, BerryCoral, BerryRim),
-        PillarCardInfo(LearningPillar.LANGUAGE, "💬", strings.pillarLanguageTitle, strings.pillarLanguageSub, GrapePop, GrapeRim)
+    val folders = listOf(
+        FolderCardInfo(
+            folder = LearnFolder.VOWELS,
+            badgeText = "অ",
+            title = if (isBn) "স্বরবর্ণ (Vowels)" else "Vowels (স্বরবর্ণ)",
+            subtitle = if (isBn) "অ থেকে ঔ • ১১টি স্বরবর্ণ, উচ্চারণ ও হাতের লেখা" else "অ – ঔ • 11 Bangla Vowels, Audio & Tracing",
+            color = MangoPrimary,
+            rim = MangoRim
+        ),
+        FolderCardInfo(
+            folder = LearnFolder.CONSONANTS,
+            badgeText = "ক",
+            title = if (isBn) "ব্যঞ্জনবর্ণ (Consonants)" else "Consonants (ব্যঞ্জনবর্ণ)",
+            subtitle = if (isBn) "ক থেকে ঁ • ৩৯টি ব্যঞ্জনবর্ণ, উচ্চারণ ও হাতের লেখা" else "ক – ঁ • 39 Bangla Consonants, Audio & Tracing",
+            color = BerryCoral,
+            rim = BerryRim
+        ),
+        FolderCardInfo(
+            folder = LearnFolder.ENGLISH_ALPHABET,
+            badgeText = "ABC",
+            title = if (isBn) "ইংরেজি বর্ণমালা (English Alphabet)" else "English Alphabet",
+            subtitle = if (isBn) "A থেকে Z • ২৬টি ইংরেজি বর্ণ, ধ্বনি ও লেখা" else "A – Z • 26 Letters, Human Phonics & Tracing",
+            color = CeruleanSky,
+            rim = CeruleanRim
+        ),
+        FolderCardInfo(
+            folder = LearnFolder.SENTENCES,
+            badgeText = "💬",
+            title = if (isBn) "বাক্য শিখি (Sentences)" else "Sentences",
+            subtitle = if (isBn) "সহজ বাক্য, প্রতিদিনের শব্দ ও বাংলা-ইংরেজি কথা" else "Simple Sentences, Basic Words & Everyday Talk",
+            color = GrapePop,
+            rim = GrapeRim
+        ),
+        FolderCardInfo(
+            folder = LearnFolder.BASIC_KNOWLEDGE,
+            badgeText = "🌍",
+            title = if (isBn) "সাধারণ জ্ঞান (Basic Knowledge)" else "Basic Knowledge",
+            subtitle = if (isBn) "সংখ্যা ১–১০০, রঙ, আকার, প্রাণী, ফল, শরীর, যানবাহন ও প্রকৃতি" else "Numbers 1–100, Colors, Shapes, Animals, Fruits & More",
+            color = EmeraldMeadow,
+            rim = EmeraldRim
+        )
     )
 
     LazyColumn(
@@ -235,7 +262,7 @@ private fun LearnFourModuleHub(
             .fillMaxSize()
             .testTag("learn_module_hub"),
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 112.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item {
             Row(
@@ -257,91 +284,37 @@ private fun LearnFourModuleHub(
             CartoonMascotBanner(
                 avatarKey = activeChildAvatarKey,
                 title = "${strings.greetingHello}, $activeChildName! ✨",
-                speechMessage = strings.mascotAlphabetGreeting,
+                speechMessage = if (isBn) {
+                    "যেকোনো ফোল্ডারে ট্যাপ করে মজার পড়া শুরু করো!"
+                } else {
+                    "Pick any learning folder below to explore!"
+                },
                 accentColor = CeruleanSky
             )
         }
 
-        item {
-            AgeDifficultySwitcherRow(
-                difficulty = difficulty,
-                onSelect = onSelectDifficulty
-            )
-        }
-
+        // Clean 5-Folder Learning List
         val cols = if (isWideScreen) 2 else 1
-        val rows = pillars.chunked(cols)
+        val rows = folders.chunked(cols)
         items(rows.size) { rowIndex ->
             val rowItems = rows[rowIndex]
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 rowItems.forEach { info ->
-                    val (done, total) = progressFor(info.pillar)
-                    Cartoon3DCard(
-                        containerColor = info.color,
-                        rimColor = info.rim,
-                        cornerRadius = 28.dp,
-                        bevelDepth = 7.dp,
-                        contentPadding = PaddingValues(18.dp),
-                        onClick = { onOpenPillar(info.pillar) },
-                        modifier = Modifier
-                            .weight(1f)
-                            .testTag("pillar_card_${info.pillar.key}")
-                    ) {
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(56.dp)
-                                        .clip(CircleShape)
-                                        .background(Color.White.copy(alpha = 0.28f)),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = info.emoji, fontSize = 30.sp)
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(50))
-                                        .background(Color.White.copy(alpha = 0.28f))
-                                        .padding(horizontal = 12.dp, vertical = 6.dp)
-                                ) {
-                                    Text(
-                                        text = "${done.toLocalizedDigits(language)}/${total.toLocalizedDigits(language)}",
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = Color.White,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(12.dp))
-                            Text(
-                                text = info.title,
-                                style = MaterialTheme.typography.titleLarge,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                text = info.subtitle,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = Color.White.copy(alpha = 0.94f),
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            CartoonProgressBar(
-                                progress = done.toFloat() / total.toFloat(),
-                                fillColor = Color.White,
-                                trackColor = Color.Black.copy(alpha = 0.16f),
-                                height = 10.dp
-                            )
-                        }
-                    }
+                    val (done, total) = progressFor(info.folder)
+                    LearnFolderListCard(
+                        info = info,
+                        done = done,
+                        total = total,
+                        language = language,
+                        onClick = { onOpenFolder(info.folder) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                if (cols == 2 && rowItems.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
         }
@@ -349,8 +322,125 @@ private fun LearnFourModuleHub(
 }
 
 @Composable
-private fun PillarStudioExperience(
-    pillar: LearningPillar,
+private fun LearnFolderListCard(
+    info: FolderCardInfo,
+    done: Int,
+    total: Int,
+    language: AppLanguage,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Cartoon3DCard(
+        containerColor = info.color,
+        rimColor = info.rim,
+        cornerRadius = 26.dp,
+        bevelDepth = 7.dp,
+        contentPadding = PaddingValues(16.dp),
+        onClick = onClick,
+        modifier = modifier.testTag("learn_folder_${info.folder.key}")
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(14.dp)
+            ) {
+                // Glossy 3D Folder Badge Emblem
+                Box(
+                    modifier = Modifier
+                        .size(58.dp)
+                        .clip(RoundedCornerShape(18.dp))
+                        .background(Color.White.copy(alpha = 0.24f))
+                        .border(1.5.dp, Color.White.copy(alpha = 0.55f), RoundedCornerShape(18.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = info.badgeText,
+                        fontSize = when {
+                            info.badgeText.length >= 3 -> 19.sp
+                            info.badgeText.length == 2 -> 24.sp
+                            else -> 28.sp
+                        },
+                        fontWeight = FontWeight.Black,
+                        color = Color.White
+                    )
+                }
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(3.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.FolderOpen,
+                            contentDescription = null,
+                            tint = Color.White.copy(alpha = 0.92f),
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            text = info.title,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.White,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    Text(
+                        text = info.subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White.copy(alpha = 0.94f),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                // Count pill + Chevron
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(50))
+                            .background(Color.White.copy(alpha = 0.25f))
+                            .padding(horizontal = 10.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = "${done.toLocalizedDigits(language)}/${total.toLocalizedDigits(language)}",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = Color.White,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                        contentDescription = info.title,
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            }
+
+            CartoonProgressBar(
+                progress = done.toFloat() / total.toFloat(),
+                fillColor = Color.White,
+                trackColor = Color.Black.copy(alpha = 0.16f),
+                height = 8.dp
+            )
+        }
+    }
+}
+
+@Composable
+private fun FolderStudioExperience(
+    folder: LearnFolder,
     selectedModule: ModuleType,
     activeLessonId: String?,
     activeChildName: String,
@@ -373,83 +463,110 @@ private fun PillarStudioExperience(
     modifier: Modifier = Modifier
 ) {
     val strings = LocalAppStrings.current
-    val allowedModules = remember(pillar) { pillar.moduleTypes() }
-    val activeModule = if (selectedModule in allowedModules) selectedModule else allowedModules.first()
+    val isBn = language == AppLanguage.BANGLA
+    val allowedModules = remember(folder) { folder.moduleTypes() }
+    val activeModule = if (selectedModule in allowedModules) selectedModule else folder.defaultModule()
 
-    var mode by remember(pillar) { mutableStateOf(StudioMode.LESSONS) }
+    var mode by remember(folder) { mutableStateOf(StudioMode.LESSONS) }
     var numberRangeIndex by remember(difficulty) { mutableIntStateOf(0) }
-    var traceSelectedId by remember(activeModule) { mutableStateOf<String?>(null) }
+    var traceSelectedId by remember(folder, activeModule) { mutableStateOf<String?>(null) }
 
-    val allModuleLessons = remember(lessons, activeModule) {
-        lessons.filter { it.moduleType == activeModule }
+    val isAlphabetFolder = folder == LearnFolder.VOWELS ||
+        folder == LearnFolder.CONSONANTS ||
+        folder == LearnFolder.ENGLISH_ALPHABET
+    val isNumbersActive = folder == LearnFolder.BASIC_KNOWLEDGE && activeModule == ModuleType.NUMBERS
+
+    LaunchedEffect(folder, activeModule) {
+        if (mode == StudioMode.TRACE && !isAlphabetFolder) {
+            mode = StudioMode.LESSONS
+        }
+        if (mode == StudioMode.MATH_LAB && !isNumbersActive) {
+            mode = StudioMode.LESSONS
+        }
     }
 
-    // For Numbers grid, filter by 1-20, 21-50, 51-100 pills (while full-screen stage navigates seamlessly across all 1-100!)
-    val gridLessons = remember(allModuleLessons, pillar, numberRangeIndex) {
-        if (pillar == LearningPillar.NUMBERS) {
+    val activeLessonSequence = remember(lessons, folder, activeModule) {
+        when (folder) {
+            LearnFolder.VOWELS -> lessons.filter { it.isBanglaVowel }
+            LearnFolder.CONSONANTS -> lessons.filter { it.isBanglaConsonant }
+            LearnFolder.ENGLISH_ALPHABET -> lessons.filter { it.moduleType == ModuleType.ALPHABET_EN }
+            LearnFolder.SENTENCES,
+            LearnFolder.BASIC_KNOWLEDGE -> lessons.filter { it.moduleType == activeModule }
+        }
+    }
+
+    // For Numbers inside Basic Knowledge, split cleanly into 1–20, 21–50, 51–100 pills
+    val gridLessons = remember(activeLessonSequence, isNumbersActive, numberRangeIndex) {
+        if (isNumbersActive) {
             when (numberRangeIndex) {
-                0 -> allModuleLessons.filter { it.countValue in 1..20 }
-                1 -> allModuleLessons.filter { it.countValue in 21..50 }
-                else -> allModuleLessons.filter { it.countValue in 51..100 }
+                0 -> activeLessonSequence.filter { it.countValue in 1..20 }
+                1 -> activeLessonSequence.filter { it.countValue in 21..50 }
+                else -> activeLessonSequence.filter { it.countValue in 51..100 }
             }
         } else {
-            allModuleLessons
+            activeLessonSequence
         }
     }
 
-    val quizPool = remember(lessons, pillar, activeModule, difficulty) {
-        when (pillar) {
-            LearningPillar.ALPHABET -> lessons.filter { it.moduleType == activeModule }
-            LearningPillar.WORLD -> lessons.filter { it.moduleType in LearningPillar.WORLD.moduleTypes() }
-            LearningPillar.LANGUAGE -> lessons.filter { it.moduleType in LearningPillar.LANGUAGE.moduleTypes() }
-            LearningPillar.NUMBERS -> lessons.filter { it.moduleType == ModuleType.NUMBERS && it.countValue <= difficulty.maxNumber }
+    val quizPool = remember(lessons, folder, activeModule, activeLessonSequence, difficulty) {
+        when (folder) {
+            LearnFolder.VOWELS,
+            LearnFolder.CONSONANTS,
+            LearnFolder.ENGLISH_ALPHABET -> activeLessonSequence
+            LearnFolder.SENTENCES -> folder.filterLessons(lessons)
+            LearnFolder.BASIC_KNOWLEDGE -> if (activeModule == ModuleType.NUMBERS) {
+                lessons.filter { it.moduleType == ModuleType.NUMBERS && it.countValue <= difficulty.maxNumber }
+            } else {
+                lessons.filter { it.moduleType in folder.moduleTypes() && it.moduleType != ModuleType.NUMBERS }
+            }
         }
     }
 
-    val activeFullLessonIndex = remember(allModuleLessons, activeLessonId) {
-        if (activeLessonId == null) -1 else allModuleLessons.indexOfFirst { it.id == activeLessonId }
+    val activeFullLessonIndex = remember(activeLessonSequence, activeLessonId) {
+        if (activeLessonId == null) -1 else activeLessonSequence.indexOfFirst { it.id == activeLessonId }
     }
-    val activeFullLesson = allModuleLessons.getOrNull(activeFullLessonIndex)
+    val activeFullLesson = activeLessonSequence.getOrNull(activeFullLessonIndex)
 
-    LaunchedEffect(allModuleLessons) {
-        if (traceSelectedId == null || allModuleLessons.none { it.id == traceSelectedId }) {
-            traceSelectedId = allModuleLessons.firstOrNull()?.id
+    LaunchedEffect(activeLessonSequence) {
+        if (traceSelectedId == null || activeLessonSequence.none { it.id == traceSelectedId }) {
+            traceSelectedId = activeLessonSequence.firstOrNull()?.id
         }
     }
 
-    // Smooth Transition between Spacious Grid Hub and Full-Screen Active Lesson Stage!
     AnimatedContent(
-        targetState = activeFullLesson != null && mode == StudioMode.LESSONS,
+        targetState = activeFullLesson != null,
         transitionSpec = {
-            (fadeIn(tween(240)) + scaleIn(initialScale = 0.94f, animationSpec = tween(240))) togetherWith
+            (fadeIn(tween(240)) + scaleIn(tween(240), initialScale = 0.96f)) togetherWith
                 fadeOut(tween(180))
         },
-        label = "lesson_fullscreen_switch",
+        label = "folder_lesson_stage_transition",
         modifier = modifier.fillMaxSize()
-    ) { showingFullScreen ->
-        if (showingFullScreen && activeFullLesson != null) {
+    ) { showingFullStage ->
+        if (showingFullStage && activeFullLesson != null) {
             FullScreenActiveLessonStage(
                 item = activeFullLesson,
                 currentIndex = activeFullLessonIndex,
-                totalCount = allModuleLessons.size,
+                totalCount = activeLessonSequence.size,
                 activeAvatarKey = activeChildAvatarKey,
                 language = language,
                 canGoPrev = activeFullLessonIndex > 0,
-                canGoNext = activeFullLessonIndex < allModuleLessons.lastIndex,
+                canGoNext = activeFullLessonIndex < activeLessonSequence.lastIndex,
                 onBackToGrid = {
                     onPlayEffect(SoundEffect.TAP_POP)
                     onOpenActiveLesson(null)
                 },
                 onPrev = {
                     if (activeFullLessonIndex > 0) {
-                        val prev = allModuleLessons[activeFullLessonIndex - 1]
+                        val prev = activeLessonSequence[activeFullLessonIndex - 1]
+                        onPlayEffect(SoundEffect.PAGE_TURN)
                         onOpenActiveLesson(prev.id)
                         onSpeakLesson(prev)
                     }
                 },
                 onNext = {
-                    if (activeFullLessonIndex < allModuleLessons.lastIndex) {
-                        val next = allModuleLessons[activeFullLessonIndex + 1]
+                    if (activeFullLessonIndex < activeLessonSequence.lastIndex) {
+                        val next = activeLessonSequence[activeFullLessonIndex + 1]
+                        onPlayEffect(SoundEffect.PAGE_TURN)
                         onOpenActiveLesson(next.id)
                         onSpeakLesson(next)
                     }
@@ -461,17 +578,19 @@ private fun PillarStudioExperience(
                 onMarkLearned = onMarkLearned
             )
         } else {
-            val pillarTitle = when (pillar) {
-                LearningPillar.ALPHABET -> strings.alphabetAdventureTitle
-                LearningPillar.NUMBERS -> strings.pillarNumbersTitle
-                LearningPillar.WORLD -> strings.pillarWorldTitle
-                LearningPillar.LANGUAGE -> strings.pillarLanguageTitle
+            val folderTitle = when (folder) {
+                LearnFolder.VOWELS -> if (isBn) "স্বরবর্ণ" else "Vowels"
+                LearnFolder.CONSONANTS -> if (isBn) "ব্যঞ্জনবর্ণ" else "Consonants"
+                LearnFolder.ENGLISH_ALPHABET -> if (isBn) "ইংরেজি বর্ণমালা" else "English Alphabet"
+                LearnFolder.SENTENCES -> if (isBn) "বাক্য শিখি" else "Sentences"
+                LearnFolder.BASIC_KNOWLEDGE -> if (isBn) "সাধারণ জ্ঞান" else "Basic Knowledge"
             }
-            val pillarAccent = when (pillar) {
-                LearningPillar.ALPHABET -> CeruleanSky
-                LearningPillar.NUMBERS -> EmeraldMeadow
-                LearningPillar.WORLD -> BerryCoral
-                LearningPillar.LANGUAGE -> GrapePop
+            val folderAccent = when (folder) {
+                LearnFolder.VOWELS -> MangoPrimary
+                LearnFolder.CONSONANTS -> BerryCoral
+                LearnFolder.ENGLISH_ALPHABET -> CeruleanSky
+                LearnFolder.SENTENCES -> GrapePop
+                LearnFolder.BASIC_KNOWLEDGE -> EmeraldMeadow
             }
 
             Column(
@@ -480,7 +599,7 @@ private fun PillarStudioExperience(
                     .padding(top = 10.dp)
                     .testTag("learning_module_screen")
             ) {
-                // TOP SECTION: Circular 3D Back Button + Section Title + Language Switcher
+                // TOP BAR: Back to 5-Folder List + Folder Title + Language Switcher
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -496,12 +615,12 @@ private fun PillarStudioExperience(
                         Cartoon3DCircleIconButton(
                             icon = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = strings.backToModules,
-                            containerColor = pillarAccent,
+                            containerColor = folderAccent,
                             onClick = onBackToHub,
                             modifier = Modifier.testTag("back_to_modules_button")
                         )
                         Text(
-                            text = pillarTitle,
+                            text = folderTitle,
                             style = MaterialTheme.typography.headlineMedium,
                             color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight.ExtraBold,
@@ -515,36 +634,20 @@ private fun PillarStudioExperience(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Friendly Mascot Greeting Banner (matches active child's avatar!)
-                Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    CartoonMascotBanner(
-                        avatarKey = activeChildAvatarKey,
-                        title = "${strings.greetingHello}, $activeChildName!",
-                        speechMessage = if (pillar == LearningPillar.ALPHABET) {
-                            strings.mascotAlphabetGreeting
-                        } else {
-                            strings.tapAnyCardToOpen
-                        },
-                        accentColor = pillarAccent
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // 3 Attractive 3D Learning Mode Cards (Learn / Trace / Quiz or 1-100 / Math Lab / Quiz)
-                val modeCards: List<ModeCardSpec> = when (pillar) {
-                    LearningPillar.ALPHABET -> listOf(
-                        ModeCardSpec(StudioMode.LESSONS, strings.modeLearn, "📖", Icons.AutoMirrored.Rounded.MenuBook, CeruleanSky, CeruleanRim),
-                        ModeCardSpec(StudioMode.TRACE, strings.modeTrace, "🖍️", Icons.Rounded.Draw, MangoPrimary, MangoRim),
+                // Mode Cards (Learn / Trace / Quiz for alphabet folders; Learn / Math Lab / Quiz for Numbers; Learn / Quiz for others)
+                val modeCards: List<ModeCardSpec> = when {
+                    isAlphabetFolder -> listOf(
+                        ModeCardSpec(StudioMode.LESSONS, strings.modeLearn, "📖", Icons.AutoMirrored.Rounded.MenuBook, folderAccent, folderAccent.darkenForRim(0.72f)),
+                        ModeCardSpec(StudioMode.TRACE, strings.modeTrace, "🖍️", Icons.Rounded.Draw, CeruleanSky, CeruleanRim),
                         ModeCardSpec(StudioMode.QUIZ, strings.modeQuiz, "🎯", Icons.Rounded.Quiz, GrapePop, GrapeRim)
                     )
-                    LearningPillar.NUMBERS -> listOf(
+                    isNumbersActive -> listOf(
                         ModeCardSpec(StudioMode.LESSONS, "1–100", "🔢", Icons.AutoMirrored.Rounded.MenuBook, EmeraldMeadow, EmeraldRim),
                         ModeCardSpec(StudioMode.MATH_LAB, strings.modeMathLab, "➕", Icons.Rounded.Calculate, MangoPrimary, MangoRim),
                         ModeCardSpec(StudioMode.QUIZ, strings.modeQuiz, "🏆", Icons.Rounded.Quiz, GrapePop, GrapeRim)
                     )
                     else -> listOf(
-                        ModeCardSpec(StudioMode.LESSONS, strings.modeLearn, "🌟", Icons.AutoMirrored.Rounded.MenuBook, pillarAccent, pillarAccent.darkenForRim(0.72f)),
+                        ModeCardSpec(StudioMode.LESSONS, strings.modeLearn, "🌟", Icons.AutoMirrored.Rounded.MenuBook, folderAccent, folderAccent.darkenForRim(0.72f)),
                         ModeCardSpec(StudioMode.QUIZ, strings.modeQuiz, "🎯", Icons.Rounded.Quiz, GrapePop, GrapeRim)
                     )
                 }
@@ -560,9 +663,9 @@ private fun PillarStudioExperience(
                         Cartoon3DCard(
                             containerColor = if (isSelected) spec.color else MaterialTheme.colorScheme.surface,
                             rimColor = if (isSelected) spec.rim else spec.color.copy(alpha = 0.35f),
-                            cornerRadius = 22.dp,
+                            cornerRadius = 20.dp,
                             bevelDepth = if (isSelected) 6.dp else 4.dp,
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 12.dp),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 10.dp),
                             onClick = {
                                 onPlayEffect(SoundEffect.TAP_POP)
                                 mode = spec.mode
@@ -574,9 +677,9 @@ private fun PillarStudioExperience(
                             Column(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                                verticalArrangement = Arrangement.spacedBy(3.dp)
                             ) {
-                                Text(text = spec.emoji, fontSize = 24.sp)
+                                Text(text = spec.emoji, fontSize = 22.sp)
                                 Text(
                                     text = spec.label,
                                     style = MaterialTheme.typography.labelLarge,
@@ -592,8 +695,18 @@ private fun PillarStudioExperience(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Contextual Sub-Deck Chips or Number Range / Difficulty Switcher
-                if (pillar == LearningPillar.NUMBERS) {
+                // Topic Sub-Deck Chips ONLY for multi-topic folders (Sentences & Basic Knowledge)
+                if (allowedModules.size > 1 && mode != StudioMode.QUIZ) {
+                    SubDeckChipRow(
+                        modules = allowedModules,
+                        activeModule = activeModule,
+                        onSelect = onSelectModule
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+
+                // Number Range Pills / Age Difficulty ONLY when Numbers 1–100 is active inside Basic Knowledge
+                if (isNumbersActive) {
                     if (mode == StudioMode.LESSONS) {
                         val rangeLabels = listOf(
                             "${1.toLocalizedDigits(language)}–${20.toLocalizedDigits(language)}",
@@ -638,20 +751,13 @@ private fun PillarStudioExperience(
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-                } else if (mode != StudioMode.QUIZ || pillar == LearningPillar.ALPHABET) {
-                    SubDeckChipRow(
-                        modules = allowedModules,
-                        activeModule = activeModule,
-                        onSelect = onSelectModule
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
                 }
 
-                // Mode Body
+                // Folder Content Body
                 when (mode) {
                     StudioMode.TRACE -> {
-                        val traceIdx = allModuleLessons.indexOfFirst { it.id == traceSelectedId }.coerceAtLeast(0)
-                        val traceItem = allModuleLessons.getOrNull(traceIdx)
+                        val traceIdx = activeLessonSequence.indexOfFirst { it.id == traceSelectedId }.coerceAtLeast(0)
+                        val traceItem = activeLessonSequence.getOrNull(traceIdx)
                         if (traceItem != null) {
                             Column(
                                 modifier = Modifier
@@ -664,17 +770,17 @@ private fun PillarStudioExperience(
                                     item = traceItem,
                                     language = language,
                                     canGoPrev = traceIdx > 0,
-                                    canGoNext = traceIdx < allModuleLessons.lastIndex,
+                                    canGoNext = traceIdx < activeLessonSequence.lastIndex,
                                     onPrev = {
                                         if (traceIdx > 0) {
-                                            val prev = allModuleLessons[traceIdx - 1]
+                                            val prev = activeLessonSequence[traceIdx - 1]
                                             traceSelectedId = prev.id
                                             onSpeakLesson(prev)
                                         }
                                     },
                                     onNext = {
-                                        if (traceIdx < allModuleLessons.lastIndex) {
-                                            val next = allModuleLessons[traceIdx + 1]
+                                        if (traceIdx < activeLessonSequence.lastIndex) {
+                                            val next = activeLessonSequence[traceIdx + 1]
                                             traceSelectedId = next.id
                                             onSpeakLesson(next)
                                         }
@@ -714,7 +820,7 @@ private fun PillarStudioExperience(
                                 .verticalScroll(rememberScrollState())
                                 .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 112.dp)
                         ) {
-                            if (pillar == LearningPillar.NUMBERS) {
+                            if (isNumbersActive) {
                                 VisualMathLab(
                                     difficulty = difficulty,
                                     language = language,
@@ -726,11 +832,12 @@ private fun PillarStudioExperience(
                                     }
                                 )
                             } else {
-                                val quizType = when (pillar) {
-                                    LearningPillar.ALPHABET -> GameType.ALPHABET_QUIZ
-                                    LearningPillar.WORLD -> GameType.WORLD_QUIZ
-                                    LearningPillar.LANGUAGE -> GameType.LANGUAGE_QUIZ
-                                    LearningPillar.NUMBERS -> GameType.MATH_QUIZ
+                                val quizType = when (folder) {
+                                    LearnFolder.VOWELS,
+                                    LearnFolder.CONSONANTS,
+                                    LearnFolder.ENGLISH_ALPHABET -> GameType.ALPHABET_QUIZ
+                                    LearnFolder.SENTENCES -> GameType.LANGUAGE_QUIZ
+                                    LearnFolder.BASIC_KNOWLEDGE -> GameType.WORLD_QUIZ
                                 }
                                 ModuleQuizStage(
                                     pool = quizPool,
@@ -759,10 +866,9 @@ private fun PillarStudioExperience(
                                 )
                             }
                         } else {
-                            // Spacious 3-Column Colorful Letter/Number Grid (4-column on Tablets, 2-column for World/Language cards)
                             val cols = when {
-                                isWideScreen -> if (activeModule == ModuleType.ALPHABET_EN || activeModule == ModuleType.ALPHABET_BN || activeModule == ModuleType.NUMBERS) 4 else 3
-                                activeModule == ModuleType.ALPHABET_EN || activeModule == ModuleType.ALPHABET_BN || activeModule == ModuleType.NUMBERS -> 3
+                                isWideScreen -> if (isAlphabetFolder || isNumbersActive) 4 else 3
+                                isAlphabetFolder || isNumbersActive -> 3
                                 else -> 2
                             }
                             Spacious3DLessonGrid(

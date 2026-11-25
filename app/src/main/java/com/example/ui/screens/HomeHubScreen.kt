@@ -177,9 +177,7 @@ fun HomeHubScreen(
             progressText = "${alphaDone.toLocalizedDigits(language)}/${alphaTotal.toLocalizedDigits(language)}",
             progressFraction = if (alphaTotal == 0) 0f else alphaDone.toFloat() / alphaTotal,
             onClick = {
-                onNavigateToLearn(
-                    if (language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
-                )
+                onNavigateToLearn(ModuleType.ALPHABET_BN)
             }
         ),
         WorldTileData(
@@ -218,7 +216,7 @@ fun HomeHubScreen(
             progressFraction = if (langTotal == 0) 0f else langDone.toFloat() / langTotal,
             onClick = {
                 onNavigateToLearn(
-                    if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.BASIC_WORDS
+                    if (language == AppLanguage.BANGLA) ModuleType.BANGLA_VOCAB else ModuleType.ALPHABET_EN
                 )
             }
         ),
@@ -669,9 +667,7 @@ fun HomeHubScreen(
             onDismiss = { showStreakDialog = false },
             onClaimBonus = onClaimDailyBonus,
             onStartLearning = {
-                onNavigateToLearn(
-                    if (language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
-                )
+                onNavigateToLearn(ModuleType.ALPHABET_BN)
             }
         )
     }

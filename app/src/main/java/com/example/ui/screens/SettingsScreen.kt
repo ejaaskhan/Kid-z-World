@@ -205,7 +205,7 @@ fun SettingsScreen(
                         accentColor = MangoPrimary
                     )
 
-                    // Global UI Sound On/Off Switch (independent from Bangla/English educational voice)
+                    // Playful Sound Effects Switch (celebration & quiz chimes; button taps stay silent)
                     SettingsRichToggleRow(
                         title = strings.soundEffectsLabel,
                         subtitle = strings.uiSoundSubtitle,

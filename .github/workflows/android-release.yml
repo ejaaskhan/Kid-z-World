@@ -144,14 +144,22 @@ jobs:
             fi
           fi
 
-      - name: Verify bundled offline Bangladeshi Bangla MP3 audio assets
+      - name: Verify bundled offline human Bangla & English MP3 audio assets
         if: steps.version_info.outputs.skip_build != 'true'
         run: |
           set -euo pipefail
+          NEED_FFMPEG="false"
           if ! python3 scripts/generate_bangla_audio.py --verify-only; then
-            echo "Missing or incomplete Bangla MP3 assets detected -> installing ffmpeg and generating..."
+            NEED_FFMPEG="true"
+          fi
+          if ! python3 scripts/generate_english_audio.py --verify-only; then
+            NEED_FFMPEG="true"
+          fi
+          if [[ "$NEED_FFMPEG" == "true" ]]; then
+            echo "Missing or incomplete offline MP3 assets detected -> installing ffmpeg and generating..."
             sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
             python3 scripts/generate_bangla_audio.py --workers 6
+            python3 scripts/generate_english_audio.py --workers 6
           fi
 
       - name: Run automated unit tests
@@ -221,13 +229,19 @@ jobs:
           fi
           "$APKSIGNER" verify --print-certs "$APK_SRC"
 
-          BUNDLED_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
-          echo "Bundled offline Bangla MP3 files in Release APK: ${BUNDLED_MP3_COUNT}"
-          if [[ "$BUNDLED_MP3_COUNT" -lt 330 ]]; then
-            echo "::error::Expected at least 330 bundled Bangla MP3 files in Release APK, found ${BUNDLED_MP3_COUNT}"
+          BUNDLED_BN_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
+          BUNDLED_EN_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/english/.*\.mp3$' || true)"
+          echo "Bundled offline MP3 files in Release APK: Bangla=${BUNDLED_BN_MP3_COUNT}, English=${BUNDLED_EN_MP3_COUNT}"
+          if [[ "$BUNDLED_BN_MP3_COUNT" -lt 355 ]]; then
+            echo "::error::Expected at least 355 bundled Bangla MP3 files in Release APK, found ${BUNDLED_BN_MP3_COUNT}"
+            exit 1
+          fi
+          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 260 ]]; then
+            echo "::error::Expected at least 260 bundled English MP3 files in Release APK, found ${BUNDLED_EN_MP3_COUNT}"
             exit 1
           fi
           unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
+          unzip -l "$APK_SRC" | grep -q 'assets/audio/english/manifest.json'
 
           rm -rf dist && mkdir -p dist
           cp "$APK_SRC" "dist/kidz-world-${LABEL}-release-signed.apk"
@@ -259,13 +273,19 @@ jobs:
             exit 1
           fi
 
-          BUNDLED_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
-          echo "Bundled offline Bangla MP3 files in Debug Testing APK: ${BUNDLED_MP3_COUNT}"
-          if [[ "$BUNDLED_MP3_COUNT" -lt 330 ]]; then
-            echo "::error::Expected at least 330 bundled Bangla MP3 files in Debug APK, found ${BUNDLED_MP3_COUNT}"
+          BUNDLED_BN_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/bangla/.*\.mp3$' || true)"
+          BUNDLED_EN_MP3_COUNT="$(unzip -l "$APK_SRC" | grep -cE 'assets/audio/english/.*\.mp3$' || true)"
+          echo "Bundled offline MP3 files in Debug Testing APK: Bangla=${BUNDLED_BN_MP3_COUNT}, English=${BUNDLED_EN_MP3_COUNT}"
+          if [[ "$BUNDLED_BN_MP3_COUNT" -lt 355 ]]; then
+            echo "::error::Expected at least 355 bundled Bangla MP3 files in Debug APK, found ${BUNDLED_BN_MP3_COUNT}"
+            exit 1
+          fi
+          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 260 ]]; then
+            echo "::error::Expected at least 260 bundled English MP3 files in Debug APK, found ${BUNDLED_EN_MP3_COUNT}"
             exit 1
           fi
           unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
+          unzip -l "$APK_SRC" | grep -q 'assets/audio/english/manifest.json'
 
           rm -rf dist && mkdir -p dist
           cp "$APK_SRC" "dist/kidz-world-${LABEL}-debug-testing.apk"
@@ -358,7 +378,9 @@ jobs:
           - **Dedicated 3D Cartoon Settings Screen**: Organized inside Profile into **General** (Light / Dark / System Default Theme Mode & Language) and **Sound** (independent UI Sound On/Off, Educational Voice, Speed & Live Audio Testers), persisted locally via DataStore.
           - **Light Mode, Dark Mode & System Default Theme**: Full Material 3 Light & Cozy Bedtime Dark themes plus live **System Default** following Android's theme immediately without restarting.
           - **About KID'Z WORLD & Dev. E Profile Card**: Features the bundled offline developer photo for **Dev. E** alongside a clickable external link to \`https://ebrahimjamansumon.blogspot.com\` with graceful fallback handling.
-          - **Natural Bangla & English Voice Quality**: Keeps all **330 bundled offline Bangladeshi Bangla (\`bn-BD\`) MP3 files** (zero Android System TTS required for Bangla) while upgrading English TTS to natural \`1.0x\` pitch (no artificial pitch shift), high-quality local neural voice ranking, and comfortable child-friendly pacing.
+          - **Bangla Alphabet Adventure (৫০ বর্ণমালা)**: Tapping **Learn** opens directly into the complete **50-letter Bangla Alphabet** organized into **স্বরবর্ণ (11 vowels: অ–ঔ)** and **ব্যঞ্জনবর্ণ (39 consonants: ক–ঁ)** with All / স্বরবর্ণ / ব্যঞ্জনবর্ণ filter pills, 3D cartoon cards, tracing, and quiz.
+          - **English Alphabet A–Z in Language Studio**: Complete 26-letter English A–Z module preserved with pronunciation, tracing, quiz, and saved progress inside a dedicated **English Alphabet A–Z** card in Language Studio.
+          - **Natural Human Voices for Both Bangla & English**: Bundles **355 offline Bangladeshi Bangla MP3s** + **264 offline natural human English MP3s** (619 clips total) inside the APK so both languages sound warm and human with zero robotic TTS.
 
           ## Release Details
           - **Version:** \`${TAG}\`

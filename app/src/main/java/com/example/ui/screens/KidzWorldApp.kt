@@ -77,6 +77,7 @@ import com.example.domain.model.BundledBanglaAudioStatus
 import com.example.domain.model.ChildProfile
 import com.example.domain.model.DailyStreak
 import com.example.domain.model.GameScore
+import com.example.domain.model.LearnFolder
 import com.example.domain.model.LearningPillar
 import com.example.domain.model.LessonItem
 import com.example.domain.model.ModuleProgress
@@ -236,12 +237,8 @@ private fun MainKidzWorldShell(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route ?: ROUTE_HOME
 
-    var selectedLearnModule by remember {
-        mutableStateOf(
-            if (settings.language == AppLanguage.BANGLA) ModuleType.ALPHABET_BN else ModuleType.ALPHABET_EN
-        )
-    }
-    var activeLearnPillar by remember { mutableStateOf<LearningPillar?>(null) }
+    var selectedLearnModule by remember { mutableStateOf(ModuleType.ALPHABET_BN) }
+    var activeLearnFolder by remember { mutableStateOf<LearnFolder?>(null) }
     var activeLearnLessonId by remember { mutableStateOf<String?>(null) }
     var autoStartDailyChallengeQuiz by remember { mutableStateOf(false) }
     var showChildSheet by remember { mutableStateOf(false) }
@@ -282,7 +279,7 @@ private fun MainKidzWorldShell(
         viewModel.stopSpeaking()
         viewModel.playEffect(SoundEffect.TAP_POP)
         if (resetLearnHub && route == ROUTE_LEARN) {
-            activeLearnPillar = null
+            activeLearnFolder = null
             activeLearnLessonId = null
         } else if (route != ROUTE_LEARN) {
             activeLearnLessonId = null
@@ -376,9 +373,9 @@ private fun MainKidzWorldShell(
                     KidzNavHost(
                         navController = navController,
                         viewModel = viewModel,
-                        activeLearnPillar = activeLearnPillar,
-                        onOpenLearnPillar = {
-                            activeLearnPillar = it
+                        activeLearnFolder = activeLearnFolder,
+                        onOpenLearnFolder = {
+                            activeLearnFolder = it
                             if (it == null) activeLearnLessonId = null
                         },
                         selectedLearnModule = selectedLearnModule,
@@ -421,9 +418,9 @@ private fun MainKidzWorldShell(
                 KidzNavHost(
                     navController = navController,
                     viewModel = viewModel,
-                    activeLearnPillar = activeLearnPillar,
-                    onOpenLearnPillar = {
-                        activeLearnPillar = it
+                    activeLearnFolder = activeLearnFolder,
+                    onOpenLearnFolder = {
+                        activeLearnFolder = it
                         if (it == null) activeLearnLessonId = null
                     },
                     selectedLearnModule = selectedLearnModule,
@@ -528,8 +525,8 @@ private fun MainKidzWorldShell(
 private fun KidzNavHost(
     navController: NavHostController,
     viewModel: KidzWorldViewModel,
-    activeLearnPillar: LearningPillar?,
-    onOpenLearnPillar: (LearningPillar?) -> Unit,
+    activeLearnFolder: LearnFolder?,
+    onOpenLearnFolder: (LearnFolder?) -> Unit,
     selectedLearnModule: ModuleType,
     onSelectLearnModule: (ModuleType) -> Unit,
     activeLearnLessonId: String?,
@@ -582,14 +579,14 @@ private fun KidzNavHost(
                 onClaimDailyBonus = { viewModel.claimDailyStreakBonus() },
                 onContinueLesson = { lesson ->
                     onSelectLearnModule(lesson.moduleType)
-                    onOpenLearnPillar(LearningPillar.forModule(lesson.moduleType))
+                    onOpenLearnFolder(LearnFolder.forLesson(lesson))
                     onOpenActiveLesson(lesson.id)
                     onNavigateToTab(ROUTE_LEARN)
                 },
                 onStartDailyChallenge = onStartDailyChallenge,
                 onNavigateToLearn = { module ->
                     onSelectLearnModule(module)
-                    onOpenLearnPillar(LearningPillar.forModule(module))
+                    onOpenLearnFolder(LearnFolder.forModule(module))
                     onOpenActiveLesson(null)
                     onNavigateToTab(ROUTE_LEARN)
                 },
@@ -602,7 +599,7 @@ private fun KidzNavHost(
 
         composable(ROUTE_LEARN) {
             LearningModuleScreen(
-                activePillar = activeLearnPillar,
+                activeFolder = activeLearnFolder,
                 selectedModule = selectedLearnModule,
                 activeLessonId = activeLearnLessonId,
                 activeChildName = activeChild?.name ?: "Explorer",
@@ -612,7 +609,7 @@ private fun KidzNavHost(
                 moduleProgress = moduleProgress,
                 language = settings.language,
                 isWideScreen = isWideScreen,
-                onOpenPillar = onOpenLearnPillar,
+                onOpenFolder = onOpenLearnFolder,
                 onSelectModule = onSelectLearnModule,
                 onOpenActiveLesson = onOpenActiveLesson,
                 onToggleLanguage = { viewModel.toggleLanguage() },
@@ -690,7 +687,7 @@ private fun KidzNavHost(
                 onAddChildClick = onOpenAddChild,
                 onOpenLearnModule = { module ->
                     onSelectLearnModule(module)
-                    onOpenLearnPillar(LearningPillar.forModule(module))
+                    onOpenLearnFolder(LearnFolder.forModule(module))
                     onOpenActiveLesson(null)
                     onNavigateToTab(ROUTE_LEARN)
                 },

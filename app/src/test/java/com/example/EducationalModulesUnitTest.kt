@@ -52,19 +52,51 @@ class EducationalModulesUnitTest {
     }
 
     @Test
-    fun `module 1 alphabet covers English A-Z and Bangla অ-ঔ completely`() {
+    fun `module 1 alphabet covers complete 50 Bangla letters and Language Studio preserves English A-Z`() {
         val allLessons = SeedContentProvider.buildAllLessons()
+        assertTrue("Expected at least 268 total seeded lessons", allLessons.size >= 268)
+
+        // Alphabet Adventure pillar is dedicated to Bangla letters; Language Studio includes English A-Z
+        assertEquals(listOf(ModuleType.ALPHABET_BN), LearningPillar.ALPHABET.moduleTypes())
+        assertTrue(ModuleType.ALPHABET_EN in LearningPillar.LANGUAGE.moduleTypes())
+        assertEquals(LearningPillar.ALPHABET, LearningPillar.forModule(ModuleType.ALPHABET_BN))
+        assertEquals(LearningPillar.LANGUAGE, LearningPillar.forModule(ModuleType.ALPHABET_EN))
+
         val enLetters = allLessons.filter { it.moduleType == ModuleType.ALPHABET_EN.key }
         assertEquals(26, enLetters.size)
         assertEquals("A", enLetters.first().symbol)
         assertEquals("Z", enLetters.last().symbol)
 
-        val bnLetters = allLessons.filter { it.moduleType == ModuleType.ALPHABET_BN.key }
+        val bnLetters = allLessons
+            .filter { it.moduleType == ModuleType.ALPHABET_BN.key }
+            .sortedBy { it.sortOrder }
+        assertEquals("Complete Bangla alphabet must have 50 letters (11 vowels + 39 consonants)", 50, bnLetters.size)
+
         val expectedVowels = listOf("অ", "আ", "ই", "ঈ", "উ", "ঊ", "ঋ", "এ", "ঐ", "ও", "ঔ")
-        val bnSymbols = bnLetters.map { it.symbolBn }
-        expectedVowels.forEach { vowel ->
-            assertTrue("Missing Bangla vowel $vowel", vowel in bnSymbols)
-        }
+        val expectedConsonants = listOf(
+            "ক", "খ", "গ", "ঘ", "ঙ",
+            "চ", "ছ", "জ", "ঝ", "ঞ",
+            "ট", "ঠ", "ড", "ঢ", "ণ",
+            "ত", "থ", "দ", "ধ", "ন",
+            "প", "ফ", "ব", "ভ", "ম",
+            "য", "র", "ল", "শ", "ষ",
+            "স", "হ", "ড়", "ঢ়", "য়",
+            "ৎ", "ং", "ঃ", "ঁ"
+        )
+        assertEquals(11, expectedVowels.size)
+        assertEquals(39, expectedConsonants.size)
+
+        val vowels = bnLetters.filter { it.sortOrder < com.example.domain.model.LessonItem.BANGLA_VOWEL_COUNT }
+        val consonants = bnLetters.filter { it.sortOrder >= com.example.domain.model.LessonItem.BANGLA_VOWEL_COUNT }
+        assertEquals(expectedVowels, vowels.map { it.symbolBn })
+        assertEquals(expectedConsonants, consonants.map { it.symbolBn })
+
+        // Verify legacy IDs bn_alpha_0..24 remain mapped to their original letters (no progress loss)
+        val byId = bnLetters.associateBy { it.id }
+        assertEquals("অ", byId["bn_alpha_0"]?.symbolBn)
+        assertEquals("ক", byId["bn_alpha_11"]?.symbolBn)
+        assertEquals("ন", byId["bn_alpha_24"]?.symbolBn)
+        assertEquals("ঁ", byId["bn_alpha_49"]?.symbolBn)
     }
 
     @Test
@@ -295,14 +327,14 @@ class EducationalModulesUnitTest {
         assertTrue("manifest.json must exist at ${manifestFile.path}", manifestFile.isFile)
 
         val manifest = manifestFile.inputStream().use { BanglaAudioManifest.parseJsonStream(it) }
-        assertTrue("Expected at least 330 bundled Bangla clips, found ${manifest.totalEntries}", manifest.totalEntries >= 330)
+        assertTrue("Expected at least 355 bundled Bangla clips, found ${manifest.totalEntries}", manifest.totalEntries >= 355)
 
         // 1. Every manifest entry points to a real, non-empty, valid MP3 file
         manifest.entries.forEach { entry ->
             assertValidMp3Asset(assetsDir, entry.assetPath, "manifest entry ${entry.id}")
         }
 
-        // 2. Every single Room lesson (all 247 lessons across alphabets, numbers, world, language) has an exact MP3
+        // 2. Every single Room lesson (all 272 lessons across 50 Bangla letters, 26 English A-Z, numbers, world, language) has an exact MP3
         val allLessons = SeedContentProvider.buildAllLessons()
         allLessons.forEach { lesson ->
             val path = manifest.assetForLesson(lesson.id)
@@ -382,6 +414,66 @@ class EducationalModulesUnitTest {
             "Pattern prompt must resolve to bundled MP3",
             manifest.resolveAssetsForBanglaText("এর পরে কী আসবে?").isNotEmpty()
         )
+    }
+
+    @Test
+    fun `bundled offline english human audio manifest covers English A-Z numbers world language stories and puzzles`() {
+        val assetsDir = resolveAssetsDir()
+        val manifestFile = File(assetsDir, BanglaAudioManifest.ENGLISH_MANIFEST_ASSET_PATH)
+        assertTrue("English manifest.json must exist at ${manifestFile.path}", manifestFile.isFile)
+
+        val manifest = manifestFile.inputStream().use { BanglaAudioManifest.parseJsonStream(it) }
+        assertTrue("Expected at least 260 bundled English human-voice clips, found ${manifest.totalEntries}", manifest.totalEntries >= 260)
+
+        // 1. Every English manifest entry points to a real, non-empty, valid MP3 file
+        manifest.entries.forEach { entry ->
+            assertValidMp3Asset(assetsDir, entry.assetPath, "english manifest entry ${entry.id}")
+        }
+
+        // 2. Every non-Bangla-alphabet lesson (English A-Z, Numbers 1-100, World, Language) has an English human MP3
+        val englishCurriculumLessons = SeedContentProvider.buildAllLessons()
+            .filter { it.moduleType != ModuleType.ALPHABET_BN.key }
+        englishCurriculumLessons.forEach { lesson ->
+            val path = manifest.assetForLesson(lesson.id)
+            assertNotNull("Missing bundled English human audio for lesson ${lesson.id}", path)
+            assertValidMp3Asset(assetsDir, path!!, "english lesson ${lesson.id}")
+        }
+
+        // 3. English numbers 0..100 resolve to real MP3 files
+        for (n in 0..100) {
+            val path = manifest.assetForNumber(n)
+            assertNotNull("Missing bundled English human audio for number $n", path)
+            assertValidMp3Asset(assetsDir, path!!, "english number $n")
+        }
+
+        // 4. Every story page & moral has an English human MP3
+        val (stories, pages) = SeedContentProvider.buildStories()
+        stories.forEach { story ->
+            val moralAsset = manifest.assetForStoryMoral(story.id)
+            assertNotNull("Missing English moral audio for ${story.id}", moralAsset)
+            assertValidMp3Asset(assetsDir, moralAsset!!, "english story ${story.id} moral")
+
+            pages.filter { it.storyId == story.id }.forEach { page ->
+                val pageAsset = manifest.assetForStoryPage(story.id, page.pageNumber)
+                assertNotNull("Missing English page ${page.pageNumber} audio for ${story.id}", pageAsset)
+                assertValidMp3Asset(assetsDir, pageAsset!!, "english story ${story.id} page ${page.pageNumber}")
+            }
+        }
+
+        // 5. Dynamic English math equations, quiz prompts, and puzzle items resolve cleanly
+        val addSeq = manifest.resolveAssetsForEnglishText("3 plus 2 equals what?")
+        assertEquals("English math addition must resolve to 4 bundled clips", 4, addSeq.size)
+        val subSeq = manifest.resolveAssetsForEnglishText("10 minus 4 equals what?")
+        assertEquals("English math subtraction must resolve to 4 bundled clips", 4, subSeq.size)
+        val quizSeq = manifest.resolveAssetsForEnglishText("Find Apple")
+        assertEquals("English quiz prompt must resolve to find + target", 2, quizSeq.size)
+
+        SortingPuzzleCatalog.items.forEach { item ->
+            assertTrue(
+                "English sorting item '${item.nameEn}' must resolve to bundled MP3",
+                manifest.resolveAssetsForEnglishText(item.nameEn).isNotEmpty()
+            )
+        }
     }
 
     @Test

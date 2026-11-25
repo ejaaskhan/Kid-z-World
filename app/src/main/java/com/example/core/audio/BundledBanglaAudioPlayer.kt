@@ -227,6 +227,7 @@ class BundledBanglaAudioPlayer(context: Context) {
             }
 
             player.prepare()
+            player.setVolume(1.0f, 1.0f)
 
             val clampedSpeed = speed.coerceIn(0.72f, 1.25f)
             try {

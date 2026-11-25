@@ -9,7 +9,7 @@ enum class LearningPillar(val key: String) {
     LANGUAGE("language");
 
     fun moduleTypes(): List<ModuleType> = when (this) {
-        ALPHABET -> listOf(ModuleType.ALPHABET_EN, ModuleType.ALPHABET_BN)
+        ALPHABET -> listOf(ModuleType.ALPHABET_BN)
         NUMBERS -> listOf(ModuleType.NUMBERS)
         WORLD -> listOf(
             ModuleType.ANIMALS,
@@ -21,6 +21,7 @@ enum class LearningPillar(val key: String) {
             ModuleType.NATURE
         )
         LANGUAGE -> listOf(
+            ModuleType.ALPHABET_EN,
             ModuleType.BASIC_WORDS,
             ModuleType.EVERYDAY_VOCAB,
             ModuleType.SIMPLE_SENTENCES,
@@ -30,7 +31,7 @@ enum class LearningPillar(val key: String) {
 
     companion object {
         fun forModule(type: ModuleType): LearningPillar = when (type) {
-            ModuleType.ALPHABET_EN, ModuleType.ALPHABET_BN -> ALPHABET
+            ModuleType.ALPHABET_BN -> ALPHABET
             ModuleType.NUMBERS -> NUMBERS
             ModuleType.ANIMALS,
             ModuleType.FRUITS_VEGGIES,
@@ -39,10 +40,76 @@ enum class LearningPillar(val key: String) {
             ModuleType.HUMAN_BODY,
             ModuleType.VEHICLES,
             ModuleType.NATURE -> WORLD
+            ModuleType.ALPHABET_EN,
             ModuleType.BASIC_WORDS,
             ModuleType.EVERYDAY_VOCAB,
             ModuleType.SIMPLE_SENTENCES,
             ModuleType.BANGLA_VOCAB -> LANGUAGE
+        }
+    }
+}
+
+enum class LearnFolder(val key: String) {
+    VOWELS("vowels"),
+    CONSONANTS("consonants"),
+    ENGLISH_ALPHABET("english_alphabet"),
+    SENTENCES("sentences"),
+    BASIC_KNOWLEDGE("basic_knowledge");
+
+    fun moduleTypes(): List<ModuleType> = when (this) {
+        VOWELS -> listOf(ModuleType.ALPHABET_BN)
+        CONSONANTS -> listOf(ModuleType.ALPHABET_BN)
+        ENGLISH_ALPHABET -> listOf(ModuleType.ALPHABET_EN)
+        SENTENCES -> listOf(
+            ModuleType.SIMPLE_SENTENCES,
+            ModuleType.BASIC_WORDS,
+            ModuleType.EVERYDAY_VOCAB,
+            ModuleType.BANGLA_VOCAB
+        )
+        BASIC_KNOWLEDGE -> listOf(
+            ModuleType.NUMBERS,
+            ModuleType.COLORS,
+            ModuleType.SHAPES,
+            ModuleType.ANIMALS,
+            ModuleType.FRUITS_VEGGIES,
+            ModuleType.HUMAN_BODY,
+            ModuleType.VEHICLES,
+            ModuleType.NATURE
+        )
+    }
+
+    fun defaultModule(): ModuleType = moduleTypes().first()
+
+    fun filterLessons(allLessons: List<LessonItem>): List<LessonItem> = when (this) {
+        VOWELS -> allLessons.filter { it.isBanglaVowel }
+        CONSONANTS -> allLessons.filter { it.isBanglaConsonant }
+        ENGLISH_ALPHABET -> allLessons.filter { it.moduleType == ModuleType.ALPHABET_EN }
+        SENTENCES -> allLessons.filter { it.moduleType in moduleTypes() }
+        BASIC_KNOWLEDGE -> allLessons.filter { it.moduleType in moduleTypes() }
+    }
+
+    companion object {
+        fun forModule(type: ModuleType): LearnFolder = when (type) {
+            ModuleType.ALPHABET_BN -> VOWELS
+            ModuleType.ALPHABET_EN -> ENGLISH_ALPHABET
+            ModuleType.SIMPLE_SENTENCES,
+            ModuleType.BASIC_WORDS,
+            ModuleType.EVERYDAY_VOCAB,
+            ModuleType.BANGLA_VOCAB -> SENTENCES
+            ModuleType.NUMBERS,
+            ModuleType.COLORS,
+            ModuleType.SHAPES,
+            ModuleType.ANIMALS,
+            ModuleType.FRUITS_VEGGIES,
+            ModuleType.HUMAN_BODY,
+            ModuleType.VEHICLES,
+            ModuleType.NATURE -> BASIC_KNOWLEDGE
+        }
+
+        fun forLesson(lesson: LessonItem): LearnFolder = when {
+            lesson.isBanglaVowel -> VOWELS
+            lesson.isBanglaConsonant -> CONSONANTS
+            else -> forModule(lesson.moduleType)
         }
     }
 }
@@ -173,6 +240,12 @@ data class LessonItem(
     fun displayExample(language: AppLanguage): String =
         if (language == AppLanguage.BANGLA) exampleBn else exampleEn
 
+    val isBanglaVowel: Boolean
+        get() = moduleType == ModuleType.ALPHABET_BN && sortOrder < BANGLA_VOWEL_COUNT
+
+    val isBanglaConsonant: Boolean
+        get() = moduleType == ModuleType.ALPHABET_BN && sortOrder >= BANGLA_VOWEL_COUNT
+
     fun speechPrompt(language: AppLanguage): String = when (moduleType) {
         ModuleType.ALPHABET_EN -> if (language == AppLanguage.BANGLA) "$symbol। $exampleBn।" else "$symbol, is for $exampleEn."
         ModuleType.ALPHABET_BN -> if (language == AppLanguage.BANGLA) "$symbolBn, $symbolBn তে $exampleBn।" else "$titleEn, $exampleEn."
@@ -180,6 +253,10 @@ data class LessonItem(
         ModuleType.SIMPLE_SENTENCES -> if (language == AppLanguage.BANGLA) titleBn else titleEn
         ModuleType.BANGLA_VOCAB -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn।" else "$titleEn. $exampleEn."
         else -> if (language == AppLanguage.BANGLA) "$titleBn। $exampleBn।" else "$titleEn. $exampleEn."
+    }
+
+    companion object {
+        const val BANGLA_VOWEL_COUNT = 11
     }
 }
 
