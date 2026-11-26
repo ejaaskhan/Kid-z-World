@@ -19,10 +19,10 @@ on:
         required: false
         default: true
       release_tag:
-        description: "Release tag to create/update when publish_release is enabled (e.g. v1.1.1)"
+        description: "Release tag to create/update when publish_release is enabled (e.g. v1.1.2)"
         type: string
         required: false
-        default: "v1.1.1"
+        default: "v1.1.2"
       release_note_summary:
         description: "Optional note included in the build summary"
         type: string
@@ -74,30 +74,48 @@ jobs:
           elif [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" && "${INPUT_PUBLISH_RELEASE}" == "true" ]]; then
             TARGET_TAG="${INPUT_RELEASE_TAG}"
             if [[ -z "$TARGET_TAG" ]]; then
-              TARGET_TAG="v1.1.1"
+              TARGET_TAG="v1.1.2"
             fi
             LABEL="${TARGET_TAG}"
             SHOULD_RELEASE="true"
           else
             SHORT_SHA="${GITHUB_SHA::7}"
-            LABEL="v1.1.1-${SHORT_SHA}"
+            LABEL="v1.1.2-${SHORT_SHA}"
             SHOULD_RELEASE="false"
             TARGET_TAG=""
+          fi
+
+          # Derive clean Android versionName and strictly increasing versionCode from tag (e.g. v1.1.2 -> 1.1.2 / 10102)
+          RAW_VER="${TARGET_TAG:-v1.1.2}"
+          RAW_VER="${RAW_VER#v}"
+          RAW_VER="${RAW_VER#V}"
+          APP_VERSION_NAME="${RAW_VER}"
+          APP_VERSION_CODE="4"
+          if [[ "$RAW_VER" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+) ]]; then
+            MAJOR="${BASH_REMATCH[1]}"
+            MINOR="${BASH_REMATCH[2]}"
+            PATCH="${BASH_REMATCH[3]}"
+            COMPUTED_CODE=$(( 10#$MAJOR * 10000 + 10#$MINOR * 100 + 10#$PATCH ))
+            if [[ "$COMPUTED_CODE" -gt 4 ]]; then
+              APP_VERSION_CODE="${COMPUTED_CODE}"
+            fi
           fi
 
           echo "label=${LABEL}" >> "$GITHUB_OUTPUT"
           echo "should_release=${SHOULD_RELEASE}" >> "$GITHUB_OUTPUT"
           echo "target_tag=${TARGET_TAG}" >> "$GITHUB_OUTPUT"
           echo "skip_build=${SKIP_BUILD}" >> "$GITHUB_OUTPUT"
-          echo "Build label=${LABEL}, should_release=${SHOULD_RELEASE}, target_tag=${TARGET_TAG}, skip_build=${SKIP_BUILD}"
+          echo "version_name=${APP_VERSION_NAME}" >> "$GITHUB_OUTPUT"
+          echo "version_code=${APP_VERSION_CODE}" >> "$GITHUB_OUTPUT"
+          echo "Build label=${LABEL}, versionName=${APP_VERSION_NAME}, versionCode=${APP_VERSION_CODE}, should_release=${SHOULD_RELEASE}, target_tag=${TARGET_TAG}, skip_build=${SKIP_BUILD}"
 
       - name: Checkout repository
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Set up Temurin JDK 21
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "21"
@@ -111,16 +129,24 @@ jobs:
           export ANDROID_SDK_ROOT="$SDK_ROOT"
           echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
-          yes | "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
-          "$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" \
-            "platform-tools" \
-            "platforms;android-36" \
-            "platforms;android-36.1" \
-            "build-tools;36.0.0" || true
+
+          SDKMANAGER="${SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager"
+          if [[ ! -x "$SDKMANAGER" ]]; then
+            SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -name sdkmanager 2>/dev/null | head -n 1 || true)"
+          fi
+          if [[ -z "$SDKMANAGER" || ! -x "$SDKMANAGER" ]]; then
+            echo "::error::Android sdkmanager not found under ${SDK_ROOT}"
+            exit 1
+          fi
+
+          yes | "$SDKMANAGER" --sdk_root="$SDK_ROOT" --licenses > /dev/null || true
+          "$SDKMANAGER" --sdk_root="$SDK_ROOT" "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+          "$SDKMANAGER" --sdk_root="$SDK_ROOT" "platforms;android-36.1" || true
+          yes | "$SDKMANAGER" --sdk_root="$SDK_ROOT" --licenses > /dev/null || true
 
       - name: Set up Gradle 9.3.1
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: gradle/actions/setup-gradle@v6
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "9.3.1"
 
@@ -166,7 +192,10 @@ jobs:
         if: steps.version_info.outputs.skip_build != 'true'
         run: |
           set -euo pipefail
-          gradle :app:testDebugUnitTest --no-parallel --max-workers=1 --no-configuration-cache -Djava.awt.headless=true --stacktrace
+          gradle :app:testDebugUnitTest \
+            -PappVersionName="${{ steps.version_info.outputs.version_name }}" \
+            -PappVersionCode="${{ steps.version_info.outputs.version_code }}" \
+            --no-parallel --max-workers=1 --no-configuration-cache -Djava.awt.headless=true --stacktrace
 
       - name: Evaluate Android signing secrets
         if: steps.version_info.outputs.skip_build != 'true'
@@ -202,7 +231,10 @@ jobs:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           set -euo pipefail
-          gradle :app:assembleRelease :app:bundleRelease --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
+          gradle :app:assembleRelease :app:bundleRelease \
+            -PappVersionName="${{ steps.version_info.outputs.version_name }}" \
+            -PappVersionCode="${{ steps.version_info.outputs.version_code }}" \
+            --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
 
       - name: Verify Signed Release APK signature and collect APK & AAB
         if: steps.version_info.outputs.skip_build != 'true' && steps.signing_gate.outputs.mode == 'signed_release'
@@ -236,8 +268,8 @@ jobs:
             echo "::error::Expected at least 355 bundled Bangla MP3 files in Release APK, found ${BUNDLED_BN_MP3_COUNT}"
             exit 1
           fi
-          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 260 ]]; then
-            echo "::error::Expected at least 260 bundled English MP3 files in Release APK, found ${BUNDLED_EN_MP3_COUNT}"
+          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 272 ]]; then
+            echo "::error::Expected at least 272 bundled English MP3 files in Release APK, found ${BUNDLED_EN_MP3_COUNT}"
             exit 1
           fi
           unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
@@ -259,7 +291,10 @@ jobs:
           LABEL: ${{ steps.version_info.outputs.label }}
         run: |
           set -euo pipefail
-          gradle :app:assembleDebug :app:bundleDebug --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
+          gradle :app:assembleDebug :app:bundleDebug \
+            -PappVersionName="${{ steps.version_info.outputs.version_name }}" \
+            -PappVersionCode="${{ steps.version_info.outputs.version_code }}" \
+            --no-parallel --max-workers=1 --no-configuration-cache --stacktrace
 
           APK_SRC="app/build/outputs/apk/debug/app-debug.apk"
           AAB_SRC="app/build/outputs/bundle/debug/app-debug.aab"
@@ -280,8 +315,8 @@ jobs:
             echo "::error::Expected at least 355 bundled Bangla MP3 files in Debug APK, found ${BUNDLED_BN_MP3_COUNT}"
             exit 1
           fi
-          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 260 ]]; then
-            echo "::error::Expected at least 260 bundled English MP3 files in Debug APK, found ${BUNDLED_EN_MP3_COUNT}"
+          if [[ "$BUNDLED_EN_MP3_COUNT" -lt 272 ]]; then
+            echo "::error::Expected at least 272 bundled English MP3 files in Debug APK, found ${BUNDLED_EN_MP3_COUNT}"
             exit 1
           fi
           unzip -l "$APK_SRC" | grep -q 'assets/audio/bangla/manifest.json'
@@ -295,7 +330,7 @@ jobs:
 
       - name: Upload APK artifact
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: kidz-world-apk-${{ steps.version_info.outputs.label }}
           path: dist/*.apk
@@ -304,7 +339,7 @@ jobs:
 
       - name: Upload AAB artifact
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: kidz-world-aab-${{ steps.version_info.outputs.label }}
           path: dist/*.aab
@@ -313,7 +348,7 @@ jobs:
 
       - name: Upload SHA-256 Checksums artifact
         if: steps.version_info.outputs.skip_build != 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: kidz-world-checksums-${{ steps.version_info.outputs.label }}
           path: dist/SHA256SUMS.txt
@@ -324,13 +359,15 @@ jobs:
         if: steps.version_info.outputs.skip_build != 'true'
         env:
           LABEL: ${{ steps.version_info.outputs.label }}
+          VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
+          VERSION_CODE: ${{ steps.version_info.outputs.version_code }}
           BUILD_MODE: ${{ steps.signing_gate.outputs.mode }}
           MANUAL_NOTE: ${{ inputs.release_note_summary }}
         run: |
           {
             echo "## KID'Z WORLD — Android Build Summary"
             echo ""
-            echo "- **Version Label:** \`${LABEL}\`"
+            echo "- **Version Label:** \`${LABEL}\` (\`versionName=${VERSION_NAME}\`, \`versionCode=${VERSION_CODE}\`)"
             echo "- **Build Mode:** \`${BUILD_MODE}\`"
             echo "- **Commit:** \`${GITHUB_SHA::7}\`"
             if [[ "${BUILD_MODE}" == "signed_release" ]]; then
@@ -355,6 +392,8 @@ jobs:
         env:
           BUILD_MODE: ${{ steps.signing_gate.outputs.mode }}
           TAG: ${{ steps.version_info.outputs.target_tag }}
+          VERSION_NAME: ${{ steps.version_info.outputs.version_name }}
+          VERSION_CODE: ${{ steps.version_info.outputs.version_code }}
         run: |
           set -euo pipefail
           BUILD_DATE="$(date -u '+%Y-%m-%d %H:%M UTC')"
@@ -374,16 +413,13 @@ jobs:
           Bilingual (**বাংলা & English**, Bangla default) offline-first Android educational app for children ages 3–8 featuring a Pixar-inspired 3D cartoon UI.
 
           ## What's New in ${TAG}
-          - **Streamlined Profile & Navigation**: Clean Home header with quick Profile access, reliable one-tap Home return from Profile and Settings, and organized Profile flow (Profile Info → Learning Progress → Achievements → Parent Zone → Settings → About KID'Z WORLD).
-          - **Dedicated 3D Cartoon Settings Screen**: Organized inside Profile into **General** (Light / Dark / System Default Theme Mode & Language) and **Sound** (independent UI Sound On/Off, Educational Voice, Speed & Live Audio Testers), persisted locally via DataStore.
-          - **Light Mode, Dark Mode & System Default Theme**: Full Material 3 Light & Cozy Bedtime Dark themes plus live **System Default** following Android's theme immediately without restarting.
-          - **About KID'Z WORLD & Dev. E Profile Card**: Features the bundled offline developer photo for **Dev. E** alongside a clickable external link to \`https://ebrahimjamansumon.blogspot.com\` with graceful fallback handling.
-          - **Bangla Alphabet Adventure (৫০ বর্ণমালা)**: Tapping **Learn** opens directly into the complete **50-letter Bangla Alphabet** organized into **স্বরবর্ণ (11 vowels: অ–ঔ)** and **ব্যঞ্জনবর্ণ (39 consonants: ক–ঁ)** with All / স্বরবর্ণ / ব্যঞ্জনবর্ণ filter pills, 3D cartoon cards, tracing, and quiz.
-          - **English Alphabet A–Z in Language Studio**: Complete 26-letter English A–Z module preserved with pronunciation, tracing, quiz, and saved progress inside a dedicated **English Alphabet A–Z** card in Language Studio.
-          - **Natural Human Voices for Both Bangla & English**: Bundles **355 offline Bangladeshi Bangla MP3s** + **264 offline natural human English MP3s** (619 clips total) inside the APK so both languages sound warm and human with zero robotic TTS.
+          - **Organized 5-Folder Learn Hub**: Tapping **Learn** now presents 5 dedicated folders — **Vowels (স্বরবর্ণ)**, **Consonants (ব্যঞ্জনবর্ণ)**, **English Alphabet (A–Z)**, **Sentences**, and **Basic Knowledge** — each opening directly into its own lessons, tracing, and quizzes.
+          - **Corrected Bangla Vowel Audio (অ & আ)**: Natural human Bangladeshi voice pronunciation for short **অ** (*স্বরে অ, অ-তে অজগর*) and long **আ** (*স্বরে আ, আ-তে আম*).
+          - **Studio-Uniform Voice Loudness (627 Offline Human Clips)**: All **355 Bangla** and **272 English** bundled MP3 voice clips normalized to the exact same clear volume level with silent button taps and preserved celebration/quiz chimes.
+          - **Streamlined Profile, Settings & About**: Organized Profile hub (Learning Progress → Achievements → Parent Zone → Settings → About KID'Z WORLD), Light / Dark / System Default themes, and bundled offline **Dev. E** developer photo & website link.
 
           ## Release Details
-          - **Version:** \`${TAG}\`
+          - **Version:** \`${TAG}\` (\`versionName=${VERSION_NAME}\`, \`versionCode=${VERSION_CODE}\`)
           - **Signing Status:** Production Release Signed (\`apksigner\` verified)
           - **Application ID:** \`com.aistudio.kidzworld.devekw\`
           - **Android Compatibility:** Android 7.0+ (\`minSdk 24\`, \`targetSdk 36\`)
@@ -412,12 +448,12 @@ jobs:
           **Developed by Dev. E** • *Learn • Play • Grow*
 
           ## Highlights in ${TAG}
-          - **Refined Profile, Settings & About** — Organized Profile hub (Learning Progress → Achievements → Parent Zone → Settings → About KID'Z WORLD), fixed Home navigation from Profile/Settings, **Light / Dark / System Default** themes, independent **UI Sound On/Off**, and **Dev. E** developer photo + clickable website link
-          - **Built-In Offline Bangladeshi Bangla Audio + Natural English TTS** — 330 real bundled \`bn-BD\` MP3 clips inside the APK (zero Bangla System TTS) + natural \`1.0x\` pitch English pronunciation
-          - **Bangla Poems (ছড়া) & 3 Child-Friendly Puzzle Games** — 8 classic Bangla rhymes, Picture Jigsaw, Animal & Fruit Sorting, and Pattern & Sequence
+          - **Organized 5-Folder Learn Hub** — **Vowels (স্বরবর্ণ)**, **Consonants (ব্যঞ্জনবর্ণ)**, **English Alphabet (A–Z)**, **Sentences**, and **Basic Knowledge**
+          - **Natural Human Offline Audio (627 Clips)** — Uniformly normalized **355 Bangla** + **272 English** MP3s with corrected **অ** and **আ** vowel pronunciation and silent button taps
+          - **Profile, Settings, Themes & About** — Light / Dark / System Default themes, bundled **Dev. E** developer photo & website link, Bangla Poems, Puzzle Games, and Illustrated Stories
 
           ## Build Details
-          - **Version:** \`${TAG}\`
+          - **Version:** \`${TAG}\` (\`versionName=${VERSION_NAME}\`, \`versionCode=${VERSION_CODE}\`)
           - **Signing Status:** Debug Testing Key (Pre-release only)
           - **Application ID:** \`com.aistudio.kidzworld.devekw\`
           - **Android Compatibility:** Android 7.0+ (\`minSdk 24\`, \`targetSdk 36\`)
@@ -427,7 +463,7 @@ jobs:
           ## Included Files
           - **\`kidz-world-${TAG}-debug-testing.apk\`** — Installable Android testing APK.
           - **\`kidz-world-${TAG}-debug-testing.aab\`** — Debug Android App Bundle (for testing only).
-          - **\`SHA256SUMS.txt\`** — SHA-256 integrity checksums.
+          - **\`SHA256SUMS.txt\`** — SHA-256 integrity checksums for verification.
 
           ## SHA-256 Checksums
           \`\`\`text

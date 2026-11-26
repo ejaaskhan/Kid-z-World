@@ -16,8 +16,8 @@ android {
     applicationId = "com.aistudio.kidzworld.devekw"
     minSdk = 24
     targetSdk = 36
-    versionCode = 3
-    versionName = "1.1.1"
+    versionCode = (project.findProperty("appVersionCode") as? String)?.toIntOrNull() ?: 4
+    versionName = (project.findProperty("appVersionName") as? String)?.takeIf { it.isNotBlank() } ?: "1.1.2"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
